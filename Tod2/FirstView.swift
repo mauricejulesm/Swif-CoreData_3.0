@@ -24,6 +24,10 @@ class FirstView: UIViewController,UITableViewDelegate, UITableViewDataSource, UI
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
+		//setup the customcell
+		let nibName = UINib(nibName: "TodoCell", bundle: nil)
+		tableView.register(nibName, forCellReuseIdentifier: "TodoCell")
+		
 		todoSearchBar.delegate = self
 		
 	}
@@ -49,8 +53,11 @@ class FirstView: UIViewController,UITableViewDelegate, UITableViewDataSource, UI
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let todo = todoManager.todoItems[indexPath.row]
-		let cell = tableView.dequeueReusableCell(withIdentifier: "cell",for: indexPath)
-		cell.textLabel?.text = todo.value(forKey: "title") as? String
+		let cell = tableView.dequeueReusableCell(withIdentifier: "TodoCell",for: indexPath) as! TodoCell
+
+		cell.titleLabel.text = todo.value(forKey: "title") as? String
+		cell.deadLineLabel.text = "Sep 12, 2019"
+
 		return cell
 	}
 	

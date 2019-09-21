@@ -183,7 +183,7 @@
                                     <outlet property="delegate" destination="dLy-eU-3Od" id="3ZK-D5-oIW"/>
                                 </connections>
                             </tableView>
-                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="zkc-nt-Q5b">
+                            <searchBar contentMode="redraw" placeholder="Search todo here " translatesAutoresizingMaskIntoConstraints="NO" id="zkc-nt-Q5b">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
