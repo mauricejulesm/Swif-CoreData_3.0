@@ -18,7 +18,7 @@ class NewTodoView: UIViewController {
     lazy var todoManager = TodoDataManager()
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.hideKeyboardOnScreenTap()
          showDatePicker()
     }
     

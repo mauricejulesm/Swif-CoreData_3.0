@@ -27,7 +27,7 @@ class FirstView: UIViewController,UITableViewDelegate, UITableViewDataSource, UI
 		//setup the customcell
 		let nibName = UINib(nibName: "TodoCell", bundle: nil)
 		tableView.register(nibName, forCellReuseIdentifier: "TodoCell")
-		
+		self.hideKeyboardOnScreenTap()
 		todoSearchBar.delegate = self
 		
 	}
