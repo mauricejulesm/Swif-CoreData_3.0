@@ -136,11 +136,77 @@
                     <connections>
                         <outlet property="firstView" destination="qft-WP-Tl0" id="rO7-hG-VDY"/>
                         <outlet property="secondView" destination="C2Y-6Z-n52" id="z4w-gq-pFh"/>
+                        <segue destination="Ezp-uU-WbO" kind="show" identifier="NewTodo" id="gw2-Xy-tU7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="adx-zh-LXu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="564" y="189.3553223388306"/>
+        </scene>
+        <!--New Todo View-->
+        <scene sceneID="qOo-EK-E8f">
+            <objects>
+                <viewController id="Ezp-uU-WbO" customClass="NewTodoView" customModule="Tod2" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="sIA-5u-9if">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter your new todo below" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Z7-E8-kzi">
+                                <rect key="frame" x="73" y="95" width="229.5" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter new todo here" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YbA-HO-c6M">
+                                <rect key="frame" x="100" y="127" width="175" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pick your deadline below" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qea-xj-Oxz">
+                                <rect key="frame" x="82" y="178" width="211" height="23"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MJr-Uk-q8h">
+                                <rect key="frame" x="154.5" y="257" width="66" height="30"/>
+                                <state key="normal" title="Add Todo"/>
+                                <connections>
+                                    <action selector="saveNewTodo:" destination="Ezp-uU-WbO" eventType="touchUpInside" id="n8o-7o-87b"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Day/Month/Year" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GoU-92-Zsj">
+                                <rect key="frame" x="112.5" y="209" width="150" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Qea-xj-Oxz" firstAttribute="top" secondItem="YbA-HO-c6M" secondAttribute="bottom" constant="21" id="0t4-Q6-tpA"/>
+                            <constraint firstItem="YbA-HO-c6M" firstAttribute="centerX" secondItem="GoU-92-Zsj" secondAttribute="centerX" id="6ym-uq-liJ"/>
+                            <constraint firstItem="YbA-HO-c6M" firstAttribute="centerX" secondItem="Qea-xj-Oxz" secondAttribute="centerX" id="Amv-Kv-3f0"/>
+                            <constraint firstItem="YbA-HO-c6M" firstAttribute="centerX" secondItem="8Z7-E8-kzi" secondAttribute="centerX" id="Gmo-Le-55T"/>
+                            <constraint firstItem="MJr-Uk-q8h" firstAttribute="top" secondItem="GoU-92-Zsj" secondAttribute="bottom" constant="18" id="S10-7o-3lN"/>
+                            <constraint firstItem="GoU-92-Zsj" firstAttribute="top" secondItem="Qea-xj-Oxz" secondAttribute="bottom" constant="8" id="aQQ-Uk-C1q"/>
+                            <constraint firstItem="YbA-HO-c6M" firstAttribute="centerX" secondItem="MJr-Uk-q8h" secondAttribute="centerX" id="cw2-bC-lB0"/>
+                            <constraint firstItem="YbA-HO-c6M" firstAttribute="top" secondItem="8Z7-E8-kzi" secondAttribute="bottom" constant="8" id="m82-kp-QKo"/>
+                            <constraint firstItem="YbA-HO-c6M" firstAttribute="centerX" secondItem="sIA-5u-9if" secondAttribute="centerX" id="omk-ov-89k"/>
+                            <constraint firstItem="YbA-HO-c6M" firstAttribute="leading" secondItem="xuX-lQ-wZn" secondAttribute="leading" constant="100" id="ouL-62-PtN"/>
+                            <constraint firstItem="YbA-HO-c6M" firstAttribute="top" secondItem="sIA-5u-9if" secondAttribute="top" constant="127" id="s5p-WC-ioE"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="xuX-lQ-wZn"/>
+                    </view>
+                    <connections>
+                        <outlet property="dateLabel" destination="GoU-92-Zsj" id="QYK-kG-9Yr"/>
+                        <outlet property="newTodoField" destination="YbA-HO-c6M" id="TRr-Bg-eUn"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9kb-4X-N4h" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1805.5999999999999" y="187.55622188905548"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="mLz-fy-m8h">

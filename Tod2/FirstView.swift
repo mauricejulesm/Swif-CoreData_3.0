@@ -35,16 +35,9 @@ class FirstView: UIViewController,UITableViewDelegate, UITableViewDataSource, UI
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		
-		NotificationCenter.default.addObserver(self, selector: #selector(loadTodos), name: NSNotification.Name(rawValue: "load"), object: nil)
-
 		// loading data from storage on app start
 	   todoManager.fetchTodos()
-	}
-	
-	@objc func loadTodos(notification: NSNotification){
-		//load data here
-		todoManager.fetchTodos()
-		self.tableView.reloadData()
+        self.tableView.reloadData()
 	}
 	
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

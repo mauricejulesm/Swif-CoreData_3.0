@@ -42,36 +42,17 @@ class SegmentedViewController: UIViewController {
 	}
 	
 	@IBAction func addTodoBtn(_ sender: UIBarButtonItem) {
-		let newTodoAlert = UIAlertController(title: "New todo", message: "Add new todo below", preferredStyle: .alert)
-		let alertAction = UIAlertAction(title: "Add", style: .default, handler: self.saveNewTodo)
-		let alertCancelAct = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-		
-		newTodoAlert.addAction(alertAction)
-		newTodoAlert.addAction(alertCancelAct)
-		newTodoAlert.addTextField(configurationHandler: configTextField)
-		
-		self.present(newTodoAlert, animated: true, completion: nil)
-	}
-	
-	func saveNewTodo(alert:UIAlertAction) {
-		//
-		let appDelegate = UIApplication.shared.delegate as! AppDelegate
-		let context = appDelegate.persistentContainer.viewContext
-		let entity = NSEntityDescription.entity(forEntityName: "Todo", in: context)!
-		
-		let todoTitle = NSManagedObject(entity: entity, insertInto: context)
-		todoTitle.setValue(titleTextField.text, forKey: "title")
-		
-		do {
-			try context.save()
-			todoManager.todoItems.append(todoTitle)
-		} catch {
-			print("Error occured while saving new todo (error.localizedDescription)")
-		}
-		// arrange todos after save
-		todoManager.fetchTodos()
-		
-		NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
+        performSegue(withIdentifier: "NewTodo", sender: self)
+        
+//        let newTodoAlert = UIAlertController(title: "New todo", message: "Add new todo below", preferredStyle: .alert)
+//        let alertAction = UIAlertAction(title: "Add", style: .default, handler: self.saveNewTodo)
+//        let alertCancelAct = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+//
+//        newTodoAlert.addAction(alertAction)
+//        newTodoAlert.addAction(alertCancelAct)
+//        newTodoAlert.addTextField(configurationHandler: configTextField)
+//
+//        self.present(newTodoAlert, animated: true, completion: nil)
 	}
 	
 	
