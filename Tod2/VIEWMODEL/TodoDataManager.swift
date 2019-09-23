@@ -34,6 +34,19 @@ class TodoDataManager: NSObject {
             print(url.absoluteString)
         }
     }
-	
+    
+    func getTimeNow() -> String {
+        let date = Date()
+        let format = DateFormatter()
+        format.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        let formattedDate = format.string(from: date)
+        let realDate = format.date(from: formattedDate)!
+        
+        return formattedDate
+    }
+
+    
 	
 }
+

@@ -54,17 +54,21 @@ class NewTodoView: UIViewController {
         //
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
-       
         
-        if let newTodoTitle = newTodoField.text {
-            if (newTodoTitle != "") {
+        if let newTodoTitle = newTodoField.text, let deadline = dateLabel.text {
+            if (newTodoTitle != "" && deadline != "") {
                 let entity = NSEntityDescription.entity(forEntityName: "Todo", in: context)!
-                let todoTitle = NSManagedObject(entity: entity, insertInto: context)
+                let todo = NSManagedObject(entity: entity, insertInto: context)
+                let date = "Created: " + todoManager.getTimeNow()
+                let due = "Due: " + deadline
                 
-                todoTitle.setValue(newTodoTitle, forKey: "title")
+                todo.setValue(newTodoTitle, forKey: "title")
+                todo.setValue(date, forKey: "dateCreated")
+                todo.setValue(due, forKey: "deadline")
+
                 do {
                     try context.save()
-                    todoManager.todoItems.append(todoTitle)
+                    todoManager.todoItems.append(todo)
                 } catch {
                     print("Error occured while saving new todo (error.localizedDescription)")
                 }
@@ -81,7 +85,7 @@ class NewTodoView: UIViewController {
     
     func showErrorAlert() {
         
-                let errorAlert = UIAlertController(title: "Error", message: "Todo title can't be empty", preferredStyle: .alert)
+                let errorAlert = UIAlertController(title: "Error", message: "Make sure title and deadline are not empty", preferredStyle: .alert)
 //                let alertAction = UIAlertAction(title: "Add", style: .default, handler: self.saveNewTodo)
                 let alertCancelAct = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         
@@ -93,7 +97,7 @@ class NewTodoView: UIViewController {
     }
     func showDatePicker(){
         //Formate Date
-        datePicker.datePickerMode = .date
+        datePicker.datePickerMode = .dateAndTime
         
         //ToolBar
         let toolbar = UIToolbar();
@@ -112,7 +116,7 @@ class NewTodoView: UIViewController {
     @objc func donedatePicker(){
         
         let formatter = DateFormatter()
-        formatter.dateFormat = "dd/MM/yyyy"
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         dateLabel.text = formatter.string(from: datePicker.date)
         self.view.endEditing(true)
     }
