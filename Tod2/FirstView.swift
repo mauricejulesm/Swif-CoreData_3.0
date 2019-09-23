@@ -56,7 +56,8 @@ class FirstView: UIViewController,UITableViewDelegate, UITableViewDataSource, UI
 		let cell = tableView.dequeueReusableCell(withIdentifier: "TodoCell",for: indexPath) as! TodoCell
 
 		cell.titleLabel.text = todo.value(forKey: "title") as? String
-		cell.deadLineLabel.text = "Sep 12, 2019"
+        cell.dateCreatedLbl.text = "Created: Sep 12, 2019"
+        cell.deadLineLabel.text = "Due: Oct 08, 2020"
 
 		return cell
 	}

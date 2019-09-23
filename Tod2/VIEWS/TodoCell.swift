@@ -9,9 +9,9 @@ import UIKit
 
 class TodoCell: UITableViewCell {
 	@IBOutlet weak var todoImage: UIImageView!
-	@IBOutlet weak var idLabel: UILabel!
 	@IBOutlet weak var titleLabel: UILabel!
-	@IBOutlet weak var deadLineLabel: UILabel!
+    @IBOutlet weak var dateCreatedLbl: UILabel!
+    @IBOutlet weak var deadLineLabel: UILabel!
 	
 	override func awakeFromNib() {
 		super.awakeFromNib()
@@ -29,11 +29,11 @@ class TodoCell: UITableViewCell {
 		print("changed status")
 	}
 	
-	func commonInit(_ imageName:String, id:Int64, title:String, deadline:String){
-		todoImage.image = UIImage(named: imageName)
-		idLabel.text = String(id)
-		titleLabel.text = title
-		deadLineLabel.text = deadline
-	}
+//    func commonInit(_ imageName:String, id:Int64, title:String,dateCreated:String, deadline:String){
+//        todoImage.image = UIImage(named: imageName)
+//        titleLabel.text = title
+//        dateCreatedLbl.text = dateCreated
+//        deadLineLabel.text = deadline
+//    }
 	
 }

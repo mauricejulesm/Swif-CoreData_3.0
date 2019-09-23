@@ -79,7 +79,7 @@
             </objects>
             <point key="canvasLocation" x="216.80000000000001" y="-584.25787106446785"/>
         </scene>
-        <!--Segmented View-->
+        <!--Coredata Lists-->
         <scene sceneID="F2J-LM-HaI">
             <objects>
                 <viewController id="9Sv-rR-gZu" customClass="SegmentedViewController" customModule="Tod2" customModuleProvider="target" sceneMemberID="viewController">
@@ -126,7 +126,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ORG-XT-I6p"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Segmented View" id="Q1l-gh-JvG">
+                    <navigationItem key="navigationItem" title="Coredata Lists" id="Q1l-gh-JvG">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="bkT-St-EpF">
                             <connections>
                                 <action selector="addTodoBtn:" destination="9Sv-rR-gZu" id="UPJ-7h-HJE"/>
