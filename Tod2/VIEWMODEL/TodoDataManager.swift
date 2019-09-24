@@ -19,7 +19,7 @@ class TodoDataManager: NSObject {
 		let context = appDelegate.persistentContainer.viewContext
 		
 		let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Todo")
-		fetchRequest.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
+		fetchRequest.sortDescriptors = [NSSortDescriptor(key: "dateCreated", ascending: false)]
 		
 		do {
 			todoItems = try context.fetch(fetchRequest)
