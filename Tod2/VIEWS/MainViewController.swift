@@ -21,6 +21,7 @@ class SegmentedViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		self.hideKeyboardOnScreenTap()
+        
 		// Do any additional setup after loading the view.
 	}
 	
@@ -43,18 +44,11 @@ class SegmentedViewController: UIViewController {
 	
 	@IBAction func addTodoBtn(_ sender: UIBarButtonItem) {
         performSegue(withIdentifier: "NewTodo", sender: self)
-        
-//        let newTodoAlert = UIAlertController(title: "New todo", message: "Add new todo below", preferredStyle: .alert)
-//        let alertAction = UIAlertAction(title: "Add", style: .default, handler: self.saveNewTodo)
-//        let alertCancelAct = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-//
-//        newTodoAlert.addAction(alertAction)
-//        newTodoAlert.addAction(alertCancelAct)
-//        newTodoAlert.addTextField(configurationHandler: configTextField)
-//
-//        self.present(newTodoAlert, animated: true, completion: nil)
 	}
 	
+    @objc func registerLocal() {
+        
+    }
 	
 }
 extension UIViewController {

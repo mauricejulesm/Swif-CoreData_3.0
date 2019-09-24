@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import UserNotifications
 
 class NewTodoView: UIViewController {
     @IBOutlet weak var newTodoField: UITextField!
@@ -51,7 +52,8 @@ class NewTodoView: UIViewController {
     }
     
     @IBAction func saveNewTodo(_ sender: Any) {
-        //
+        let calendar = Calendar.current
+        
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         
@@ -73,6 +75,11 @@ class NewTodoView: UIViewController {
                     print("Error occured while saving new todo (error.localizedDescription)")
                 }
                 
+                // schedule the reminder
+                let components = calendar.dateComponents([.second, .minute, .hour, .day, .month, .year], from:  getDateFromString(stringDate:deadline))
+                scheduceNotification(year:components.year!, month:components.month!,day:components.day!,hour:components.hour!,minute:components.minute!,second:components.second!)
+
+                
                 // dismiss current view and go to the main view
                 navigationController?.popViewController(animated: true)
                 dismiss(animated: true, completion: nil)
@@ -80,6 +87,42 @@ class NewTodoView: UIViewController {
                 showErrorAlert()
             }
         }
+    }
+    
+    func getDateFromString(stringDate:String) -> Date {
+        let date = Date()
+        let format = DateFormatter()
+        format.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        //    let formattedDate = format.string(from: date)
+        let realDate = format.date(from: stringDate)!
+        return realDate
+    }
+    
+    func scheduceNotification(year:Int,month:Int,day:Int,hour:Int,minute:Int,second:Int) {
+
+        let center = UNUserNotificationCenter.current()
+        
+        let content = UNMutableNotificationContent()
+        content.title = "Your todo reminder"
+        content.body = "You set this todo at this time, it's time to wake up and to it"
+        content.categoryIdentifier = "alarm"
+        content.userInfo = ["customData": "fizzbuzz"]
+        content.sound = UNNotificationSound.default
+        
+        //var dateNow = getDateObject(stringDate: "2019-09-24 10:15:19")
+        var dateComponents = DateComponents()
+        dateComponents.year = year
+        dateComponents.month = month
+        dateComponents.day = day
+        dateComponents.hour = hour
+        dateComponents.minute = minute
+        dateComponents.second = second
+        
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
+        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+        center.add(request)
+        
+        print("notification scheduled!")
     }
     
     

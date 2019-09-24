@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		51159D8D2338A4FD00CFE691 /* NewTodoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51159D8C2338A4FD00CFE691 /* NewTodoView.swift */; };
-		D20C199A2336181500277D12 /* SegmentedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20C19992336181500277D12 /* SegmentedViewController.swift */; };
+		D20C199A2336181500277D12 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20C19992336181500277D12 /* MainViewController.swift */; };
 		D20C199C23361DE400277D12 /* TodoDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20C199B23361DE400277D12 /* TodoDataManager.swift */; };
 		D2764526233640E60099E778 /* TodoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2764524233640E60099E778 /* TodoCell.swift */; };
 		D2764527233640E60099E778 /* TodoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2764525233640E60099E778 /* TodoCell.xib */; };
@@ -22,7 +22,7 @@
 
 /* Begin PBXFileReference section */
 		51159D8C2338A4FD00CFE691 /* NewTodoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTodoView.swift; sourceTree = "<group>"; };
-		D20C19992336181500277D12 /* SegmentedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedViewController.swift; sourceTree = "<group>"; };
+		D20C19992336181500277D12 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		D20C199B23361DE400277D12 /* TodoDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDataManager.swift; sourceTree = "<group>"; };
 		D2764524233640E60099E778 /* TodoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoCell.swift; sourceTree = "<group>"; };
 		D2764525233640E60099E778 /* TodoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TodoCell.xib; sourceTree = "<group>"; };
@@ -58,7 +58,7 @@
 		D20C199E23363DDE00277D12 /* VIEWS */ = {
 			isa = PBXGroup;
 			children = (
-				D20C19992336181500277D12 /* SegmentedViewController.swift */,
+				D20C19992336181500277D12 /* MainViewController.swift */,
 				D2764524233640E60099E778 /* TodoCell.swift */,
 				D2764525233640E60099E778 /* TodoCell.xib */,
 				51159D8C2338A4FD00CFE691 /* NewTodoView.swift */,
@@ -176,7 +176,7 @@
 				D27824CF2335FA6F0012213C /* FirstView.swift in Sources */,
 				D27824CD2335FA6F0012213C /* AppDelegate.swift in Sources */,
 				D27824D52335FA6F0012213C /* Tod2.xcdatamodeld in Sources */,
-				D20C199A2336181500277D12 /* SegmentedViewController.swift in Sources */,
+				D20C199A2336181500277D12 /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
