@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class FirstView: UIViewController,UITableViewDelegate, UITableViewDataSource, UISearchDisplayDelegate, UISearchBarDelegate {
+class FirstView: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchDisplayDelegate, UISearchBarDelegate {
 	@IBOutlet weak var todoSearchBar: UISearchBar!
 	
 	// todos tableview
