@@ -21,9 +21,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 	//lazy var firstView = FirstView()
 
 	lazy var todoManager = TodoDataManager()
-    var completedTodos = [NSManagedObject]()
-    var incompleteTodos = [NSManagedObject]()
-    var currentTodos = [NSManagedObject]()
 
 
 	override func viewDidLoad() {
@@ -38,9 +35,9 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 	
 	@IBAction func switchSegments(_ sender: UISegmentedControl){
 		if sender.selectedSegmentIndex == 0  {
-			currentTodos = completedTodos
+            todoManager.currentTodos = todoManager.incompleteTodos
 		}else{
-			currentTodos = incompleteTodos
+            todoManager.currentTodos = todoManager.completedTodos
 		}
         self.tableView.reloadData()
 	}
@@ -53,30 +50,30 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         // on the first load before view is switched
         assignTodos()
-        currentTodos = completedTodos
+        todoManager.currentTodos = todoManager.incompleteTodos
         
     }
     
     func assignTodos() {
-        completedTodos = []
-        incompleteTodos = []
+        todoManager.completedTodos = []
+        todoManager.incompleteTodos = []
         
         for todo in todoManager.todoItems {
             if (todo.value(forKey: "completed") as! Bool == true){
-                completedTodos.append(todo)
+                todoManager.completedTodos.append(todo)
             }else{
-                incompleteTodos.append(todo)
+                todoManager.incompleteTodos.append(todo)
             }
         }
     }
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return currentTodos.count
+        return todoManager.currentTodos.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let todo = currentTodos[indexPath.row]
+        let todo = todoManager.currentTodos[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "TodoCell",for: indexPath) as! TodoCell
         
         cell.titleLabel.text = todo.value(forKey: "title") as? String
@@ -97,20 +94,23 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
             let context = appDelegate.persistentContainer.viewContext
             
-            context.delete(currentTodos[indexPath.row])
-            currentTodos.remove(at: indexPath.row)
+            context.delete(todoManager.currentTodos[indexPath.row])
             
+            if (segmentController.selectedSegmentIndex == 0){
+                todoManager.incompleteTodos.remove(at: indexPath.row)
+
+            }else{
+                todoManager.completedTodos.remove(at: indexPath.row)
+            }
+            //assignTodos()
             do {
                 try context.save()
             } catch {
                 print("Error occured deleting todo")
             }
             self.tableView.reloadData()
-            
         }
     }
-    
-    
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText != "" {
@@ -123,8 +123,9 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             
             fetchRequest.predicate = predicate
             
+            
             do{
-                currentTodos = try context.fetch(fetchRequest) as! [NSManagedObject]
+                todoManager.currentTodos = try context.fetch(fetchRequest) as! [NSManagedObject]
             }catch{
                 print("could not search the todo")
             }

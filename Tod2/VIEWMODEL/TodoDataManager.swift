@@ -12,7 +12,10 @@ class TodoDataManager: NSObject {
 
 	// todos array
 	var todoItems:[NSManagedObject] = []
-	
+    var completedTodos : [NSManagedObject] = []
+    var incompleteTodos : [NSManagedObject] = []
+    var currentTodos : [NSManagedObject] = []
+    
 	
 	func fetchTodos() {
 		let appDelegate = UIApplication.shared.delegate as! AppDelegate
