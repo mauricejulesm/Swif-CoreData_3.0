@@ -31,7 +31,7 @@
         <!--Coredata Lists-->
         <scene sceneID="F2J-LM-HaI">
             <objects>
-                <viewController id="9Sv-rR-gZu" customClass="SegmentedViewController" customModule="Tod2" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="9Sv-rR-gZu" customClass="MainViewController" customModule="Tod2" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="VsH-Qe-rXg">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -85,6 +85,7 @@
                     <connections>
                         <outlet property="firstView" destination="qft-WP-Tl0" id="rO7-hG-VDY"/>
                         <outlet property="secondView" destination="C2Y-6Z-n52" id="z4w-gq-pFh"/>
+                        <outlet property="segmentController" destination="Ajf-q4-8hd" id="efa-E5-E4I"/>
                         <segue destination="Ezp-uU-WbO" kind="show" identifier="NewTodo" id="gw2-Xy-tU7"/>
                     </connections>
                 </viewController>

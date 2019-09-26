@@ -9,8 +9,9 @@
 import UIKit
 import CoreData
 
-class SegmentedViewController: UIViewController {
-
+class MainViewController: UIViewController {
+    @IBOutlet weak var segmentController: UISegmentedControl!
+    
 	@IBOutlet weak var firstView:UIView!
 	@IBOutlet weak var secondView:UIView!
 	

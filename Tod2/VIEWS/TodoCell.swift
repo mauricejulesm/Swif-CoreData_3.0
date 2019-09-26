@@ -26,7 +26,7 @@ class TodoCell: UITableViewCell {
 		// Configure the view for the selected state
 	}
 	@IBAction func todoStatusSwitcher(_ sender: Any) {
-		print("changed status")
+		
 	}
 	
 //    func commonInit(_ imageName:String, id:Int64, title:String,dateCreated:String, deadline:String){
@@ -35,5 +35,11 @@ class TodoCell: UITableViewCell {
 //        dateCreatedLbl.text = dateCreated
 //        deadLineLabel.text = deadline
 //    }
+    
+    
+    @IBAction func todoStatusDidChange(_ sender: Any) {
+        print("changed status")
+    }
+    
 	
 }

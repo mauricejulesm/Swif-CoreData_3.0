@@ -52,6 +52,7 @@ class FirstView: UIViewController,UITableViewDelegate, UITableViewDataSource, UI
         cell.dateCreatedLbl.text = todo.value(forKey: "dateCreated") as? String
         cell.deadLineLabel.text = todo.value(forKey: "deadline") as? String
 
+        cell.todoStatusDidChange(self)
 		return cell
 	}
 	

@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 import UserNotifications
 
-class NewTodoView: UIViewController {
+class NewTodoView: UIViewController, UNUserNotificationCenterDelegate {
     @IBOutlet weak var newTodoField: UITextField!
     @IBOutlet weak var dateLabel: UITextField!
     
@@ -21,34 +21,6 @@ class NewTodoView: UIViewController {
         super.viewDidLoad()
         self.hideKeyboardOnScreenTap()
          showDatePicker()
-    }
-    
-
-    @IBAction func submitTodo(_ sender: Any) {
-//        if let newTodoTitle = newTodoField.text{
-//            if !newTodoTitle.isEmpty && !dateLabel.text!.isEmpty{
-//                let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
-//
-//                if let todoEntity = NSEntityDescription.insertNewObject(forEntityName: "Todo", into: context) as? Todo {
-//                    todoEntity.id = 0
-//                    todoEntity.title = newTodoTitle
-//                    todoEntity.completed = false
-//                    todoEntity.deadline = "Deadline: " + dateLabel.text!
-//
-//                    print("created new todo\(newTodoTitle)")
-//
-//                    do{
-//                        try context.save()
-//                    }catch{
-//                        print("There was an error while saving the new todo")
-//                    }
-//
-//                    print("Added new todo: \(newTodoTitle)")
-//                    newTodoField.text = ""
-//                    dateLabel.text = ""
-//                }
-//            }
-//        }
     }
     
     @IBAction func saveNewTodo(_ sender: Any) {
@@ -63,10 +35,13 @@ class NewTodoView: UIViewController {
                 let todo = NSManagedObject(entity: entity, insertInto: context)
                 let date = "Created: " + todoManager.getTimeNow()
                 let due = "Due: " + deadline
+                let completed = true
+                
                 
                 todo.setValue(newTodoTitle, forKey: "title")
                 todo.setValue(date, forKey: "dateCreated")
                 todo.setValue(due, forKey: "deadline")
+                todo.setValue(completed, forKey: "completed")
 
                 do {
                     try context.save()
@@ -76,8 +51,9 @@ class NewTodoView: UIViewController {
                 }
                 
                 // schedule the reminder
+                registerNotifCategories()
                 let components = calendar.dateComponents([.second, .minute, .hour, .day, .month, .year], from:  getDateFromString(stringDate:deadline))
-                scheduceNotification(year:components.year!, month:components.month!,day:components.day!,hour:components.hour!,minute:components.minute!,second:components.second!)
+                scheduceNotification(todoContent:newTodoTitle, year:components.year!, month:components.month!,day:components.day!,hour:components.hour!,minute:components.minute!,second:components.second!)
 
                 
                 // dismiss current view and go to the main view
@@ -98,13 +74,13 @@ class NewTodoView: UIViewController {
         return realDate
     }
     
-    func scheduceNotification(year:Int,month:Int,day:Int,hour:Int,minute:Int,second:Int) {
+    func scheduceNotification(todoContent:String, year:Int,month:Int,day:Int,hour:Int,minute:Int,second:Int) {
 
         let center = UNUserNotificationCenter.current()
         
         let content = UNMutableNotificationContent()
         content.title = "Your todo reminder"
-        content.body = "You set this todo at this time, it's time to wake up and to it"
+        content.body = "Remember to: \(todoContent)"
         content.categoryIdentifier = "alarm"
         content.userInfo = ["customData": "fizzbuzz"]
         content.sound = UNNotificationSound.default
@@ -124,8 +100,19 @@ class NewTodoView: UIViewController {
         
         print("notification scheduled!")
     }
+    // register notification categories
+    func registerNotifCategories() {
+        let center = UNUserNotificationCenter.current()
+        center.delegate = self
+        
+        let show = UNNotificationAction(identifier: "show", title: "View your todo...", options: .foreground)
+        let remindMe = UNNotificationAction(identifier: "remind-me-later", title: "Remind me in 10 minutes", options: .foreground)
+        let category = UNNotificationCategory(identifier: "alarm", actions: [show, remindMe], intentIdentifiers: [])
+        
+        center.setNotificationCategories([category])
+    }
     
-    
+    // show an alert on error while creating a todo
     func showErrorAlert() {
         
                 let errorAlert = UIAlertController(title: "Error", message: "Make sure title and deadline are not empty", preferredStyle: .alert)
