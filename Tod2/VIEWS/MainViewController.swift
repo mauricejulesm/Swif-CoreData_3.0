@@ -93,6 +93,10 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     // called when the switch is changed
     @objc func switchChanged(_ sender: UISwitch!) {
+        todoManager.todoItems.remove(at: sender.tag)
+        todoManager.currentTodos.remove(at: sender.tag)
+        assignTodos()
+        tableView.reloadData()
         print("Table row switch Changed \(sender.tag)")
         print("The switch is \(sender.isOn ? "ON" : "OFF")")
     }
@@ -120,7 +124,9 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             } catch {
                 print("Error occured deleting todo")
             }
-            self.tableView.reloadData()
+            //self.tableView.reloadData()
+            todoManager.currentTodos.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
         }
     }
     
