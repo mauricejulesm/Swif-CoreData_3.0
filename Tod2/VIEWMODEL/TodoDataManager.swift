@@ -31,6 +31,11 @@ class TodoDataManager: NSObject {
 		}
 	}
     
+    func updateTodoStatus(title:String) {
+        print("Object: \(title) updated")
+    }
+    
+    
     // getting the file path of the sqlite file
     func applicationDocumentsDirectory() {
         if let url = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).last {

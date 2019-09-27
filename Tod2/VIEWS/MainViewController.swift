@@ -84,6 +84,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         let swicthView = UISwitch(frame: .zero)
         swicthView.setOn(false, animated: true)
         swicthView.tag = indexPath.row
+        swicthView.accessibilityLabel = todo.value(forKey: "title") as? String
         swicthView.addTarget(self, action: #selector(self.switchChanged(_:)), for: .valueChanged)
         
         cell.accessoryView = swicthView
@@ -93,14 +94,17 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     // called when the switch is changed
     @objc func switchChanged(_ sender: UISwitch!) {
-        todoManager.todoItems.remove(at: sender.tag)
+        let currentTodoTitle = sender.accessibilityLabel
+        
+        // update the current todo's status
+        todoManager.updateTodoStatus(title:currentTodoTitle!)
+        
         todoManager.currentTodos.remove(at: sender.tag)
         assignTodos()
         tableView.reloadData()
-        print("Table row switch Changed \(sender.tag)")
+        print("Table row switch Changed \(sender.tag) on todo \(currentTodoTitle ?? "")")
         print("The switch is \(sender.isOn ? "ON" : "OFF")")
     }
-    
     
     // allow delete option
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
