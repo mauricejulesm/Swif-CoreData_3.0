@@ -16,10 +16,8 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     // todos tableview
     @IBOutlet weak var tableView: UITableView!
-    
 	
-	//lazy var firstView = FirstView()
-
+    // todo manager instance
 	lazy var todoManager = TodoDataManager()
 
 
@@ -33,14 +31,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         todoSearchBar.delegate = self
     }
 	
-	@IBAction func switchSegments(_ sender: UISegmentedControl){
-		if sender.selectedSegmentIndex == 0  {
-            todoManager.currentTodos = todoManager.incompleteTodos
-		}else{
-            todoManager.currentTodos = todoManager.completedTodos
-		}
-        self.tableView.reloadData()
-	}
+	
 	
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -85,25 +76,11 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         swicthView.setOn(false, animated: true)
         swicthView.tag = indexPath.row
         swicthView.accessibilityLabel = todo.value(forKey: "title") as? String
-        swicthView.addTarget(self, action: #selector(self.switchChanged(_:)), for: .valueChanged)
+        swicthView.addTarget(self, action: #selector(self.onTodoStatusChanged(_:)), for: .valueChanged)
         
         cell.accessoryView = swicthView
         
         return cell
-    }
-    
-    // called when the switch is changed
-    @objc func switchChanged(_ sender: UISwitch!) {
-        let currentTodoTitle = sender.accessibilityLabel
-        
-        // update the current todo's status
-        todoManager.updateTodoStatus(title:currentTodoTitle!)
-        
-        todoManager.currentTodos.remove(at: sender.tag)
-        assignTodos()
-        tableView.reloadData()
-        print("Table row switch Changed \(sender.tag) on todo \(currentTodoTitle ?? "")")
-        print("The switch is \(sender.isOn ? "ON" : "OFF")")
     }
     
     // allow delete option
@@ -144,14 +121,11 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Todo")
             
             fetchRequest.predicate = predicate
-            
-            
             do{
                 todoManager.currentTodos = try context.fetch(fetchRequest) as! [NSManagedObject]
             }catch{
                 print("could not search the todo")
             }
-            
         }else{
             todoManager.fetchTodos()
             assignTodos()
@@ -160,14 +134,31 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.tableView.reloadData()
     }
     
-	
+    @IBAction func switchSegments(_ sender: UISegmentedControl){
+        if sender.selectedSegmentIndex == 0  {
+            todoManager.currentTodos = todoManager.incompleteTodos
+        }else{
+            todoManager.currentTodos = todoManager.completedTodos
+        }
+        self.tableView.reloadData()
+    }
+    // called when the switch is changed
+    @objc func onTodoStatusChanged(_ sender: UISwitch!) {
+        let currentTodoTitle = sender.accessibilityLabel
+        
+        // update the current todo's status
+        todoManager.updateTodoStatus(title:currentTodoTitle!)
+        
+        todoManager.currentTodos.remove(at: sender.tag)
+        assignTodos()
+        tableView.reloadData()
+        print("Table row switch Changed \(sender.tag) on todo \(currentTodoTitle ?? "")")
+        print("The switch is \(sender.isOn ? "ON" : "OFF")")
+    }
+    
 	@IBAction func addTodoBtn(_ sender: UIBarButtonItem) {
         performSegue(withIdentifier: "NewTodo", sender: self)
 	}
-	
-    @objc func registerLocal() {
-        
-    }
 	
 }
 extension UIViewController {
@@ -177,6 +168,8 @@ extension UIViewController {
         view.addGestureRecognizer(tap)
     }
     
+    
+    // help dismissing the keyboard on tapping around
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }

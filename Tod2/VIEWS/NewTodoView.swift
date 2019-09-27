@@ -85,17 +85,6 @@ class NewTodoView: UIViewController, UNUserNotificationCenterDelegate {
         if response.actionIdentifier == "show" {
             print("Showing the current todo reminder u tapped!")
         }
-        
-//        switch response.actionIdentifier {
-//        case "show":
-//            showToast(message: "Showing the current todo reminder u tapped!")
-//            print("Showing the current todo reminder u tapped!")
-//        case "remind-me-later":
-//            showToast(message: "You chose to remind in 10 minutes")
-//            print("You chose to remind in 10 minutes")
-//        default:
-//            print("Nothing chosen")
-//        }
     }
     
     func scheduceNotification(todoContent:String, year:Int,month:Int,day:Int,hour:Int,minute:Int,second:Int) {
