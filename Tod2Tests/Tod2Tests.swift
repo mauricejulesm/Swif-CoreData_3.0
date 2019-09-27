@@ -7,6 +7,8 @@
 //
 
 import XCTest
+@testable import Tod2
+
 class Tod2Tests: XCTestCase {
 
     override func setUp() {

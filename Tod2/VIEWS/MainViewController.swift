@@ -76,13 +76,27 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         let todo = todoManager.currentTodos[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "TodoCell",for: indexPath) as! TodoCell
         
+        // setting up the table cell
         cell.titleLabel.text = todo.value(forKey: "title") as? String
         cell.dateCreatedLbl.text = todo.value(forKey: "dateCreated") as? String
         cell.deadLineLabel.text = todo.value(forKey: "deadline") as? String
         
-        cell.todoStatusDidChange(self)
+        let swicthView = UISwitch(frame: .zero)
+        swicthView.setOn(false, animated: true)
+        swicthView.tag = indexPath.row
+        swicthView.addTarget(self, action: #selector(self.switchChanged(_:)), for: .valueChanged)
+        
+        cell.accessoryView = swicthView
+        
         return cell
     }
+    
+    // called when the switch is changed
+    @objc func switchChanged(_ sender: UISwitch!) {
+        print("Table row switch Changed \(sender.tag)")
+        print("The switch is \(sender.isOn ? "ON" : "OFF")")
+    }
+    
     
     // allow delete option
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -98,11 +112,9 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             
             if (segmentController.selectedSegmentIndex == 0){
                 todoManager.incompleteTodos.remove(at: indexPath.row)
-
             }else{
                 todoManager.completedTodos.remove(at: indexPath.row)
             }
-            //assignTodos()
             do {
                 try context.save()
             } catch {

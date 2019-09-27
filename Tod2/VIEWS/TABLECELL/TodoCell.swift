@@ -12,7 +12,8 @@ class TodoCell: UITableViewCell {
 	@IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var dateCreatedLbl: UILabel!
     @IBOutlet weak var deadLineLabel: UILabel!
-	
+    @IBOutlet weak var uiSwitchLabel: UISwitch!
+    
 	override func awakeFromNib() {
 		super.awakeFromNib()
 		// Initialization code
@@ -37,9 +38,7 @@ class TodoCell: UITableViewCell {
 //    }
     
     
-    @IBAction func todoStatusDidChange(_ sender: Any) {
-        print("changed status")
-    }
+   
     
 	
 }

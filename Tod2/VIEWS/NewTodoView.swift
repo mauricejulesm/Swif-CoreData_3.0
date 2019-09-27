@@ -35,7 +35,7 @@ class NewTodoView: UIViewController, UNUserNotificationCenterDelegate {
                 let todo = NSManagedObject(entity: entity, insertInto: context)
                 let date = "Created: " + todoManager.getTimeNow()
                 let due = "Due: " + deadline
-                let completed = true
+                let completed = false
                 
                 
                 todo.setValue(newTodoTitle, forKey: "title")
