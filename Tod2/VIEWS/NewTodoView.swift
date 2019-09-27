@@ -21,6 +21,7 @@ class NewTodoView: UIViewController, UNUserNotificationCenterDelegate {
         super.viewDidLoad()
         self.hideKeyboardOnScreenTap()
          showDatePicker()
+        
     }
     
     @IBAction func saveNewTodo(_ sender: Any) {
@@ -74,14 +75,34 @@ class NewTodoView: UIViewController, UNUserNotificationCenterDelegate {
         return realDate
     }
     
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.sound, .alert])
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        
+        switch response.actionIdentifier {
+        case "show":
+            showToast(message: "Showing the current todo reminder u tapped!")
+            print("Showing the current todo reminder u tapped!")
+        case "remind-me-later":
+            showToast(message: "You chose to remind in 10 minutes")
+            print("You chose to remind in 10 minutes")
+        default:
+            print("Nothing chosen")
+        }
+    }
+    
     func scheduceNotification(todoContent:String, year:Int,month:Int,day:Int,hour:Int,minute:Int,second:Int) {
 
-        let center = UNUserNotificationCenter.current()
+        let notifCenter = UNUserNotificationCenter.current()
         
         let content = UNMutableNotificationContent()
         content.title = "Your todo reminder"
-        content.body = "Remember to: \(todoContent)"
-        content.categoryIdentifier = "alarm"
+        //content.subtitle = "This is your reminder subtitle"
+        content.body = "\(todoContent)"
+        content.categoryIdentifier = "todoReminderCatgr"
+        content.badge = 1
         content.userInfo = ["customData": "fizzbuzz"]
         content.sound = UNNotificationSound.default
         
@@ -96,18 +117,18 @@ class NewTodoView: UIViewController, UNUserNotificationCenterDelegate {
         
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
         let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
-        center.add(request)
+        notifCenter.add(request)
         
-        print("notification scheduled!")
+        print("Todo reminder notification scheduled!")
     }
     // register notification categories
     func registerNotifCategories() {
         let center = UNUserNotificationCenter.current()
         center.delegate = self
         
-        let show = UNNotificationAction(identifier: "show", title: "View your todo...", options: .foreground)
+        let show = UNNotificationAction(identifier: "show", title: "View your todo", options: .foreground)
         let remindMe = UNNotificationAction(identifier: "remind-me-later", title: "Remind me in 10 minutes", options: .foreground)
-        let category = UNNotificationCategory(identifier: "alarm", actions: [show, remindMe], intentIdentifiers: [])
+        let category = UNNotificationCategory(identifier: "todoReminderCatgr", actions: [show, remindMe], intentIdentifiers: [])
         
         center.setNotificationCategories([category])
     }
@@ -124,6 +145,16 @@ class NewTodoView: UIViewController, UNUserNotificationCenterDelegate {
 //                errorAlert.addTextField(configurationHandler: configTextField)
         
                 self.present(errorAlert, animated: true, completion: nil)
+    }
+    
+    // showing a simple
+    func showToast(message:String) {
+            let alertDisapperTimeInSeconds = 2.0
+            let alert = UIAlertController(title: nil, message: message, preferredStyle: .actionSheet)
+            self.present(alert, animated: true)
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + alertDisapperTimeInSeconds) {
+                alert.dismiss(animated: true)
+            }
     }
     func showDatePicker(){
         //Formate Date
