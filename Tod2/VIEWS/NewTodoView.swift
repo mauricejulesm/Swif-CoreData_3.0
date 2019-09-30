@@ -30,16 +30,16 @@ class NewTodoView: UIViewController {
         
         
         if let title = newTodoField.text, let deadline = dateLabel.text {
-            if (newTodoTitle != "" && deadline != "") {
+            if (title != "" && deadline != "") {
                 
                 
                 //saving a new todo
-                todoManager.saveNewTodo(newTodoTitle: newTodoTitle, deadline: deadline)
+                todoManager.saveNewTodo(title: title, deadline: deadline)
 
                 // schedule the reminder
                 registerNotifCategories()
                 let components = calendar.dateComponents([.second, .minute, .hour, .day, .month, .year], from:  getDateFromString(stringDate:deadline))
-                scheduceNotification(todoContent:newTodoTitle, year:components.year!, month:components.month!,day:components.day!,hour:components.hour!,minute:components.minute!,second:components.second!)
+                scheduceNotification(todoContent:title, year:components.year!, month:components.month!,day:components.day!,hour:components.hour!,minute:components.minute!,second:components.second!)
 
                 
                 // dismiss current view and go to the main view

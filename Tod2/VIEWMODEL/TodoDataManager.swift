@@ -56,7 +56,7 @@ class TodoDataManager: NSObject {
         print("Object: \(title) updated")
     }
     
-    func saveNewTodo(newTodoTitl: String, deadline: String) {
+    func saveNewTodo(title: String, deadline: String) {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         
@@ -67,7 +67,7 @@ class TodoDataManager: NSObject {
         let completed = false
         
         
-        todo.setValue(newTodoTitl, forKey: "title")
+        todo.setValue(title, forKey: "title")
         todo.setValue(date, forKey: "dateCreated")
         todo.setValue(due, forKey: "deadline")
         todo.setValue(completed, forKey: "completed")
