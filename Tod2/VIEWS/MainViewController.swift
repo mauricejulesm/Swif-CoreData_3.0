@@ -7,9 +7,9 @@
 //
 
 import UIKit
-import CoreData
+import UserNotifications
 
-class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchDisplayDelegate, UISearchBarDelegate {
+class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchDisplayDelegate, UISearchBarDelegate, UNUserNotificationCenterDelegate {
     
     @IBOutlet weak var todoSearchBar: UISearchBar!
     @IBOutlet weak var segmentController: UISegmentedControl!
@@ -29,6 +29,8 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.register(nibName, forCellReuseIdentifier: "TodoCell")
         self.hideKeyboardOnScreenTap()
         todoSearchBar.delegate = self
+        
+        UNUserNotificationCenter.current().delegate = self
     }
 	
 	
@@ -41,7 +43,9 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         // on the first load before view is switched
         assignTodos()
-        todoManager.currentTodos = todoManager.incompleteTodos
+        if (segmentController.selectedSegmentIndex == 0){
+            todoManager.currentTodos = todoManager.incompleteTodos
+        }
         
     }
     
@@ -58,7 +62,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return todoManager.currentTodos.count
     }
@@ -72,8 +75,10 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         cell.dateCreatedLbl.text = todo.value(forKey: "dateCreated") as? String
         cell.deadLineLabel.text = todo.value(forKey: "deadline") as? String
         
+        let isComplete = todo.value(forKey: "completed") as! Bool
+       
         let swicthView = UISwitch(frame: .zero)
-        swicthView.setOn(false, animated: true)
+        isComplete ? swicthView.setOn(true, animated: true) : swicthView.setOn(false, animated: true)
         swicthView.tag = indexPath.row
         swicthView.accessibilityLabel = todo.value(forKey: "title") as? String
         swicthView.addTarget(self, action: #selector(self.onTodoStatusChanged(_:)), for: .valueChanged)
@@ -110,6 +115,11 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
         }
     }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let title = todoManager.currentTodos[indexPath.row].value(forKey: "title") as! String
+        openDetailsView(todoTitle: title)
+    }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText != "" {
@@ -118,11 +128,11 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
             let context = appDelegate.persistentContainer.viewContext
-            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Todo")
+            let fetchRequest = todoManager.getTodoFetchRequest()
             
             fetchRequest.predicate = predicate
             do{
-                todoManager.currentTodos = try context.fetch(fetchRequest) as! [NSManagedObject]
+                todoManager.currentTodos = try context.fetch(fetchRequest)
             }catch{
                 print("could not search the todo")
             }
@@ -145,7 +155,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     // called when the switch is changed
     @objc func onTodoStatusChanged(_ sender: UISwitch!) {
         let currentTodoTitle = sender.accessibilityLabel
-        
+        //sender.setOn(true, animated: true)
         // update the current todo's status
         todoManager.updateTodoStatus(title:currentTodoTitle!)
         
@@ -155,10 +165,34 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         print("Table row switch Changed \(sender.tag) on todo \(currentTodoTitle ?? "")")
         print("The switch is \(sender.isOn ? "ON" : "OFF")")
     }
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.alert, .sound])
+    }
     
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        
+        if response.actionIdentifier == "show" {
+            openDetailsView(todoTitle:response.notification.request.content.body)
+            
+            //showToast(message: "Showing the current todo reminder u tapped!")
+        }else if (response.actionIdentifier == "dismiss"){
+            print("Nothing to do here")
+            //showToast(message: "U chose remind me later ")
+        }
+    }
 	@IBAction func addTodoBtn(_ sender: UIBarButtonItem) {
         performSegue(withIdentifier: "NewTodo", sender: self)
 	}
+    
+    // showing a simple
+    func showToast(message:String) {
+        let alertDisapperTimeInSeconds = 2.0
+        let alert = UIAlertController(title: nil, message: message, preferredStyle: .actionSheet)
+        self.present(alert, animated: true)
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + alertDisapperTimeInSeconds) {
+            alert.dismiss(animated: true)
+        }
+    }
 	
 }
 extension UIViewController {
@@ -168,6 +202,11 @@ extension UIViewController {
         view.addGestureRecognizer(tap)
     }
     
+    func openDetailsView(todoTitle:String) {
+        let secondVC = TodoDetails()
+        secondVC.todoTitle.append( todoTitle )
+        self.navigationController?.pushViewController(secondVC, animated: true)
+    }
     
     // help dismissing the keyboard on tapping around
     @objc func dismissKeyboard() {

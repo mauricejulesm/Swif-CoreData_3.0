@@ -7,16 +7,17 @@
 //
 
 import UIKit
-import CoreData
 import UserNotifications
 
-class NewTodoView: UIViewController, UNUserNotificationCenterDelegate {
+class NewTodoView: UIViewController {
     @IBOutlet weak var newTodoField: UITextField!
     @IBOutlet weak var dateLabel: UITextField!
     
     let datePicker = UIDatePicker()
     
     lazy var todoManager = TodoDataManager()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardOnScreenTap()
@@ -27,30 +28,14 @@ class NewTodoView: UIViewController, UNUserNotificationCenterDelegate {
     @IBAction func saveNewTodo(_ sender: Any) {
         let calendar = Calendar.current
         
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
         
-        if let newTodoTitle = newTodoField.text, let deadline = dateLabel.text {
+        if let title = newTodoField.text, let deadline = dateLabel.text {
             if (newTodoTitle != "" && deadline != "") {
-                let entity = NSEntityDescription.entity(forEntityName: "Todo", in: context)!
-                let todo = NSManagedObject(entity: entity, insertInto: context)
-                let date = "Created: " + todoManager.getTimeNow()
-                let due = "Due: " + deadline
-                let completed = false
                 
                 
-                todo.setValue(newTodoTitle, forKey: "title")
-                todo.setValue(date, forKey: "dateCreated")
-                todo.setValue(due, forKey: "deadline")
-                todo.setValue(completed, forKey: "completed")
+                //saving a new todo
+                todoManager.saveNewTodo(newTodoTitle: newTodoTitle, deadline: deadline)
 
-                do {
-                    try context.save()
-                    todoManager.todoItems.append(todo)
-                } catch {
-                    print("Error occured while saving new todo (error.localizedDescription)")
-                }
-                
                 // schedule the reminder
                 registerNotifCategories()
                 let components = calendar.dateComponents([.second, .minute, .hour, .day, .month, .year], from:  getDateFromString(stringDate:deadline))
@@ -75,17 +60,7 @@ class NewTodoView: UIViewController, UNUserNotificationCenterDelegate {
         return realDate
     }
     
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.alert, .sound])
-    }
     
-    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        
-        
-        if response.actionIdentifier == "show" {
-            print("Showing the current todo reminder u tapped!")
-        }
-    }
     
     func scheduceNotification(todoContent:String, year:Int,month:Int,day:Int,hour:Int,minute:Int,second:Int) {
 
@@ -118,10 +93,10 @@ class NewTodoView: UIViewController, UNUserNotificationCenterDelegate {
     // register notification categories
     func registerNotifCategories() {
         let center = UNUserNotificationCenter.current()
-        center.delegate = self
+        //center.delegate = self
         
         let show = UNNotificationAction(identifier: "show", title: "View your todo", options: .foreground)
-        let remindMe = UNNotificationAction(identifier: "remind-me-later", title: "Remind me in 10 minutes", options: .foreground)
+        let remindMe = UNNotificationAction(identifier: "dismiss", title: "Dismiss", options: .foreground)
         let category = UNNotificationCategory(identifier: "todoReminderCatgr", actions: [show, remindMe], intentIdentifiers: [])
         
         center.setNotificationCategories([category])
