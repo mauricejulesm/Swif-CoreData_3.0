@@ -32,6 +32,34 @@ class TodoDataManager: NSObject {
 	}
     
     func updateTodoStatus(title:String) {
+        
+        // update the current todo in the coredata store
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        
+        //We need to create a context from this container
+        let context = appDelegate.persistentContainer.viewContext
+        
+        let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "Todo")
+        fetchRequest.predicate = NSPredicate(format: "title = %@", "\(title)")
+        do
+        {
+            let test = try context.fetch(fetchRequest)
+            
+            let objectUpdate = test[0] as! NSManagedObject
+            objectUpdate.setValue(true, forKey: "completed")
+            do{
+                try context.save()
+            }
+            catch
+            {
+                print(error)
+            }
+        }
+        catch
+        {
+            print(error)
+        }
+        
         print("Object: \(title) updated")
     }
     

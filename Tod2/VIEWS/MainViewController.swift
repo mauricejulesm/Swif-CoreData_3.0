@@ -61,22 +61,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.alert, .sound])
-    }
-    
-    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-
-        if response.actionIdentifier == "show" {
-            openDetailsView(todoTitle:response.notification.request.content.body)
-            
-            //showToast(message: "Showing the current todo reminder u tapped!")
-        }else if (response.actionIdentifier == "dismiss"){
-            print("Nothing to do here")
-            //showToast(message: "U chose remind me later ")
-        }
-    }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return todoManager.currentTodos.count
     }
@@ -168,7 +152,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     // called when the switch is changed
     @objc func onTodoStatusChanged(_ sender: UISwitch!) {
         let currentTodoTitle = sender.accessibilityLabel
-        
+        sender.setOn(true, animated: true)
         // update the current todo's status
         todoManager.updateTodoStatus(title:currentTodoTitle!)
         
@@ -178,7 +162,21 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         print("Table row switch Changed \(sender.tag) on todo \(currentTodoTitle ?? "")")
         print("The switch is \(sender.isOn ? "ON" : "OFF")")
     }
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.alert, .sound])
+    }
     
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        
+        if response.actionIdentifier == "show" {
+            openDetailsView(todoTitle:response.notification.request.content.body)
+            
+            //showToast(message: "Showing the current todo reminder u tapped!")
+        }else if (response.actionIdentifier == "dismiss"){
+            print("Nothing to do here")
+            //showToast(message: "U chose remind me later ")
+        }
+    }
 	@IBAction func addTodoBtn(_ sender: UIBarButtonItem) {
         performSegue(withIdentifier: "NewTodo", sender: self)
 	}
