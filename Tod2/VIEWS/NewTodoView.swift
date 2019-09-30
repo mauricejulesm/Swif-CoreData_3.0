@@ -10,13 +10,15 @@ import UIKit
 import CoreData
 import UserNotifications
 
-class NewTodoView: UIViewController, UNUserNotificationCenterDelegate {
+class NewTodoView: UIViewController {
     @IBOutlet weak var newTodoField: UITextField!
     @IBOutlet weak var dateLabel: UITextField!
     
     let datePicker = UIDatePicker()
     
     lazy var todoManager = TodoDataManager()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardOnScreenTap()
@@ -75,17 +77,7 @@ class NewTodoView: UIViewController, UNUserNotificationCenterDelegate {
         return realDate
     }
     
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.alert, .sound])
-    }
     
-    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        
-        
-        if response.actionIdentifier == "show" {
-            print("Showing the current todo reminder u tapped!")
-        }
-    }
     
     func scheduceNotification(todoContent:String, year:Int,month:Int,day:Int,hour:Int,minute:Int,second:Int) {
 
@@ -118,7 +110,7 @@ class NewTodoView: UIViewController, UNUserNotificationCenterDelegate {
     // register notification categories
     func registerNotifCategories() {
         let center = UNUserNotificationCenter.current()
-        center.delegate = self
+        //center.delegate = self
         
         let show = UNNotificationAction(identifier: "show", title: "View your todo", options: .foreground)
         let remindMe = UNNotificationAction(identifier: "remind-me-later", title: "Remind me in 10 minutes", options: .foreground)

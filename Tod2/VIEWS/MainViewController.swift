@@ -8,8 +8,9 @@
 
 import UIKit
 import CoreData
+import UserNotifications
 
-class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchDisplayDelegate, UISearchBarDelegate {
+class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchDisplayDelegate, UISearchBarDelegate, UNUserNotificationCenterDelegate {
     
     @IBOutlet weak var todoSearchBar: UISearchBar!
     @IBOutlet weak var segmentController: UISegmentedControl!
@@ -29,6 +30,8 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.register(nibName, forCellReuseIdentifier: "TodoCell")
         self.hideKeyboardOnScreenTap()
         todoSearchBar.delegate = self
+        
+        UNUserNotificationCenter.current().delegate = self
     }
 	
 	
@@ -58,6 +61,23 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.alert, .sound])
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        if response.actionIdentifier == "show" {
+            print("Showing the current todo reminder u tapped!")
+            
+            let secondVC = TodoDetails()
+            self.navigationController?.pushViewController(secondVC, animated: true)
+            
+            //showToast(message: "Showing the current todo reminder u tapped!")
+        }else if (response.actionIdentifier == "remind-me-later"){
+            print("U chose remind me later ")
+            //showToast(message: "U chose remind me later ")
+        }
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return todoManager.currentTodos.count
@@ -159,6 +179,16 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 	@IBAction func addTodoBtn(_ sender: UIBarButtonItem) {
         performSegue(withIdentifier: "NewTodo", sender: self)
 	}
+    
+    // showing a simple
+    func showToast(message:String) {
+        let alertDisapperTimeInSeconds = 2.0
+        let alert = UIAlertController(title: nil, message: message, preferredStyle: .actionSheet)
+        self.present(alert, animated: true)
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + alertDisapperTimeInSeconds) {
+            alert.dismiss(animated: true)
+        }
+    }
 	
 }
 extension UIViewController {
