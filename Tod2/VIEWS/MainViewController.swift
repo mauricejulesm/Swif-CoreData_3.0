@@ -66,15 +66,13 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+
         if response.actionIdentifier == "show" {
-            print("Showing the current todo reminder u tapped!")
-            
-            let secondVC = TodoDetails()
-            self.navigationController?.pushViewController(secondVC, animated: true)
+            openDetailsView(todoTitle:response.notification.request.content.body)
             
             //showToast(message: "Showing the current todo reminder u tapped!")
-        }else if (response.actionIdentifier == "remind-me-later"){
-            print("U chose remind me later ")
+        }else if (response.actionIdentifier == "dismiss"){
+            print("Nothing to do here")
             //showToast(message: "U chose remind me later ")
         }
     }
@@ -129,6 +127,11 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             todoManager.currentTodos.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
         }
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let title = todoManager.currentTodos[indexPath.row].value(forKey: "title") as! String
+        openDetailsView(todoTitle: title)
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -198,6 +201,11 @@ extension UIViewController {
         view.addGestureRecognizer(tap)
     }
     
+    func openDetailsView(todoTitle:String) {
+        let secondVC = TodoDetails()
+        secondVC.todoTitle.append( todoTitle )
+        self.navigationController?.pushViewController(secondVC, animated: true)
+    }
     
     // help dismissing the keyboard on tapping around
     @objc func dismissKeyboard() {

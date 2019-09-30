@@ -113,7 +113,7 @@ class NewTodoView: UIViewController {
         //center.delegate = self
         
         let show = UNNotificationAction(identifier: "show", title: "View your todo", options: .foreground)
-        let remindMe = UNNotificationAction(identifier: "remind-me-later", title: "Remind me in 10 minutes", options: .foreground)
+        let remindMe = UNNotificationAction(identifier: "dismiss", title: "Dismiss", options: .foreground)
         let category = UNNotificationCategory(identifier: "todoReminderCatgr", actions: [show, remindMe], intentIdentifiers: [])
         
         center.setNotificationCategories([category])
