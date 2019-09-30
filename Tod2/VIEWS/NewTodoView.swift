@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import CoreData
 import UserNotifications
 
 class NewTodoView: UIViewController {
@@ -29,30 +28,14 @@ class NewTodoView: UIViewController {
     @IBAction func saveNewTodo(_ sender: Any) {
         let calendar = Calendar.current
         
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
         
-        if let newTodoTitle = newTodoField.text, let deadline = dateLabel.text {
+        if let title = newTodoField.text, let deadline = dateLabel.text {
             if (newTodoTitle != "" && deadline != "") {
-                let entity = NSEntityDescription.entity(forEntityName: "Todo", in: context)!
-                let todo = NSManagedObject(entity: entity, insertInto: context)
-                let date = "Created: " + todoManager.getTimeNow()
-                let due = "Due: " + deadline
-                let completed = false
                 
                 
-                todo.setValue(newTodoTitle, forKey: "title")
-                todo.setValue(date, forKey: "dateCreated")
-                todo.setValue(due, forKey: "deadline")
-                todo.setValue(completed, forKey: "completed")
+                //saving a new todo
+                todoManager.saveNewTodo(newTodoTitle: newTodoTitle, deadline: deadline)
 
-                do {
-                    try context.save()
-                    todoManager.todoItems.append(todo)
-                } catch {
-                    print("Error occured while saving new todo (error.localizedDescription)")
-                }
-                
                 // schedule the reminder
                 registerNotifCategories()
                 let components = calendar.dateComponents([.second, .minute, .hour, .day, .month, .year], from:  getDateFromString(stringDate:deadline))

@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import CoreData
 import UserNotifications
 
 class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchDisplayDelegate, UISearchBarDelegate, UNUserNotificationCenterDelegate {
@@ -44,7 +43,9 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         // on the first load before view is switched
         assignTodos()
-        todoManager.currentTodos = todoManager.incompleteTodos
+        if (segmentController.selectedSegmentIndex == 0){
+            todoManager.currentTodos = todoManager.incompleteTodos
+        }
         
     }
     
@@ -74,8 +75,10 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         cell.dateCreatedLbl.text = todo.value(forKey: "dateCreated") as? String
         cell.deadLineLabel.text = todo.value(forKey: "deadline") as? String
         
+        let isComplete = todo.value(forKey: "completed") as! Bool
+       
         let swicthView = UISwitch(frame: .zero)
-        swicthView.setOn(false, animated: true)
+        isComplete ? swicthView.setOn(true, animated: true) : swicthView.setOn(false, animated: true)
         swicthView.tag = indexPath.row
         swicthView.accessibilityLabel = todo.value(forKey: "title") as? String
         swicthView.addTarget(self, action: #selector(self.onTodoStatusChanged(_:)), for: .valueChanged)
@@ -125,11 +128,11 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
             let context = appDelegate.persistentContainer.viewContext
-            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Todo")
+            let fetchRequest = todoManager.getTodoFetchRequest()
             
             fetchRequest.predicate = predicate
             do{
-                todoManager.currentTodos = try context.fetch(fetchRequest) as! [NSManagedObject]
+                todoManager.currentTodos = try context.fetch(fetchRequest)
             }catch{
                 print("could not search the todo")
             }
@@ -152,7 +155,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     // called when the switch is changed
     @objc func onTodoStatusChanged(_ sender: UISwitch!) {
         let currentTodoTitle = sender.accessibilityLabel
-        sender.setOn(true, animated: true)
+        //sender.setOn(true, animated: true)
         // update the current todo's status
         todoManager.updateTodoStatus(title:currentTodoTitle!)
         
