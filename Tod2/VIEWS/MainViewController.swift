@@ -27,6 +27,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         //setup the customcell
         let nibName = UINib(nibName: "TodoCell", bundle: nil)
         tableView.register(nibName, forCellReuseIdentifier: "TodoCell")
+        tableView.rowHeight = UITableView.automaticDimension
         self.hideKeyboardOnScreenTap()
         todoSearchBar.delegate = self
         
@@ -161,6 +162,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         todoManager.currentTodos.remove(at: sender.tag)
         assignTodos()
+        
         tableView.reloadData()
         print("Table row switch Changed \(sender.tag) on todo \(currentTodoTitle ?? "")")
         print("The switch is \(sender.isOn ? "ON" : "OFF")")

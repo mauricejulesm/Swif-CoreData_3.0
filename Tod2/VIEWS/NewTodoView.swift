@@ -26,6 +26,8 @@ class NewTodoView: UIViewController {
     }
     
     @IBAction func saveNewTodo(_ sender: Any) {
+       // gotoColorViewController(newTodoField.text ?? "")
+       
         let calendar = Calendar.current
         
         
@@ -41,7 +43,6 @@ class NewTodoView: UIViewController {
                 let components = calendar.dateComponents([.second, .minute, .hour, .day, .month, .year], from:  getDateFromString(stringDate:deadline))
                 scheduceNotification(todoContent:title, year:components.year!, month:components.month!,day:components.day!,hour:components.hour!,minute:components.minute!,second:components.second!)
 
-                
                 // dismiss current view and go to the main view
                 navigationController?.popViewController(animated: true)
                 dismiss(animated: true, completion: nil)
@@ -155,4 +156,13 @@ class NewTodoView: UIViewController {
         self.view.endEditing(true)
     }
 
+    
+    private func gotoColorViewController(_ title: String) {
+        let main = UIStoryboard.init(name: "Main", bundle: nil)
+        guard let nav = self.navigationController, let colorVc = main.instantiateViewController(withIdentifier: "ColorViewController") as? ColorViewController else {
+            return
+        }
+        colorVc.titleText =  title
+        nav.pushViewController(colorVc, animated: true)
+    }
 }
