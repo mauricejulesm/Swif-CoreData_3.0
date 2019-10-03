@@ -21,5 +21,6 @@ extension Todo {
     @NSManaged public var dateCreated: String
     @NSManaged public var deadline: String
     @NSManaged public var title: String
+    @NSManaged public var project: Project
 
 }

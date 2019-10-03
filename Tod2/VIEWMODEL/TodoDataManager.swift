@@ -11,10 +11,10 @@ import CoreData
 class TodoDataManager: NSObject {
 
 	// todos array
-	var todoItems:[NSManagedObject] = []
-    var completedTodos : [NSManagedObject] = []
-    var incompleteTodos : [NSManagedObject] = []
-    var currentTodos : [NSManagedObject] = []
+	var todoItems = [Todo]()
+    var completedTodos = [Todo]()
+    var incompleteTodos = [Todo]()
+    var currentTodos = [Todo]()
     
 	
 	func fetchTodos() {
@@ -24,7 +24,7 @@ class TodoDataManager: NSObject {
 		let fetchRequest = getTodoFetchRequest()
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "dateCreated", ascending: false)]
 		do {
-			todoItems = try context.fetch(fetchRequest)
+            todoItems = try context.fetch(fetchRequest) as! [Todo]
 		} catch {
 			print("Error occured while fething data")
 		}
@@ -74,7 +74,7 @@ class TodoDataManager: NSObject {
         
         do {
             try context.save()
-            todoItems.append(todo)
+            todoItems.append(todo as! Todo)
         } catch {
             print("Error occured while saving new todo (error.localizedDescription)")
         }

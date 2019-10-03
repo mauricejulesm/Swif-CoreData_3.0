@@ -133,7 +133,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             
             fetchRequest.predicate = predicate
             do{
-                todoManager.currentTodos = try context.fetch(fetchRequest)
+                todoManager.currentTodos = try context.fetch(fetchRequest) as! [Todo]
             }catch{
                 print("could not search the todo")
             }
