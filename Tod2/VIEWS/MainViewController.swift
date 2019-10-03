@@ -157,6 +157,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     @objc func onTodoStatusChanged(_ sender: UISwitch!) {
         let currentTodoTitle = sender.accessibilityLabel
         //sender.setOn(true, animated: true)
+        
         // update the current todo's status
         todoManager.updateTodoStatus(title:currentTodoTitle!)
         

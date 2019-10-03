@@ -8,9 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		51159D8D2338A4FD00CFE691 /* NewTodoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51159D8C2338A4FD00CFE691 /* NewTodoView.swift */; };
+		512927DC23462581008B1EC7 /* Todo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512927DA23462581008B1EC7 /* Todo+CoreDataClass.swift */; };
+		512927DD23462581008B1EC7 /* Todo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512927DB23462581008B1EC7 /* Todo+CoreDataProperties.swift */; };
 		5137354A2341D4020020A398 /* TodoDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513735492341D4020020A398 /* TodoDetails.swift */; };
 		5137354C234324BB0020A398 /* ColorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5137354B234324BB0020A398 /* ColorViewController.swift */; };
 		51519F8A233CE1B100754354 /* Tod2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51519F89233CE1B100754354 /* Tod2Tests.swift */; };
+		516E3715234348F3006FC27C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D27824D62335FA710012213C /* Assets.xcassets */; };
 		D20C199A2336181500277D12 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20C19992336181500277D12 /* MainViewController.swift */; };
 		D20C199C23361DE400277D12 /* TodoDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20C199B23361DE400277D12 /* TodoDataManager.swift */; };
 		D2764526233640E60099E778 /* TodoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2764524233640E60099E778 /* TodoCell.swift */; };
@@ -18,7 +21,6 @@
 		D27824CD2335FA6F0012213C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27824CC2335FA6F0012213C /* AppDelegate.swift */; };
 		D27824D22335FA6F0012213C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D27824D02335FA6F0012213C /* Main.storyboard */; };
 		D27824D52335FA6F0012213C /* Tod2.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D27824D32335FA6F0012213C /* Tod2.xcdatamodeld */; };
-		D27824D72335FA710012213C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D27824D62335FA710012213C /* Assets.xcassets */; };
 		D27824DA2335FA710012213C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D27824D82335FA710012213C /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -34,6 +36,8 @@
 
 /* Begin PBXFileReference section */
 		51159D8C2338A4FD00CFE691 /* NewTodoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTodoView.swift; sourceTree = "<group>"; };
+		512927DA23462581008B1EC7 /* Todo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Todo+CoreDataClass.swift"; sourceTree = "<group>"; };
+		512927DB23462581008B1EC7 /* Todo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Todo+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		513735492341D4020020A398 /* TodoDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDetails.swift; sourceTree = "<group>"; };
 		5137354B234324BB0020A398 /* ColorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorViewController.swift; sourceTree = "<group>"; };
 		51519F87233CE1B100754354 /* Tod2Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tod2Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -88,6 +92,15 @@
 			path = Tod2Tests;
 			sourceTree = "<group>";
 		};
+		516E370C2343460A006FC27C /* MODEL */ = {
+			isa = PBXGroup;
+			children = (
+				512927DA23462581008B1EC7 /* Todo+CoreDataClass.swift */,
+				512927DB23462581008B1EC7 /* Todo+CoreDataProperties.swift */,
+			);
+			path = MODEL;
+			sourceTree = "<group>";
+		};
 		D20C199D23361DEB00277D12 /* VIEWMODEL */ = {
 			isa = PBXGroup;
 			children = (
@@ -129,6 +142,7 @@
 		D27824CB2335FA6F0012213C /* Tod2 */ = {
 			isa = PBXGroup;
 			children = (
+				516E370C2343460A006FC27C /* MODEL */,
 				D20C199E23363DDE00277D12 /* VIEWS */,
 				D20C199D23361DEB00277D12 /* VIEWMODEL */,
 				D27824CC2335FA6F0012213C /* AppDelegate.swift */,
@@ -229,8 +243,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				516E3715234348F3006FC27C /* Assets.xcassets in Resources */,
 				D27824DA2335FA710012213C /* LaunchScreen.storyboard in Resources */,
-				D27824D72335FA710012213C /* Assets.xcassets in Resources */,
 				D27824D22335FA6F0012213C /* Main.storyboard in Resources */,
 				D2764527233640E60099E778 /* TodoCell.xib in Resources */,
 			);
@@ -256,9 +270,11 @@
 				5137354C234324BB0020A398 /* ColorViewController.swift in Sources */,
 				D20C199C23361DE400277D12 /* TodoDataManager.swift in Sources */,
 				D2764526233640E60099E778 /* TodoCell.swift in Sources */,
+				512927DC23462581008B1EC7 /* Todo+CoreDataClass.swift in Sources */,
 				D27824CD2335FA6F0012213C /* AppDelegate.swift in Sources */,
 				D27824D52335FA6F0012213C /* Tod2.xcdatamodeld in Sources */,
 				D20C199A2336181500277D12 /* MainViewController.swift in Sources */,
+				512927DD23462581008B1EC7 /* Todo+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -453,7 +469,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Z6VN663KVG;
+				DEVELOPMENT_TEAM = FAYEZUN5CX;
 				INFOPLIST_FILE = Tod2/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -472,7 +488,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Z6VN663KVG;
+				DEVELOPMENT_TEAM = FAYEZUN5CX;
 				INFOPLIST_FILE = Tod2/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = (

@@ -126,6 +126,7 @@ class NewTodoView: UIViewController {
                 alert.dismiss(animated: true)
             }
     }
+    
     func showDatePicker(){
         //Formate Date
         datePicker.datePickerMode = .dateAndTime
