@@ -184,7 +184,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
 	@IBAction func addTodoBtn(_ sender: UIBarButtonItem) {
-        performSegue(withIdentifier: "NewTodo", sender: self)
+        performSegue(withIdentifier: "addNewTodo", sender: self)
 	}
     
     // showing a simple

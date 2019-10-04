@@ -18,15 +18,63 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="nwx-Xj-7IO">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" red="0.90196078431372551" green="0.29019607843137252" blue="0.098039215686274508" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="textShadowColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="9Sv-rR-gZu" kind="relationship" relationship="rootViewController" id="zR3-rZ-Gh2"/>
+                        <segue destination="Z2C-0J-i0p" kind="relationship" relationship="rootViewController" id="iLm-FS-kBh"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vgl-8Z-gmG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="216.80000000000001" y="-584.25787106446785"/>
+            <point key="canvasLocation" x="55" y="-506"/>
+        </scene>
+        <!--All Projects-->
+        <scene sceneID="v9b-q1-Tqg">
+            <objects>
+                <tableViewController restorationIdentifier="ProjectsList" storyboardIdentifier="ProjectsList" id="Z2C-0J-i0p" customClass="ProjectsTableViewController" customModule="Tod2" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="3ib-UN-pyj">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="projectCell" id="tNR-pa-dRx" customClass="TodoCell" customModule="Tod2" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="tNR-pa-dRx" id="jtW-n4-1ay">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Z2C-0J-i0p" id="NU4-Pn-8ET"/>
+                            <outlet property="delegate" destination="Z2C-0J-i0p" id="cHZ-iV-kRb"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="All Projects" id="ngb-d3-0qN">
+                        <barButtonItem key="backBarButtonItem" title="All" id="Q0n-Yg-7vC"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="fastForward" id="gj5-QN-TLP">
+                            <connections>
+                                <action selector="showTodos:" destination="Z2C-0J-i0p" id="3zz-r9-BDh"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <segue destination="9Sv-rR-gZu" kind="show" identifier="showTodos" id="tC0-Td-Hak"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tb8-Kp-ZJt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="886" y="-506"/>
         </scene>
         <!--MainView-->
         <scene sceneID="F2J-LM-HaI">
@@ -95,12 +143,12 @@
                         <outlet property="segmentController" destination="Ajf-q4-8hd" id="efa-E5-E4I"/>
                         <outlet property="tableView" destination="60p-Jw-0yN" id="aaY-hx-ucP"/>
                         <outlet property="todoSearchBar" destination="zkc-nt-Q5b" id="6wv-Te-sJc"/>
-                        <segue destination="Ezp-uU-WbO" kind="show" identifier="NewTodo" id="gw2-Xy-tU7"/>
+                        <segue destination="Ezp-uU-WbO" kind="show" identifier="addNewTodo" id="gw2-Xy-tU7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="adx-zh-LXu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="986" y="-263"/>
+            <point key="canvasLocation" x="1742" y="-505"/>
         </scene>
         <!--New Todo View-->
         <scene sceneID="qOo-EK-E8f">
@@ -142,7 +190,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="Qea-xj-Oxz" firstAttribute="top" secondItem="YbA-HO-c6M" secondAttribute="bottom" constant="21" id="0t4-Q6-tpA"/>
                             <constraint firstItem="GoU-92-Zsj" firstAttribute="leading" secondItem="xuX-lQ-wZn" secondAttribute="leading" constant="28" id="0tP-cd-WkG"/>
@@ -170,7 +218,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9kb-4X-N4h" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1803.75" y="186.97183098591549"/>
+            <point key="canvasLocation" x="2696" y="-506"/>
         </scene>
         <!--Color View Controller-->
         <scene sceneID="vlD-gD-GdE">
