@@ -138,7 +138,7 @@
                                 <rect key="frame" x="108" y="247" width="197" height="30"/>
                                 <state key="normal" title="Add Todo"/>
                                 <connections>
-                                    <action selector="saveNewTodo:" destination="Ezp-uU-WbO" eventType="touchUpInside" id="n8o-7o-87b"/>
+                                    <action selector="addTodoBtn:" destination="Ezp-uU-WbO" eventType="touchUpInside" id="n8o-7o-87b"/>
                                 </connections>
                             </button>
                         </subviews>

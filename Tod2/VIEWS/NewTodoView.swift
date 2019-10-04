@@ -25,7 +25,7 @@ class NewTodoView: UIViewController {
         
     }
     
-    @IBAction func saveNewTodo(_ sender: Any) {
+    @IBAction func addTodoBtn(_ sender: Any) {
        // gotoColorViewController(newTodoField.text ?? "")
        
         let calendar = Calendar.current

@@ -59,22 +59,28 @@ class TodoDataManager: NSObject {
     func saveNewTodo(title: String, deadline: String) {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
+    
+        let newTodo = Todo(context: context)
+        let newProject = Project(context: context)
+
         
-        let entity = NSEntityDescription.entity(forEntityName: "Todo", in: context)!
-        let todo = NSManagedObject(entity: entity, insertInto: context)
+        //let todoEntity = NSEntityDescription.insertNewObject(forEntityName: "Todo", into: context) as! Todo
         let date = "Created: " + self.getTimeNow()
         let due = "Due: " + deadline
         let completed = false
         
+        newTodo.title = title
+        newTodo.dateCreated = date
+        newTodo.deadline = due
+        newTodo.completed = completed
         
-        todo.setValue(title, forKey: "title")
-        todo.setValue(date, forKey: "dateCreated")
-        todo.setValue(due, forKey: "deadline")
-        todo.setValue(completed, forKey: "completed")
-        
+        newProject.name = "Project 1"
+        newProject.dateProjCreated = date
+        newTodo.project = newProject
+
         do {
             try context.save()
-            todoItems.append(todo as! Todo)
+            todoItems.append(newTodo)
         } catch {
             print("Error occured while saving new todo (error.localizedDescription)")
         }
