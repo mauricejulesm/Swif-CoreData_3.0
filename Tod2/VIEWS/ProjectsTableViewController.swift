@@ -22,7 +22,7 @@ class ProjectsTableViewController: UITableViewController {
         //navigationController?.navigationBar.barTintColor = .green
         let cellNib = UINib(nibName: "ProjectCell", bundle: nil)
         tableView.register(cellNib, forCellReuseIdentifier: "ProjectCell")
-        tableView.rowHeight = UITableView.automaticDimension
+        //tableView.rowHeight = UITableView.automaticDimension
         self.hideKeyboardOnScreenTap()
         
        //projects = ["Paysa", "Lexpress", "Next Project 1", "Cool Project 2","Mean Project 3"]
@@ -65,7 +65,9 @@ class ProjectsTableViewController: UITableViewController {
         return projects.count
     }
 
-  
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
+    }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ProjectCell", for: indexPath) as! ProjectCell
