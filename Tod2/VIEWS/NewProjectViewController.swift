@@ -29,16 +29,17 @@ class NewProjectViewController: UIViewController {
     
     @IBAction func saveProject(_ sender: Any) {
         let title = titleTextField.text
+        let dateCreated = "Monday, Sept 03 2019"
         
         if title == "" {
             print("Category title can't be empty! Try again.")
             return
         }
         
-//        let newCategory = Category(title: title ?? "No Category")
+        let newProject = Project(dateProjCreated: dateCreated, name: title!)
         
         do {
-//           try newCategory?.managedObjectContext?.save()
+            try newProject?.managedObjectContext?.save()
             print("Saved category: \(title!) successfully")
             self.navigationController?.popViewController(animated: true)
         } catch {

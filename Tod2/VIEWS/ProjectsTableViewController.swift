@@ -7,10 +7,11 @@
 //
 
 import UIKit
+import CoreData
 
 class ProjectsTableViewController: UITableViewController {
 
-    var projects = [String]()
+    var projects : [Project] = []
     
     
     override func viewDidLoad() {
@@ -22,11 +23,28 @@ class ProjectsTableViewController: UITableViewController {
         tableView.rowHeight = UITableView.automaticDimension
         self.hideKeyboardOnScreenTap()
         
-       projects = ["Paysa", "Lexpress", "Next Project 1", "Cool Project 2","Mean Project 3"]
+       //projects = ["Paysa", "Lexpress", "Next Project 1", "Cool Project 2","Mean Project 3"]
     }
 
-    // MARK: - Table view data source
 
+    override func viewWillAppear(_ animated: Bool) {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate
+            else { return }
+        
+        let context = appDelegate.persistentContainer.viewContext
+        
+        let fetchRequest : NSFetchRequest<Project> = Project.fetchRequest()
+        
+        // fetching
+        do {
+            projects = try context.fetch(fetchRequest)
+            self.tableView.reloadData()
+        } catch  {
+            print("Unable to fetch categories")
+        }
+        
+    }
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
@@ -41,10 +59,10 @@ class ProjectsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ProjectCell", for: indexPath) as! ProjectCell
-        let projName = projects[indexPath.row]
+        let project = projects[indexPath.row]
         
-        cell.projectInitialLbl.text = String(Array(projName)[0])
-        cell.titleLabel.text = projName
+        cell.projectInitialLbl.text = String(Array(project.name!)[0])
+        cell.titleLabel.text = project.name
         cell.dateCreatedLbl.text = "Monday, Sept 03 2019"
         //cell.deadLineLabel.text = "Project has 5 Plans inside"
 
@@ -65,38 +83,24 @@ class ProjectsTableViewController: UITableViewController {
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            // Delete the row from the data source
-            projects.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+            deleteProject(at: indexPath)
         }    
     }
     
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
+    
+    func deleteProject(at indexPath: IndexPath) {
+        let project = projects[indexPath.row]
+        
+        guard let context = project.managedObjectContext else { return }
+        context.delete(project)
+        do {
+            try context.save()
+            projects.remove(at: indexPath.row)
+            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+        } catch  {
+            print("Unable to delete the category")
+          self.tableView.reloadRows(at: [indexPath], with: .automatic)
+        }
+        
     }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

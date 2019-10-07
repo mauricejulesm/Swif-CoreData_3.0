@@ -47,7 +47,7 @@ class TodosViewController: UIViewController, UITableViewDelegate, UITableViewDat
         if (segmentController.selectedSegmentIndex == 0){
             todoManager.currentTodos = todoManager.incompleteTodos
         }
-        
+        self.tableView.reloadData()
     }
     
     func assignTodos() {
