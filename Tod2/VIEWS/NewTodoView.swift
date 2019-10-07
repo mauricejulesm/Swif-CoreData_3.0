@@ -10,13 +10,15 @@ import UIKit
 import UserNotifications
 
 class NewTodoView: UIViewController {
-    @IBOutlet weak var newTodoField: UITextField!
+    @IBOutlet weak var newTodoTitleField: UITextField!
     @IBOutlet weak var dateLabel: UITextField!
     
     let datePicker = UIDatePicker()
     
-    lazy var todoManager = TodoDataManager()
+    lazy var todosManager = TodoDataManager()
     
+    var project: Project?
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,15 +31,26 @@ class NewTodoView: UIViewController {
        // gotoColorViewController(newTodoField.text ?? "")
        
         let calendar = Calendar.current
+        //let todoEntity = NSEntityDescription.insertNewObject(forEntityName: "Todo", into: context) as! Todo
+        let dateCrted = "Created: " + todosManager.getTimeNow()
+        var due = "Due: "
         
-        
-        if let title = newTodoField.text, let deadline = dateLabel.text {
+        if let title = newTodoTitleField.text, let deadline = dateLabel.text {
             if (title != "" && deadline != "") {
-                
-                
+                due += deadline
                 //saving a new todo
-                todoManager.saveNewTodo(title: title, deadline: deadline)
+                //todoManager.saveNewTodo(title: title, deadline: deadline)
 
+                if let todo = Todo(completed: false, dateCreated: dateCrted, deadline: due, title: title) {
+                    project?.addToRawTodos(todo)
+                    do {
+                        try todo.managedObjectContext?.save()
+                    }catch{
+                        print("Unable to save new expense")
+                    }
+                }
+                
+                
                 // schedule the reminder
                 registerNotifCategories()
                 let components = calendar.dateComponents([.second, .minute, .hour, .day, .month, .year], from:  getDateFromString(stringDate:deadline))
@@ -156,14 +169,4 @@ class NewTodoView: UIViewController {
     @objc func cancelDatePicker(){
         self.view.endEditing(true)
     }
-
-    
-//    private func gotoColorViewController(_ title: String) {
-//        let main = UIStoryboard.init(name: "Main", bundle: nil)
-//        guard let nav = self.navigationController, let colorVc = main.instantiateViewController(withIdentifier: "ColorViewController") as? TodoDetailsViewController else {
-//            return
-//        }
-//        colorVc.titleText =  title
-//        nav.pushViewController(colorVc, animated: true)
-//    }
 }

@@ -260,7 +260,7 @@
                     </view>
                     <connections>
                         <outlet property="dateLabel" destination="GoU-92-Zsj" id="QYK-kG-9Yr"/>
-                        <outlet property="newTodoField" destination="YbA-HO-c6M" id="TRr-Bg-eUn"/>
+                        <outlet property="newTodoTitleField" destination="YbA-HO-c6M" id="TRr-Bg-eUn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9kb-4X-N4h" userLabel="First Responder" sceneMemberID="firstResponder"/>

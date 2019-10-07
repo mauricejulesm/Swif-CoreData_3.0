@@ -10,25 +10,20 @@ import CoreData
 
 class TodoDataManager: NSObject {
 
-	// todos array
-	var todoItems = [Todo]()
-    var completedTodos = [Todo]()
-    var incompleteTodos = [Todo]()
-    var currentTodos = [Todo]()
-    
+   
 	
-	func fetchTodos() {
-		let appDelegate = UIApplication.shared.delegate as! AppDelegate
-		let context = appDelegate.persistentContainer.viewContext
-		
-		let fetchRequest = getTodoFetchRequest()
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "dateCreated", ascending: false)]
-		do {
-            todoItems = try context.fetch(fetchRequest) as! [Todo]
-		} catch {
-			print("Error occured while fething data")
-		}
-	}
+//    func fetchTodos() {
+//        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+//        let context = appDelegate.persistentContainer.viewContext
+//
+//        let fetchRequest = getTodoFetchRequest()
+//        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "dateCreated", ascending: false)]
+//        do {
+//            todoItems = try context.fetch(fetchRequest) as! [Todo]
+//        } catch {
+//            print("Error occured while fething data")
+//        }
+//    }
     
     func updateTodoStatus(title:String) {
         let isComplete: Bool
@@ -56,36 +51,32 @@ class TodoDataManager: NSObject {
         print("Object: \(title) updated")
     }
     
-    func saveNewTodo(title: String, deadline: String) {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
-    
-        let newTodo = Todo(context: context)
-        let newProject = Project(context: context)
-
-        
-        //let todoEntity = NSEntityDescription.insertNewObject(forEntityName: "Todo", into: context) as! Todo
-        let date = "Created: " + self.getTimeNow()
-        let due = "Due: " + deadline
-        let completed = false
-        
-        newTodo.title = title
-        newTodo.dateCreated = date
-        newTodo.deadline = due
-        newTodo.completed = completed
-        
-        newProject.name = "Project 1"
-        newProject.dateProjCreated = date
-        newTodo.project = newProject
-
-        do {
-            try context.save()
-            todoItems.append(newTodo)
-        } catch {
-            print("Error occured while saving new todo (error.localizedDescription)")
-        }
-        
-    }
+//    func saveNewTodo(title: String, deadline: String) {
+//        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+//        let context = appDelegate.persistentContainer.viewContext
+//    
+//        let newTodo = Todo(context: context)
+//        let newProject = Project(context: context)
+//
+//        
+//        //let todoEntity = NSEntityDescription.insertNewObject(forEntityName: "Todo", into: context) as! Todo
+//        let date = "Created: " + self.getTimeNow()
+//        let due = "Due: " + deadline
+//        let completed = false
+//        
+//        newTodo.title = title
+//        newTodo.dateCreated = date
+//        newTodo.deadline = due
+//        newTodo.completed = completed
+//
+//        do {
+//            try context.save()
+//            //todoItems.append(newTodo)
+//        } catch {
+//            print("Error occured while saving new todo (error.localizedDescription)")
+//        }
+//        
+//    }
     
     // get the fetchRequest
     func getTodoFetchRequest() -> NSFetchRequest<NSManagedObject> {

@@ -13,6 +13,8 @@ class ProjectsTableViewController: UITableViewController {
 
     var projects : [Project] = []
     
+    // todo manager instance
+    lazy var todosManager = TodoDataManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,6 +47,14 @@ class ProjectsTableViewController: UITableViewController {
         
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let destinationVC = segue.destination as? TodosViewController,
+            let selectedRow = self.tableView.indexPathForSelectedRow?.row else{
+                return
+        }
+        destinationVC.currentProject = projects[selectedRow]
+    }
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
@@ -63,7 +73,7 @@ class ProjectsTableViewController: UITableViewController {
         
         cell.projectInitialLbl.text = String(Array(project.name!)[0])
         cell.titleLabel.text = project.name
-        cell.dateCreatedLbl.text = "Monday, Sept 03 2019"
+        cell.dateCreatedLbl.text = todosManager.getTimeNow()
         //cell.deadLineLabel.text = "Project has 5 Plans inside"
 
         return cell

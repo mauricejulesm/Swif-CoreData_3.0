@@ -17,12 +17,25 @@ class TodosViewController: UIViewController, UITableViewDelegate, UITableViewDat
     // todos tableview
     @IBOutlet weak var tableView: UITableView!
 	
-    // todo manager instance
-	lazy var todoManager = TodoDataManager()
-
+    
+    var currentProject : Project?
+    
+    // todos array
+    var todoItems : [Todo] = []
+    var completedTodos = [Todo]()
+    var incompleteTodos = [Todo]()
+    var currentTodos = [Todo]()
+    
+        // todo manager instance
+	lazy var todosManager = TodoDataManager()
+    
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+        
+        
+        // todos of a project
+        // currentProject = todosManager.currentProject
         
         //setup the customcell
         let nibName = UINib(nibName: "TodoCell", bundle: nil)
@@ -40,35 +53,38 @@ class TodosViewController: UIViewController, UITableViewDelegate, UITableViewDat
         super.viewWillAppear(animated)
         
         // loading data from storage on app start
-        todoManager.fetchTodos()
+        //todosManager.fetchTodos()
         
         // on the first load before view is switched
+        todoItems = (currentProject?.todos)!
         assignTodos()
+        
+        // showing incomplete todos for the first run
         if (segmentController.selectedSegmentIndex == 0){
-            todoManager.currentTodos = todoManager.incompleteTodos
+            currentTodos = incompleteTodos
         }
         self.tableView.reloadData()
     }
     
     func assignTodos() {
-        todoManager.completedTodos = []
-        todoManager.incompleteTodos = []
+        completedTodos = []
+        incompleteTodos = []
         
-        for todo in todoManager.todoItems {
+        for todo in todoItems {
             if (todo.value(forKey: "completed") as! Bool == true){
-                todoManager.completedTodos.append(todo)
+                completedTodos.append(todo)
             }else{
-                todoManager.incompleteTodos.append(todo)
+                incompleteTodos.append(todo)
             }
         }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return todoManager.currentTodos.count
+        return currentTodos.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let todo = todoManager.currentTodos[indexPath.row]
+        let todo = currentTodos[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "TodoCell",for: indexPath) as! TodoCell
         
         // setting up the table cell
@@ -99,12 +115,12 @@ class TodosViewController: UIViewController, UITableViewDelegate, UITableViewDat
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
             let context = appDelegate.persistentContainer.viewContext
             
-            context.delete(todoManager.currentTodos[indexPath.row])
+            context.delete(currentTodos[indexPath.row])
             
             if (segmentController.selectedSegmentIndex == 0){
-                todoManager.incompleteTodos.remove(at: indexPath.row)
+                incompleteTodos.remove(at: indexPath.row)
             }else{
-                todoManager.completedTodos.remove(at: indexPath.row)
+                completedTodos.remove(at: indexPath.row)
             }
             do {
                 try context.save()
@@ -112,33 +128,33 @@ class TodosViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 print("Error occured deleting todo")
             }
             //self.tableView.reloadData()
-            todoManager.currentTodos.remove(at: indexPath.row)
+            currentTodos.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
         }
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let title = todoManager.currentTodos[indexPath.row].value(forKey: "title") as! String
+        let title = currentTodos[indexPath.row].value(forKey: "title") as! String
         openDetailsView(todoTitle: title)
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText != "" {
-            var predicate:NSPredicate = NSPredicate()
+            var predicate : NSPredicate = NSPredicate()
             predicate = NSPredicate(format: "title contains[c] '\(searchText)'")
             
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
             let context = appDelegate.persistentContainer.viewContext
-            let fetchRequest = todoManager.getTodoFetchRequest()
+            let fetchRequest = todosManager.getTodoFetchRequest()
             
             fetchRequest.predicate = predicate
             do{
-                todoManager.currentTodos = try context.fetch(fetchRequest) as! [Todo]
+                currentTodos = try context.fetch(fetchRequest) as! [Todo]
             }catch{
                 print("could not search the todo")
             }
         }else{
-            todoManager.fetchTodos()
+            //todosManager.fetchTodos()
             assignTodos()
             self.tableView.reloadData()
         }
@@ -147,9 +163,9 @@ class TodosViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     @IBAction func switchSegments(_ sender: UISegmentedControl){
         if sender.selectedSegmentIndex == 0  {
-            todoManager.currentTodos = todoManager.incompleteTodos
+            currentTodos = incompleteTodos
         }else{
-            todoManager.currentTodos = todoManager.completedTodos
+            currentTodos = completedTodos
         }
         self.tableView.reloadData()
     }
@@ -159,9 +175,9 @@ class TodosViewController: UIViewController, UITableViewDelegate, UITableViewDat
         //sender.setOn(true, animated: true)
         
         // update the current todo's status
-        todoManager.updateTodoStatus(title:currentTodoTitle!)
+        todosManager.updateTodoStatus(title:currentTodoTitle!)
         
-        todoManager.currentTodos.remove(at: sender.tag)
+        currentTodos.remove(at: sender.tag)
         assignTodos()
         
         tableView.reloadData()
@@ -183,6 +199,15 @@ class TodosViewController: UIViewController, UITableViewDelegate, UITableViewDat
             //showToast(message: "U chose remind me later ")
         }
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let destinationVC = segue.destination as? NewTodoView else {
+            return
+        }
+        destinationVC.project = currentProject
+    }
+    
+    
 	@IBAction func addTodoBtn(_ sender: UIBarButtonItem) {
         performSegue(withIdentifier: "addNewTodo", sender: self)
 	}
