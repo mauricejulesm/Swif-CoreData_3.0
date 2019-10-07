@@ -33,7 +33,7 @@ class TodosViewController: UIViewController, UITableViewDelegate, UITableViewDat
 	override func viewDidLoad() {
 		super.viewDidLoad()
         
-        
+        self.title = currentProject!.name! + "Tasks"
         // todos of a project
         // currentProject = todosManager.currentProject
         
