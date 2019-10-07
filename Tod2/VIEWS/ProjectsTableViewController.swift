@@ -22,10 +22,7 @@ class ProjectsTableViewController: UITableViewController {
         //navigationController?.navigationBar.barTintColor = .green
         let cellNib = UINib(nibName: "ProjectCell", bundle: nil)
         tableView.register(cellNib, forCellReuseIdentifier: "ProjectCell")
-        //tableView.rowHeight = UITableView.automaticDimension
         self.hideKeyboardOnScreenTap()
-        
-       //projects = ["Paysa", "Lexpress", "Next Project 1", "Cool Project 2","Mean Project 3"]
     }
 
 
@@ -56,12 +53,10 @@ class ProjectsTableViewController: UITableViewController {
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return projects.count
     }
 
@@ -76,7 +71,6 @@ class ProjectsTableViewController: UITableViewController {
         cell.projectInitialLbl.text = String(Array(project.name!)[0])
         cell.titleLabel.text = project.name
         cell.dateCreatedLbl.text = todosManager.getTimeNow()
-        //cell.deadLineLabel.text = "Project has 5 Plans inside"
 
         return cell
     }
@@ -85,15 +79,11 @@ class ProjectsTableViewController: UITableViewController {
         performSegue(withIdentifier: "showTodos", sender: self)
     }
     
-    // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
         return true
     }
     
-    
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+	override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             deleteProject(at: indexPath)
         }    

@@ -20,7 +20,6 @@ class NewProjectViewController: UIViewController {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -35,7 +34,6 @@ class NewProjectViewController: UIViewController {
             print("Category title can't be empty! Try again.")
             return
         }
-        
         let newProject = Project(dateProjCreated: dateCreated, name: title!)
         
         do {
