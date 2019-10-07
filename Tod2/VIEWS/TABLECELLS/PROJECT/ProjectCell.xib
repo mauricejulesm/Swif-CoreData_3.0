@@ -41,14 +41,18 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" fixedFrame="YES" text="Project title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="apn-xE-ZuZ">
-                        <rect key="frame" x="60" y="26" width="186" height="27"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Project title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="apn-xE-ZuZ">
+                        <rect key="frame" x="60" y="26" width="217" height="25.5"/>
                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="21"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="apn-xE-ZuZ" secondAttribute="trailing" constant="16" id="80e-oH-QR3"/>
+                    <constraint firstItem="apn-xE-ZuZ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="26" id="RE8-vH-tl0"/>
+                    <constraint firstItem="apn-xE-ZuZ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="60" id="pC2-yF-yu1"/>
+                </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
