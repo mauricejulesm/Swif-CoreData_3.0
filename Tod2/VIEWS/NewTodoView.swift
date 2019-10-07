@@ -158,12 +158,12 @@ class NewTodoView: UIViewController {
     }
 
     
-    private func gotoColorViewController(_ title: String) {
-        let main = UIStoryboard.init(name: "Main", bundle: nil)
-        guard let nav = self.navigationController, let colorVc = main.instantiateViewController(withIdentifier: "ColorViewController") as? ColorViewController else {
-            return
-        }
-        colorVc.titleText =  title
-        nav.pushViewController(colorVc, animated: true)
-    }
+//    private func gotoColorViewController(_ title: String) {
+//        let main = UIStoryboard.init(name: "Main", bundle: nil)
+//        guard let nav = self.navigationController, let colorVc = main.instantiateViewController(withIdentifier: "ColorViewController") as? TodoDetailsViewController else {
+//            return
+//        }
+//        colorVc.titleText =  title
+//        nav.pushViewController(colorVc, animated: true)
+//    }
 }

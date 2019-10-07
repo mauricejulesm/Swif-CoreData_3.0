@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14492.1" systemVersion="18G95" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Project" representedClassName="Project" syncable="YES">
-        <attribute name="dateProjCreated" attributeType="String" syncable="YES"/>
-        <attribute name="name" attributeType="String" syncable="YES"/>
-        <relationship name="todos" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Todo" inverseName="project" inverseEntity="Todo" syncable="YES"/>
+        <attribute name="dateProjCreated" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="rawTodos" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Todo" inverseName="project" inverseEntity="Todo" syncable="YES"/>
     </entity>
     <entity name="Todo" representedClassName="Todo" syncable="YES">
-        <attribute name="completed" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="dateCreated" attributeType="String" syncable="YES"/>
-        <attribute name="deadline" attributeType="String" syncable="YES"/>
-        <attribute name="title" attributeType="String" syncable="YES"/>
-        <relationship name="project" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Project" inverseName="todos" inverseEntity="Project" syncable="YES"/>
+        <attribute name="completed" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="dateCreated" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="deadline" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="project" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Project" inverseName="rawTodos" inverseEntity="Project" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Todo" positionX="-63" positionY="-18" width="128" height="120"/>
         <element name="Project" positionX="-63" positionY="9" width="128" height="90"/>
+        <element name="Todo" positionX="352.07421875" positionY="184.2265625" width="128" height="120"/>
     </elements>
 </model>

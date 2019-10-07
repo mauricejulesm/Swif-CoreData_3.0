@@ -1,5 +1,5 @@
 //
-//  SegmentedViewController.swift
+//  TodosViewController.swift
 //  Tod2
 //
 //  Created by falcon on 9/21/19.
@@ -9,7 +9,7 @@
 import UIKit
 import UserNotifications
 
-class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchDisplayDelegate, UISearchBarDelegate, UNUserNotificationCenterDelegate {
+class TodosViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchDisplayDelegate, UISearchBarDelegate, UNUserNotificationCenterDelegate {
     
     @IBOutlet weak var todoSearchBar: UISearchBar!
     @IBOutlet weak var segmentController: UISegmentedControl!

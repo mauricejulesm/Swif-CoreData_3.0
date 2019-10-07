@@ -37,9 +37,7 @@ class ProjectsTableViewController: UITableViewController {
         return projects.count
     }
 
-    @IBAction func showTodos(_ sender: Any) {
-        performSegue(withIdentifier: "showTodos", sender: self)
-    }
+  
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ProjectCell", for: indexPath) as! ProjectCell

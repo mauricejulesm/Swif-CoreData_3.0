@@ -2,7 +2,7 @@
 //  Todo+CoreDataProperties.swift
 //  Tod2
 //
-//  Created by Maurice on 10/3/19.
+//  Created by Maurice on 10/7/19.
 //  Copyright © 2019 maurice. All rights reserved.
 //
 //
@@ -18,9 +18,9 @@ extension Todo {
     }
 
     @NSManaged public var completed: Bool
-    @NSManaged public var dateCreated: String
-    @NSManaged public var deadline: String
-    @NSManaged public var title: String
-    @NSManaged public var project: Project
+    @NSManaged public var dateCreated: String?
+    @NSManaged public var deadline: String?
+    @NSManaged public var title: String?
+    @NSManaged public var project: Project?
 
 }

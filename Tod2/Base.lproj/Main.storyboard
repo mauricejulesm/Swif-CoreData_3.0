@@ -62,24 +62,71 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="All Projects" id="ngb-d3-0qN">
                         <barButtonItem key="backBarButtonItem" title="All" id="Q0n-Yg-7vC"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="fastForward" id="gj5-QN-TLP">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="gj5-QN-TLP">
                             <connections>
-                                <action selector="showTodos:" destination="Z2C-0J-i0p" id="3zz-r9-BDh"/>
+                                <segue destination="7rm-3f-Zad" kind="show" id="Sjy-03-VUs"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <segue destination="9Sv-rR-gZu" kind="show" identifier="showTodos" id="tC0-Td-Hak"/>
+                        <segue destination="9Sv-rR-gZu" kind="show" identifier="showTodos" id="t5q-xr-2GQ"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tb8-Kp-ZJt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="886" y="-506"/>
         </scene>
-        <!--MainView-->
+        <!--Title-->
+        <scene sceneID="Tnc-G1-Yfn">
+            <objects>
+                <viewController id="7rm-3f-Zad" customClass="NewProjectViewController" customModule="Tod2" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="NUi-MG-sAN">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter Project Title:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hpe-u1-Mdu">
+                                <rect key="frame" x="20" y="142" width="374" height="22"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kTz-QK-JVU">
+                                <rect key="frame" x="20" y="184" width="374" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="kTz-QK-JVU" firstAttribute="leading" secondItem="ai2-hE-BNE" secondAttribute="leading" constant="20" id="1xc-It-y8Z"/>
+                            <constraint firstItem="Hpe-u1-Mdu" firstAttribute="leading" secondItem="ai2-hE-BNE" secondAttribute="leading" constant="20" id="6QL-4W-yUv"/>
+                            <constraint firstItem="Hpe-u1-Mdu" firstAttribute="top" secondItem="ai2-hE-BNE" secondAttribute="top" constant="54" id="8aB-Kc-e4I"/>
+                            <constraint firstItem="kTz-QK-JVU" firstAttribute="top" secondItem="Hpe-u1-Mdu" secondAttribute="bottom" constant="20" id="H07-L3-lOQ"/>
+                            <constraint firstItem="ai2-hE-BNE" firstAttribute="trailing" secondItem="kTz-QK-JVU" secondAttribute="trailing" constant="20" id="aEh-jk-U8c"/>
+                            <constraint firstItem="ai2-hE-BNE" firstAttribute="trailing" secondItem="Hpe-u1-Mdu" secondAttribute="trailing" constant="20" id="dso-Ri-miY"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="ai2-hE-BNE"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Title" id="KGG-kU-dNZ">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="b4B-ns-1xI">
+                            <connections>
+                                <action selector="saveProject:" destination="7rm-3f-Zad" id="0vT-oe-xaY"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="titleTextField" destination="kTz-QK-JVU" id="MDH-9z-4RM"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jlc-hO-M5o" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="957.97101449275374" y="261.16071428571428"/>
+        </scene>
+        <!--TodosView-->
         <scene sceneID="F2J-LM-HaI">
             <objects>
-                <viewController title="MainView" id="9Sv-rR-gZu" customClass="MainViewController" customModule="Tod2" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="TodosView" id="9Sv-rR-gZu" customClass="TodosViewController" customModule="Tod2" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="VsH-Qe-rXg">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -219,38 +266,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9kb-4X-N4h" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2696" y="-506"/>
-        </scene>
-        <!--Color View Controller-->
-        <scene sceneID="vlD-gD-GdE">
-            <objects>
-                <viewController restorationIdentifier="ColorViewController" storyboardIdentifier="ColorViewController" id="3CE-bi-0oz" customClass="ColorViewController" customModule="Tod2" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="EDf-hJ-jho">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bs8-hb-fxH">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="92"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="Bs8-hb-fxH" firstAttribute="top" secondItem="gWt-8J-7iw" secondAttribute="top" id="1ed-Ox-BkT"/>
-                            <constraint firstItem="Bs8-hb-fxH" firstAttribute="leading" secondItem="gWt-8J-7iw" secondAttribute="leading" id="3Vz-jh-aoP"/>
-                            <constraint firstItem="gWt-8J-7iw" firstAttribute="trailing" secondItem="Bs8-hb-fxH" secondAttribute="trailing" id="Qze-CH-DZ6"/>
-                            <constraint firstItem="gWt-8J-7iw" firstAttribute="bottom" secondItem="Bs8-hb-fxH" secondAttribute="bottom" id="aMx-rB-glu"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="gWt-8J-7iw"/>
-                    </view>
-                    <connections>
-                        <outlet property="titleLabel" destination="Bs8-hb-fxH" id="14m-IC-fpU"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="CtP-zv-uhe" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2900" y="187"/>
         </scene>
     </scenes>
 </document>

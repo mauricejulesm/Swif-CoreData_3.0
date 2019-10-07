@@ -4,6 +4,7 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -32,9 +33,9 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="P" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="52b-uq-bME">
-                        <rect key="frame" x="7" y="26" width="30" height="56"/>
+                        <rect key="frame" x="7" y="26" width="39" height="56"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="30" id="Az6-cz-2C7"/>
+                            <constraint firstAttribute="width" constant="39" id="Az6-cz-2C7"/>
                         </constraints>
                         <fontDescription key="fontDescription" name="HiraMinProN-W6" family="Hiragino Mincho ProN" pointSize="41"/>
                         <nil key="textColor"/>
@@ -53,7 +54,7 @@
                 <constraints>
                     <constraint firstItem="3mL-4F-STS" firstAttribute="leading" secondItem="A1P-XE-GrR" secondAttribute="trailing" constant="34" id="13G-tR-mkw"/>
                     <constraint firstItem="52b-uq-bME" firstAttribute="top" secondItem="apn-xE-ZuZ" secondAttribute="top" id="7mC-zK-A9L"/>
-                    <constraint firstItem="apn-xE-ZuZ" firstAttribute="leading" secondItem="52b-uq-bME" secondAttribute="trailing" constant="23" id="9zF-fP-guI"/>
+                    <constraint firstItem="apn-xE-ZuZ" firstAttribute="leading" secondItem="52b-uq-bME" secondAttribute="trailing" constant="14" id="9zF-fP-guI"/>
                     <constraint firstItem="52b-uq-bME" firstAttribute="bottom" secondItem="3mL-4F-STS" secondAttribute="bottom" id="Dkb-om-Los"/>
                     <constraint firstAttribute="bottom" secondItem="A1P-XE-GrR" secondAttribute="bottom" constant="44.5" id="EDQ-UA-a2q"/>
                     <constraint firstItem="52b-uq-bME" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="-9" id="HOO-XU-LLP"/>
