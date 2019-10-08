@@ -126,7 +126,7 @@
         <!--TodosView-->
         <scene sceneID="F2J-LM-HaI">
             <objects>
-                <viewController title="TodosView" id="9Sv-rR-gZu" customClass="TodosViewController" customModule="Tod2" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="TodosView" id="9Sv-rR-gZu" customClass="TasksViewController" customModule="Tod2" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="VsH-Qe-rXg">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -197,10 +197,10 @@
             </objects>
             <point key="canvasLocation" x="1742" y="-505"/>
         </scene>
-        <!--New Todo View-->
+        <!--New Task View-->
         <scene sceneID="qOo-EK-E8f">
             <objects>
-                <viewController id="Ezp-uU-WbO" customClass="NewTodoView" customModule="Tod2" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Ezp-uU-WbO" customClass="NewTaskView" customModule="Tod2" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="sIA-5u-9if">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -9,7 +9,7 @@
 import UIKit
 import UserNotifications
 
-class TodosViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchDisplayDelegate, UISearchBarDelegate, UNUserNotificationCenterDelegate {
+class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchDisplayDelegate, UISearchBarDelegate, UNUserNotificationCenterDelegate {
     
     @IBOutlet weak var todoSearchBar: UISearchBar!
     @IBOutlet weak var segmentController: UISegmentedControl!
@@ -40,7 +40,7 @@ class TodosViewController: UIViewController, UITableViewDelegate, UITableViewDat
         //setup the customcell
         let nibName = UINib(nibName: "TodoCell", bundle: nil)
         tableView.register(nibName, forCellReuseIdentifier: "TodoCell")
-        tableView.rowHeight = UITableView.automaticDimension
+        //tableView.rowHeight = UITableView.automaticDimension
         self.hideKeyboardOnScreenTap()
         todoSearchBar.delegate = self
         
@@ -82,6 +82,9 @@ class TodosViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return currentTodos.count
     }
+	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+		return 250
+	}
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let todo = currentTodos[indexPath.row]
@@ -137,7 +140,36 @@ class TodosViewController: UIViewController, UITableViewDelegate, UITableViewDat
         let title = currentTodos[indexPath.row].value(forKey: "title") as! String
         openDetailsView(todoTitle: title)
     }
-    
+	
+	// display the tableview cells with animations
+	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+		
+		/*
+		// animation 1 [ not user friendly! ]
+		let rotationTransform = CATransform3DTranslate(CATransform3DIdentity, -500, 10, 0)
+		cell.layer.transform = rotationTransform
+		cell.alpha = 0.5
+		
+		
+		UIView.animate(withDuration: 1.0) {
+		cell.layer.transform = CATransform3DIdentity
+		cell.alpha = 1.0
+		}
+		*/
+		
+		// animation 2 [ more user friendly & simpler! ]
+		let rotationTransform = CATransform3DTranslate(CATransform3DIdentity, 0, 50, 0)
+		cell.layer.transform = rotationTransform
+		cell.alpha = 0
+		
+		UIView.animate(withDuration: 0.75) {
+			cell.layer.transform = CATransform3DIdentity
+			cell.alpha = 1.0
+		}
+		
+		
+	}
+	
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText != "" {
             var predicate : NSPredicate = NSPredicate()
@@ -199,7 +231,7 @@ class TodosViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let destinationVC = segue.destination as? NewTodoView else {
+        guard let destinationVC = segue.destination as? NewTaskView else {
             return
         }
         destinationVC.project = currentProject
@@ -229,7 +261,7 @@ extension UIViewController {
     }
     
     func openDetailsView(todoTitle:String) {
-        let secondVC = TodoDetails()
+        let secondVC = TaskDetails()
         secondVC.todoTitle.append( todoTitle )
         self.navigationController?.pushViewController(secondVC, animated: true)
     }

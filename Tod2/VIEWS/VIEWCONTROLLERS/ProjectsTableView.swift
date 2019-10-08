@@ -43,7 +43,7 @@ class ProjectsTableViewController: UITableViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let destinationVC = segue.destination as? TodosViewController,
+        guard let destinationVC = segue.destination as? TasksViewController,
             let selectedRow = self.tableView.indexPathForSelectedRow?.row else{
                 return
         }
@@ -59,7 +59,7 @@ class ProjectsTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
+        return 200
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -86,6 +86,35 @@ class ProjectsTableViewController: UITableViewController {
             deleteProject(at: indexPath)
         }    
     }
+	
+	// display the tableview cells with animations
+	override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+		
+		
+		// animation 1 [ not user friendly! ]
+		let rotationTransform = CATransform3DTranslate(CATransform3DIdentity, -500, 10, 0)
+		cell.layer.transform = rotationTransform
+		//cell.alpha = 0.5
+
+		
+		UIView.animate(withDuration: 1.0) {
+			cell.layer.transform = CATransform3DIdentity
+			//cell.alpha = 1.0
+		}
+
+		/*
+		// animation 2 [ more user friendly & simpler! ]
+		let rotationTransform = CATransform3DTranslate(CATransform3DIdentity, 0, 50, 0)
+		cell.layer.transform = rotationTransform
+		cell.alpha = 0
+		
+		UIView.animate(withDuration: 0.75) {
+			cell.layer.transform = CATransform3DIdentity
+			cell.alpha = 1.0
+		}
+		*/
+		
+	}
     
     
     func deleteProject(at indexPath: IndexPath) {

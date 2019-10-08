@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NewTodoView: UIViewController {
+class NewTaskView: UIViewController {
     @IBOutlet weak var newTodoTitleField: UITextField!
     @IBOutlet weak var dateLabel: UITextField!
     

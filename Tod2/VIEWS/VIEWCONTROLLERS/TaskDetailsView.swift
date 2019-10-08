@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TodoDetails: UIViewController {
+class TaskDetails: UIViewController {
 
     var todoTitle = "Your todo title: "
     var todoDeadline = ""
