@@ -164,10 +164,8 @@
 		51A78B49234CBD78001E8E30 /* RESOURCES */ = {
 			isa = PBXGroup;
 			children = (
-				D27824D82335FA710012213C /* LaunchScreen.storyboard */,
 				D27824D62335FA710012213C /* Assets.xcassets */,
 				D27824D32335FA6F0012213C /* Tod2.xcdatamodeld */,
-				D27824D02335FA6F0012213C /* Main.storyboard */,
 				D27824CC2335FA6F0012213C /* AppDelegate.swift */,
 			);
 			path = RESOURCES;
@@ -188,6 +186,8 @@
 				51A78B47234CB7A2001E8E30 /* VIEWCONTROLLERS */,
 				51A78B44234CB191001E8E30 /* ALERTS */,
 				51A78B3F234CA435001E8E30 /* NOTIFICATIONS */,
+				D27824D82335FA710012213C /* LaunchScreen.storyboard */,
+				D27824D02335FA6F0012213C /* Main.storyboard */,
 			);
 			path = VIEWS;
 			sourceTree = "<group>";
