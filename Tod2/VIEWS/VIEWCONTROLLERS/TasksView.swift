@@ -202,17 +202,22 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
     // called when the switch is changed
     @objc func onTodoStatusChanged(_ sender: UISwitch!) {
         let currentTodoTitle = sender.accessibilityLabel
-        //sender.setOn(true, animated: true)
-        
+		
         // update the current todo's status
-        todosManager.updateTodoStatus(title:currentTodoTitle!)
-        
-        currentTodos.remove(at: sender.tag)
-        assignTodos()
-        
-        tableView.reloadData()
-        print("Table row switch Changed \(sender.tag) on todo \(currentTodoTitle ?? "")")
-        print("The switch is \(sender.isOn ? "ON" : "OFF")")
+		
+		DispatchQueue.main.asyncAfter(deadline: .now() + 0.30) { // Change `2.0` to the desired number of seconds.
+			// Code you want to be delayed
+			
+			self.todosManager.updateTodoStatus(title:currentTodoTitle!)
+			
+			self.currentTodos.remove(at: sender.tag)
+			self.assignTodos()
+			
+			self.tableView.reloadData()
+			print("Table row switch Changed \(sender.tag) on todo \(currentTodoTitle ?? "")")
+			print("The switch is \(sender.isOn ? "ON" : "OFF")")
+		}
+		
     }
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler([.alert, .sound])
