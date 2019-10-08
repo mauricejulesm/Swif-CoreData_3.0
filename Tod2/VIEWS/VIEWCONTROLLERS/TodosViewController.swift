@@ -16,7 +16,7 @@ class TodosViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     // todos tableview
     @IBOutlet weak var tableView: UITableView!
-	
+    
     
     var currentProject : Project?
     
@@ -26,12 +26,12 @@ class TodosViewController: UIViewController, UITableViewDelegate, UITableViewDat
     var incompleteTodos = [Todo]()
     var currentTodos = [Todo]()
     
-        // todo manager instance
-	lazy var todosManager = TodoDataManager()
+    // todo manager instance
+    lazy var todosManager = DataManager()
     
-
-	override func viewDidLoad() {
-		super.viewDidLoad()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
         self.title = currentProject!.name! + "Tasks"
         // todos of a project
@@ -46,9 +46,9 @@ class TodosViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         UNUserNotificationCenter.current().delegate = self
     }
-	
-	
-	
+    
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -93,7 +93,7 @@ class TodosViewController: UIViewController, UITableViewDelegate, UITableViewDat
         cell.deadLineLabel.text = todo.value(forKey: "deadline") as? String
         
         let isComplete = todo.value(forKey: "completed") as! Bool
-       
+        
         let swicthView = UISwitch(frame: .zero)
         isComplete ? swicthView.setOn(true, animated: true) : swicthView.setOn(false, animated: true)
         swicthView.tag = indexPath.row
@@ -149,14 +149,12 @@ class TodosViewController: UIViewController, UITableViewDelegate, UITableViewDat
             
             fetchRequest.predicate = predicate
             do{
-                currentTodos = try context.fetch(fetchRequest) as! [Todo]
+                currentTodos = try context.fetch(fetchRequest)
             }catch{
                 print("could not search the todo")
             }
         }else{
-            //todosManager.fetchTodos()
-            assignTodos()
-            self.tableView.reloadData()
+            currentTodos = segmentController.selectedSegmentIndex == 0 ? incompleteTodos : completedTodos
         }
         self.tableView.reloadData()
     }
@@ -208,9 +206,9 @@ class TodosViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     
-	@IBAction func addTodoBtn(_ sender: UIBarButtonItem) {
+    @IBAction func addTodoBtn(_ sender: UIBarButtonItem) {
         performSegue(withIdentifier: "addNewTodo", sender: self)
-	}
+    }
     
     // showing a simple
     func showToast(message:String) {
@@ -221,7 +219,7 @@ class TodosViewController: UIViewController, UITableViewDelegate, UITableViewDat
             alert.dismiss(animated: true)
         }
     }
-	
+    
 }
 extension UIViewController {
     func hideKeyboardOnScreenTap() {

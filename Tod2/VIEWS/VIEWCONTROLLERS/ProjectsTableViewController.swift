@@ -7,19 +7,17 @@
 //
 
 import UIKit
-import CoreData
 
 class ProjectsTableViewController: UITableViewController {
 
     var projects : [Project] = []
     
     // todo manager instance
-    lazy var todosManager = TodoDataManager()
+    lazy var todosManager = DataManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //navigationController?.navigationBar.barTintColor = .green
         let cellNib = UINib(nibName: "ProjectCell", bundle: nil)
         tableView.register(cellNib, forCellReuseIdentifier: "ProjectCell")
         self.hideKeyboardOnScreenTap()
@@ -32,7 +30,7 @@ class ProjectsTableViewController: UITableViewController {
         
         let context = appDelegate.persistentContainer.viewContext
         
-        let fetchRequest : NSFetchRequest<Project> = Project.fetchRequest()
+        let fetchRequest = todosManager.getProjectFetchRequest()
         
         // fetching
         do {
