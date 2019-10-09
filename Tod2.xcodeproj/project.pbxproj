@@ -23,6 +23,8 @@
 		51A78B46234CB1B4001E8E30 /* AlertsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A78B45234CB1B4001E8E30 /* AlertsManager.swift */; };
 		D20C199A2336181500277D12 /* TasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20C19992336181500277D12 /* TasksView.swift */; };
 		D20C199C23361DE400277D12 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20C199B23361DE400277D12 /* DataManager.swift */; };
+		D22DB829234E4B1E00326DFA /* ProjectsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22DB827234E4B1E00326DFA /* ProjectsHeader.swift */; };
+		D22DB82A234E4B1E00326DFA /* ProjectsHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = D22DB828234E4B1E00326DFA /* ProjectsHeader.xib */; };
 		D2764526233640E60099E778 /* TodoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2764524233640E60099E778 /* TodoCell.swift */; };
 		D2764527233640E60099E778 /* TodoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2764525233640E60099E778 /* TodoCell.xib */; };
 		D27824CD2335FA6F0012213C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27824CC2335FA6F0012213C /* AppDelegate.swift */; };
@@ -59,6 +61,8 @@
 		51A78B45234CB1B4001E8E30 /* AlertsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertsManager.swift; sourceTree = "<group>"; };
 		D20C19992336181500277D12 /* TasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksView.swift; sourceTree = "<group>"; };
 		D20C199B23361DE400277D12 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		D22DB827234E4B1E00326DFA /* ProjectsHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsHeader.swift; sourceTree = "<group>"; };
+		D22DB828234E4B1E00326DFA /* ProjectsHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProjectsHeader.xib; sourceTree = "<group>"; };
 		D2764524233640E60099E778 /* TodoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoCell.swift; sourceTree = "<group>"; };
 		D2764525233640E60099E778 /* TodoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TodoCell.xib; sourceTree = "<group>"; };
 		D27824C92335FA6F0012213C /* Tod2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tod2.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -182,6 +186,7 @@
 		D20C199E23363DDE00277D12 /* VIEWS */ = {
 			isa = PBXGroup;
 			children = (
+				D22DB826234E4AD900326DFA /* HEADER */,
 				51519F82233CD3CB00754354 /* TABLECELLS */,
 				51A78B47234CB7A2001E8E30 /* VIEWCONTROLLERS */,
 				51A78B44234CB191001E8E30 /* ALERTS */,
@@ -190,6 +195,15 @@
 				D27824D02335FA6F0012213C /* Main.storyboard */,
 			);
 			path = VIEWS;
+			sourceTree = "<group>";
+		};
+		D22DB826234E4AD900326DFA /* HEADER */ = {
+			isa = PBXGroup;
+			children = (
+				D22DB827234E4B1E00326DFA /* ProjectsHeader.swift */,
+				D22DB828234E4B1E00326DFA /* ProjectsHeader.xib */,
+			);
+			path = HEADER;
 			sourceTree = "<group>";
 		};
 		D27824C02335FA6F0012213C = {
@@ -314,6 +328,7 @@
 				D27824DA2335FA710012213C /* LaunchScreen.storyboard in Resources */,
 				D27824D22335FA6F0012213C /* Main.storyboard in Resources */,
 				D2764527233640E60099E778 /* TodoCell.xib in Resources */,
+				D22DB82A234E4B1E00326DFA /* ProjectsHeader.xib in Resources */,
 				512927F723475E07008B1EC7 /* ProjectCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -341,6 +356,7 @@
 				512927EB234736E5008B1EC7 /* ProjectsTableView.swift in Sources */,
 				D20C199C23361DE400277D12 /* DataManager.swift in Sources */,
 				D2764526233640E60099E778 /* TodoCell.swift in Sources */,
+				D22DB829234E4B1E00326DFA /* ProjectsHeader.swift in Sources */,
 				D27824CD2335FA6F0012213C /* AppDelegate.swift in Sources */,
 				51620760234B33A400D35912 /* Todo+CoreDataClass.swift in Sources */,
 				D27824D52335FA6F0012213C /* Tod2.xcdatamodeld in Sources */,
@@ -543,7 +559,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = FAYEZUN5CX;
+				DEVELOPMENT_TEAM = Z6VN663KVG;
 				INFOPLIST_FILE = Tod2/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -562,7 +578,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = FAYEZUN5CX;
+				DEVELOPMENT_TEAM = Z6VN663KVG;
 				INFOPLIST_FILE = Tod2/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = (

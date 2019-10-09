@@ -17,9 +17,15 @@ class ProjectsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+		
+		// register projects table custom header
+		//let nibName = UINib(nibName: "ProjectsHeader", bundle: nil)
+		//tableView.register(nibName, forHeaderFooterViewReuseIdentifier: "ProjectsHeader")
+
+		// register custom project header
         let cellNib = UINib(nibName: "ProjectCell", bundle: nil)
         tableView.register(cellNib, forCellReuseIdentifier: "ProjectCell")
+		
         self.hideKeyboardOnScreenTap()
     }
 
@@ -53,7 +59,20 @@ class ProjectsTableViewController: UITableViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
+	
+//	override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//		return "Add new project"
+//	}
 
+//	override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//		return CGFloat(100)
+//	}
+	
+//	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView {
+//		
+//		let headerCell = Bundle.main.loadNibNamed("ProjectsHeader", owner: self, options: nil)?.first as! ProjectsHeader
+//		return headerCell
+//	}
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return projects.count
     }
