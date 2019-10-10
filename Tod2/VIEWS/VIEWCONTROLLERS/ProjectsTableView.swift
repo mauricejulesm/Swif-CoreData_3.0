@@ -18,10 +18,6 @@ class ProjectsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 		
-		// register projects table custom header
-		//let nibName = UINib(nibName: "ProjectsHeader", bundle: nil)
-		//tableView.register(nibName, forHeaderFooterViewReuseIdentifier: "ProjectsHeader")
-
 		// register custom project header
         let cellNib = UINib(nibName: "ProjectCell", bundle: nil)
         tableView.register(cellNib, forCellReuseIdentifier: "ProjectCell")

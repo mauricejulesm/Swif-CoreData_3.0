@@ -158,7 +158,7 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
 		*/
 		
 		// animation 2 [ more user friendly & simpler! ]
-		let rotationTransform = CATransform3DTranslate(CATransform3DIdentity, 0, 50, 0)
+		let rotationTransform = CATransform3DTranslate(CATransform3DIdentity, 0, 70, 0)
 		cell.layer.transform = rotationTransform
 		cell.alpha = 0
 		
