@@ -29,6 +29,7 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
     // todo manager instance
     lazy var todosManager = DataManager()
     
+    var unSortedTodos : [Todo] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,7 +57,14 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
         //todosManager.fetchTodos()
         
         // on the first load before view is switched
-        todoItems = (currentProject?.todos)!
+        unSortedTodos = (currentProject?.todos)!
+        
+        
+        // sort todos by date created
+        todoItems = unSortedTodos.sorted(by: { (todo1, todo2) -> Bool in
+            return todo1.dateCreated!.lowercased() > todo2.dateCreated!.lowercased()
+        })
+            
         assignTodos()
         
         // showing incomplete todos for the first run

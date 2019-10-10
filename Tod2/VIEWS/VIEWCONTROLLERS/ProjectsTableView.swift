@@ -15,6 +15,9 @@ class ProjectsTableViewController: UITableViewController {
     // todo manager instance
     lazy var todosManager = DataManager()
     
+    // monitor edit mode
+    var editMode = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 		
@@ -34,6 +37,10 @@ class ProjectsTableViewController: UITableViewController {
         
         let fetchRequest = todosManager.getProjectFetchRequest()
         
+        // sorting by the date created
+        let sortDesc = NSSortDescriptor(key: "dateProjCreated", ascending: false)
+        fetchRequest.sortDescriptors = [sortDesc]
+        
         // fetching
         do {
             projects = try context.fetch(fetchRequest)
@@ -41,14 +48,21 @@ class ProjectsTableViewController: UITableViewController {
         } catch  {
             print("Unable to fetch categories")
         }
-        
     }
+    
+    private lazy var addNewProjectButton: UIButton = {
+        let addNewPersonButton = UIButton(frame: CGRect(origin: .zero, size: CGSize(width: UIScreen.main.bounds.width, height: 50)))
+        addNewPersonButton.setTitle("Add New Project", for: .normal)
+        addNewPersonButton.setTitleColor(.blue, for: .normal)
+        addNewPersonButton.backgroundColor = UIColor(red: 0.85, green: 0.85, blue: 1.0, alpha: 1.0)
+        addNewPersonButton.addTarget(self, action: #selector(addNewProjTapped), for: .touchUpInside)
+        return addNewPersonButton
+    }()
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let destinationVC = segue.destination as? TasksViewController,
-            let selectedRow = self.tableView.indexPathForSelectedRow?.row else{
-                return
-        }
+            let selectedRow = self.tableView.indexPathForSelectedRow?.row else{ return }
         destinationVC.currentProject = projects[selectedRow]
     }
     
@@ -56,19 +70,22 @@ class ProjectsTableViewController: UITableViewController {
         return 1
     }
 	
-//	override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//		return "Add new project"
-//	}
+    /*
+        override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+            return "Add new project"
+        }
 
-//	override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//		return CGFloat(100)
-//	}
-	
-//	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView {
-//		
-//		let headerCell = Bundle.main.loadNibNamed("ProjectsHeader", owner: self, options: nil)?.first as! ProjectsHeader
-//		return headerCell
-//	}
+        override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+            return CGFloat(100)
+        }
+
+        override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView {
+     
+            let headerCell = Bundle.main.loadNibNamed("ProjectsHeader", owner: self, options: nil)?.first as! ProjectsHeader
+            return headerCell
+        }
+ 
+ */
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return projects.count
     }
@@ -83,8 +100,12 @@ class ProjectsTableViewController: UITableViewController {
         
         cell.projectInitialLbl.text = String(Array(project.name!)[0])
         cell.titleLabel.text = project.name
-        cell.dateCreatedLbl.text = todosManager.getTimeNow()
-
+        cell.dateCreatedLbl.text = project.dateProjCreated
+        
+        if (editMode == true) {
+            cell.backgroundColor = .lightGray
+        }
+        
         return cell
     }
     
@@ -131,11 +152,32 @@ class ProjectsTableViewController: UITableViewController {
 		
 	}
     
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return addNewProjectButton
+    }
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 60
+    }
+    
+    @IBAction func editBtnTapped(_ sender: Any) {
+        editMode = true
+        tableView.reloadData()
+        
+        // add a done btn
+       //  navigationItem.rightBarButtonItem =
+    }
+    
+    
+    @objc func addNewProjTapped() {
+        performSegue(withIdentifier: "addNewProj", sender: self)
+        print("add new proj tapped")
+    }
     
     func deleteProject(at indexPath: IndexPath) {
         let project = projects[indexPath.row]
         
         guard let context = project.managedObjectContext else { return }
+//        context.undo()
         context.delete(project)
         do {
             try context.save()

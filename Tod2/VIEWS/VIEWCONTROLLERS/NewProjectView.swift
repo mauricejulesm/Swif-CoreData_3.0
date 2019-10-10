@@ -12,6 +12,8 @@ class NewProjectViewController: UIViewController {
 
     @IBOutlet weak var titleTextField: UITextField!
     
+    lazy var todosManager = DataManager()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -28,7 +30,7 @@ class NewProjectViewController: UIViewController {
     
     @IBAction func saveProject(_ sender: Any) {
         let title = titleTextField.text
-        let dateCreated = "Monday, Sept 03 2019"
+        let dateCreated = "Created: " + todosManager.getTimeNow()
         
         if title == "" {
             print("Category title can't be empty! Try again.")
