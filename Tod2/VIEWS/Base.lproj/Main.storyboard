@@ -62,11 +62,6 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="All Projects" id="ngb-d3-0qN">
                         <barButtonItem key="backBarButtonItem" title="All" id="Q0n-Yg-7vC"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="tgH-17-5oO">
-                            <connections>
-                                <action selector="editBtnTapped:" destination="Z2C-0J-i0p" id="PRj-dz-Fo8"/>
-                            </connections>
-                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <segue destination="9Sv-rR-gZu" kind="show" identifier="showTodos" id="t5q-xr-2GQ"/>
@@ -85,7 +80,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter New Project Title:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hpe-u1-Mdu">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter Project Title Below:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hpe-u1-Mdu">
                                 <rect key="frame" x="20" y="142" width="374" height="22"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <nil key="textColor"/>

@@ -18,6 +18,7 @@ class DataManager: NSObject {
         let context = appDelegate.persistentContainer.viewContext
         
         let fetchRequest = getTodoFetchRequest()
+        // fetchRequest.predicate = NSPredicate(format: "title = %@ AND dateCreated = %@", title, date)           // for more precision
         fetchRequest.predicate = NSPredicate(format: "title = %@", "\(title)")
         do{
             let test = try context.fetch(fetchRequest)
@@ -33,6 +34,29 @@ class DataManager: NSObject {
         
         print("Object: \(title) updated")
     }
+    
+    
+    func updateProject(title:String, newTitle:String) {
+    
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        
+        let context = appDelegate.persistentContainer.viewContext
+        
+        let fetchRequest = getProjectFetchRequest()
+        // fetchRequest.predicate = NSPredicate(format: "title = %@ AND dateCreated = %@", title, date)           // for more precision
+        fetchRequest.predicate = NSPredicate(format: "name = %@", "\(title)")
+        do{
+            let project = try context.fetch(fetchRequest)
+            let projectToUpdate = project[0]
+            projectToUpdate.setValue(newTitle, forKey: "name")
+            
+            try context.save()
+        }catch{
+            print(error)
+        }
+        print("Project: \(title) updated to: \(newTitle) ")
+    }
+    
     
     // get the fetchRequest
     func getTodoFetchRequest() -> NSFetchRequest<Todo> {

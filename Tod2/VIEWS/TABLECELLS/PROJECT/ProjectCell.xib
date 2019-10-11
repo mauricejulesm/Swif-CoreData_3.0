@@ -13,10 +13,10 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProjectCell" rowHeight="97" id="KGk-i7-Jjw" customClass="ProjectCell" customModule="Tod2">
-            <rect key="frame" x="0.0" y="0.0" width="293" height="97"/>
+            <rect key="frame" x="0.0" y="0.0" width="302" height="97"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="293" height="96.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="302" height="96.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <switch hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3mL-4F-STS">
@@ -27,28 +27,37 @@
                             <action selector="todoStatusSwitcher:" destination="KGk-i7-Jjw" eventType="valueChanged" id="f7R-Lm-BCy"/>
                         </connections>
                     </switch>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" fixedFrame="YES" text="Date Created" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A1P-XE-GrR">
-                        <rect key="frame" x="60" y="55" width="216" height="23"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Date Created" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A1P-XE-GrR">
+                        <rect key="frame" x="54" y="58.5" width="222" height="20.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="P" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="52b-uq-bME">
-                        <rect key="frame" x="7" y="26" width="39" height="56"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="P" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="52b-uq-bME">
+                        <rect key="frame" x="7" y="26" width="27" height="50"/>
                         <fontDescription key="fontDescription" name="HiraMinProN-W6" family="Hiragino Mincho ProN" pointSize="41"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" fixedFrame="YES" text="Project title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="apn-xE-ZuZ">
-                        <rect key="frame" x="60" y="26" width="217" height="25.5"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Project title" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="apn-xE-ZuZ">
+                        <rect key="frame" x="54" y="26" width="239" height="26"/>
                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="21"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
+                <constraints>
+                    <constraint firstItem="A1P-XE-GrR" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="54" id="C7j-Mk-4O6"/>
+                    <constraint firstItem="52b-uq-bME" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="7" id="JgF-6p-60c"/>
+                    <constraint firstAttribute="bottom" secondItem="52b-uq-bME" secondAttribute="bottom" constant="20.5" id="Kg8-Qv-bPy"/>
+                    <constraint firstAttribute="trailing" secondItem="apn-xE-ZuZ" secondAttribute="trailing" constant="9" id="NYd-9I-Vnu"/>
+                    <constraint firstItem="apn-xE-ZuZ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="26" id="Z1G-vm-hxP"/>
+                    <constraint firstItem="apn-xE-ZuZ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="54" id="bnw-OM-fDF"/>
+                    <constraint firstItem="52b-uq-bME" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="26" id="dYx-Ja-iFS"/>
+                    <constraint firstAttribute="bottom" secondItem="apn-xE-ZuZ" secondAttribute="bottom" constant="44.5" id="kX8-Mx-cUb"/>
+                    <constraint firstAttribute="bottom" secondItem="A1P-XE-GrR" secondAttribute="bottom" constant="17.5" id="qdQ-Ht-YAy"/>
+                    <constraint firstAttribute="trailing" secondItem="A1P-XE-GrR" secondAttribute="trailing" constant="26" id="yGV-Nk-3Wp"/>
+                </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
@@ -57,7 +66,7 @@
                 <outlet property="titleLabel" destination="apn-xE-ZuZ" id="LIN-Br-fAb"/>
                 <outlet property="uiSwitchLabel" destination="3mL-4F-STS" id="cZP-47-H9w"/>
             </connections>
-            <point key="canvasLocation" x="-21.5625" y="54.401408450704224"/>
+            <point key="canvasLocation" x="-24.375" y="54.401408450704224"/>
         </tableViewCell>
     </objects>
 </document>

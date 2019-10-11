@@ -27,7 +27,7 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
     var currentTodos = [Todo]()
     
     // todo manager instance
-    lazy var todosManager = DataManager()
+    lazy var dataManager = DataManager()
     
     var unSortedTodos : [Todo] = []
     
@@ -36,7 +36,7 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         self.title = currentProject!.name! + "Tasks"
         // todos of a project
-        // currentProject = todosManager.currentProject
+        // currentProject = dataManager.currentProject
         
         //setup the customcell
         let nibName = UINib(nibName: "TodoCell", bundle: nil)
@@ -54,7 +54,7 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
         super.viewWillAppear(animated)
         
         // loading data from storage on app start
-        //todosManager.fetchTodos()
+        //dataManager.fetchTodos()
         
         // on the first load before view is switched
         unSortedTodos = (currentProject?.todos)!
@@ -185,11 +185,14 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
             
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
             let context = appDelegate.persistentContainer.viewContext
-            let fetchRequest = todosManager.getTodoFetchRequest()
+            let fetchRequest = dataManager.getTodoFetchRequest()
             
             fetchRequest.predicate = predicate
             do{
-                currentTodos = try context.fetch(fetchRequest)
+                // assign task segments
+                todoItems = try context.fetch(fetchRequest)
+                assignTodos()
+                //currentTodos = try context.fetch(fetchRequest)
             }catch{
                 print("could not search the todo")
             }
@@ -216,7 +219,7 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
 		DispatchQueue.main.asyncAfter(deadline: .now() + 0.30) { // Change `2.0` to the desired number of seconds.
 			// Code you want to be delayed
 			
-			self.todosManager.updateTodoStatus(title:currentTodoTitle!)
+			self.dataManager.updateTodoStatus(title:currentTodoTitle!)
 			
 			self.currentTodos.remove(at: sender.tag)
 			self.assignTodos()
@@ -227,6 +230,7 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
 		}
 		
     }
+    
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler([.alert, .sound])
     }

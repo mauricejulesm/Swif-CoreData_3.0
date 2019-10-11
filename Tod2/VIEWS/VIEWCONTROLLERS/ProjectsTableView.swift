@@ -18,6 +18,8 @@ class ProjectsTableViewController: UITableViewController {
     // monitor edit mode
     var editMode = false
     
+    // right bar buttons
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 		
@@ -25,6 +27,9 @@ class ProjectsTableViewController: UITableViewController {
         let cellNib = UINib(nibName: "ProjectCell", bundle: nil)
         tableView.register(cellNib, forCellReuseIdentifier: "ProjectCell")
 		
+        let editBtn = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editBtnTapped))
+        self.navigationItem.rightBarButtonItem  = editBtn
+        
         self.hideKeyboardOnScreenTap()
     }
 
@@ -61,9 +66,20 @@ class ProjectsTableViewController: UITableViewController {
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let destinationVC = segue.destination as? TasksViewController,
+        
+        if (!editMode) {
+           guard let destinationVC = segue.destination as? TasksViewController,
             let selectedRow = self.tableView.indexPathForSelectedRow?.row else{ return }
-        destinationVC.currentProject = projects[selectedRow]
+            destinationVC.currentProject = projects[selectedRow]
+        }else{
+            guard let destinationVC = segue.destination as? NewProjectViewController,
+            let selectedRow = self.tableView.indexPathForSelectedRow?.row else{ return }
+            
+            destinationVC.editMode = true
+            destinationVC.currentProject = projects[selectedRow]
+        }
+       
+        
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -104,13 +120,20 @@ class ProjectsTableViewController: UITableViewController {
         
         if (editMode == true) {
             cell.backgroundColor = .lightGray
+        }else {
+            cell.backgroundColor = .white
         }
         
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "showTodos", sender: self)
+        if (!editMode) {
+            performSegue(withIdentifier: "showTodos", sender: self)
+        }else{
+            performSegue(withIdentifier: "addNewProj", sender: self)
+
+        }
     }
     
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -127,6 +150,8 @@ class ProjectsTableViewController: UITableViewController {
 	override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
 		
 		
+        if (!editMode) {
+       
 		// animation 1 [ not user friendly! ]
 		let rotationTransform = CATransform3DTranslate(CATransform3DIdentity, -500, 10, 0)
 		cell.layer.transform = rotationTransform
@@ -149,6 +174,8 @@ class ProjectsTableViewController: UITableViewController {
 			cell.alpha = 1.0
 		}
 		*/
+            
+        }
 		
 	}
     
@@ -159,14 +186,27 @@ class ProjectsTableViewController: UITableViewController {
         return 60
     }
     
-    @IBAction func editBtnTapped(_ sender: Any) {
+   @objc func editBtnTapped() {
         editMode = true
-        tableView.reloadData()
         
         // add a done btn
-       //  navigationItem.rightBarButtonItem =
+        let doneBtn = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneEditing))
+        self.navigationItem.rightBarButtonItem  = doneBtn
+        
+        tableView.reloadData()
+        print("Edit mode : \(editMode)")
     }
     
+    @objc func doneEditing(){
+        editMode = false
+        
+        // add a done btn
+        let editBtn = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editBtnTapped))
+        self.navigationItem.rightBarButtonItem  = editBtn
+        
+        tableView.reloadData()
+        print("Edit mode : \(editMode)")
+    }
     
     @objc func addNewProjTapped() {
         performSegue(withIdentifier: "addNewProj", sender: self)
