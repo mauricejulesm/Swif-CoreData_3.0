@@ -107,14 +107,19 @@ class ProjectsTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 200
+        return UITableView.automaticDimension
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ProjectCell", for: indexPath) as! ProjectCell
         let project = projects[indexPath.row]
         
-        cell.projectInitialLbl.text = String(Array(project.name!)[0])
+        if let name = project.name  {
+            cell.projectInitialLbl.text = String(name.prefix(1))
+        }else{
+            cell.projectInitialLbl.text = "P"
+        }
+        
         cell.titleLabel.text = project.name
         cell.dateCreatedLbl.text = project.dateProjCreated
         

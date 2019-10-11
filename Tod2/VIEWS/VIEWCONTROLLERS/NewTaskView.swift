@@ -75,8 +75,12 @@ class NewTaskView: UIViewController {
 
     
     func showDatePicker(){
+        
+        let currentDate = Date()  //get the current date
         //Formate Date
         datePicker.datePickerMode = .dateAndTime
+        datePicker.minimumDate = currentDate
+        datePicker.date = currentDate
         
         //ToolBar
         let toolbar = UIToolbar();
