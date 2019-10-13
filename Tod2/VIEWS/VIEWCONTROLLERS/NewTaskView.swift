@@ -40,7 +40,7 @@ class NewTaskView: UIViewController {
             if (title != "" && deadline != "") {
                 due += deadline
 
-                if let todo = Todo(completed: false, dateCreated: dateCrted, deadline: due, title: title) {
+                if let todo = Todo(completed: false,isExpanded: false, dateCreated: dateCrted, deadline: due, title: title) {
                     project?.addToRawTodos(todo)
                     do {
                         try todo.managedObjectContext?.save()

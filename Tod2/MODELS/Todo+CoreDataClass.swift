@@ -13,13 +13,14 @@ import CoreData
 @objc(Todo)
 public class Todo: NSManagedObject {
     
-    convenience init?(completed:Bool, dateCreated:String?, deadline:String?, title:String?) {
+	convenience init?(completed:Bool, isExpanded:Bool, dateCreated:String?, deadline:String?, title:String?) {
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         
         guard let context = appDelegate?.persistentContainer.viewContext else {
             return nil
         }
         self.init(entity: Todo.entity(), insertInto: context)
+		self.isExpanded = isExpanded
         self.completed = completed
         self.dateCreated = dateCreated
         self.deadline = deadline

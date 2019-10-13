@@ -9,11 +9,12 @@
         <attribute name="completed" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="dateCreated" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="deadline" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isExpanded" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="project" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Project" inverseName="rawTodos" inverseEntity="Project" syncable="YES"/>
     </entity>
     <elements>
         <element name="Project" positionX="-63" positionY="9" width="128" height="90"/>
-        <element name="Todo" positionX="352.07421875" positionY="184.2265625" width="128" height="120"/>
+        <element name="Todo" positionX="352.07421875" positionY="184.2265625" width="128" height="133"/>
     </elements>
 </model>

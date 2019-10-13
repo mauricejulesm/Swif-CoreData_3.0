@@ -13,6 +13,9 @@ class TodoCell: UITableViewCell {
     @IBOutlet weak var dateCreatedLbl: UILabel!
     @IBOutlet weak var deadLineLabel: UILabel!
     @IBOutlet weak var uiSwitchLabel: UISwitch!
+	
+	var opened = false
+	
     
 	override func awakeFromNib() {
 		super.awakeFromNib()

@@ -33,8 +33,8 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="y" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="52b-uq-bME">
-                        <rect key="frame" x="7" y="20" width="23.5" height="47"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="P" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="52b-uq-bME">
+                        <rect key="frame" x="7" y="20" width="28.5" height="47"/>
                         <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="42"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>

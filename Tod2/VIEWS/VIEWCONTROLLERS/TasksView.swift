@@ -25,24 +25,29 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
     var completedTodos = [Todo]()
     var incompleteTodos = [Todo]()
     var currentTodos = [Todo]()
-    
+	var unSortedTodos : [Todo] = []
+
     // todo manager instance
     lazy var dataManager = DataManager()
-    
-    var unSortedTodos : [Todo] = []
-    
+	
+	let subTasks = ["Sub-task 1","Sub-task 2"]
+	
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = currentProject!.name! + "Tasks"
+        self.title = currentProject!.name! + " Tasks"
         // todos of a project
         // currentProject = dataManager.currentProject
         
         //setup the customcell
         let nibName = UINib(nibName: "TodoCell", bundle: nil)
         tableView.register(nibName, forCellReuseIdentifier: "TodoCell")
-        //tableView.rowHeight = UITableView.automaticDimension
-        self.hideKeyboardOnScreenTap()
+
+		// subtasks cell
+		let nibName2 = UINib(nibName: "ProjectCell", bundle: nil)
+		tableView.register(nibName2, forCellReuseIdentifier: "ProjectCell")
+		
+		self.hideKeyboardOnScreenTap()
         todoSearchBar.delegate = self
         
         UNUserNotificationCenter.current().delegate = self
@@ -86,34 +91,57 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
             }
         }
     }
-    
+	func numberOfSections(in tableView: UITableView) -> Int {
+		return currentTodos.count
+	}
+	
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return currentTodos.count
+		
+		if (currentTodos[section].isExpanded == true) {
+			return subTasks.count + 1
+		}else{
+			return 1
+		}
     }
+	
+//	func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//		return "This is section: \(section)"
+//	}
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-		return 250
+		return 150
 	}
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let todo = currentTodos[indexPath.row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TodoCell",for: indexPath) as! TodoCell
-        
-        // setting up the table cell
-        cell.titleLabel.text = todo.value(forKey: "title") as? String
-        cell.dateCreatedLbl.text = todo.value(forKey: "dateCreated") as? String
-        cell.deadLineLabel.text = todo.value(forKey: "deadline") as? String
-        
-        let isComplete = todo.value(forKey: "completed") as! Bool
-        
-        let swicthView = UISwitch(frame: .zero)
-        isComplete ? swicthView.setOn(true, animated: true) : swicthView.setOn(false, animated: true)
-        swicthView.tag = indexPath.row
-        swicthView.accessibilityLabel = todo.value(forKey: "title") as? String
-        swicthView.addTarget(self, action: #selector(self.onTodoStatusChanged(_:)), for: .valueChanged)
-        
-        cell.accessoryView = swicthView
-        
-        return cell
+		
+		if (indexPath.row == 0) {
+			let todo = currentTodos[indexPath.row]
+			let cell = tableView.dequeueReusableCell(withIdentifier: "TodoCell",for: indexPath) as! TodoCell
+			
+			// setting up the table cell
+			cell.titleLabel.text = todo.title
+			cell.dateCreatedLbl.text = todo.dateCreated
+			cell.deadLineLabel.text = "\(todo.isExpanded)"
+			
+			//print("Cell #: \(indexPath.row) open status is: \(cell.opened)")
+
+			let isComplete = todo.value(forKey: "completed") as! Bool
+			
+			let swicthView = UISwitch(frame: .zero)
+			isComplete ? swicthView.setOn(true, animated: true) : swicthView.setOn(false, animated: true)
+			swicthView.tag = indexPath.row
+			swicthView.accessibilityLabel = todo.value(forKey: "title") as? String
+			swicthView.addTarget(self, action: #selector(self.onTodoStatusChanged(_:)), for: .valueChanged)
+			
+			cell.accessoryView = swicthView
+			
+			return cell
+		} else {
+			let cell = tableView.dequeueReusableCell(withIdentifier: "ProjectCell",for: indexPath) as! ProjectCell
+			cell.projectInitialLbl.text = ""
+			cell.titleLabel .text = subTasks[indexPath.row - 1]
+			cell.dateCreatedLbl.text = "Created: Oct 14, 2019"
+			return cell
+		}
     }
     
     // allow delete option
@@ -143,10 +171,27 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
             tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
         }
     }
+	
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        let title = currentTodos[indexPath.row].value(forKey: "title") as! String
-        openDetailsView(todoTitle: title)
+		
+		
+		if currentTodos[indexPath.section].isExpanded == true{
+			currentTodos[indexPath.section].isExpanded = false
+			
+			let sections = IndexSet.init(integer: indexPath.section)
+			tableView.reloadSections(sections, with: .none)
+		}else {
+			currentTodos[indexPath.section].isExpanded = true
+			
+			let sections = IndexSet.init(integer: indexPath.section)
+			tableView.reloadSections(sections, with: .none)
+		}
+		
+		
+		
+		
+//        let title = currentTodos[indexPath.row].value(forKey: "title") as! String
+//        openDetailsView(todoTitle: title)
     }
 	
 	// display the tableview cells with animations
