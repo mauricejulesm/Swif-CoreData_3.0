@@ -114,13 +114,13 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		
 		if (indexPath.row == 0) {
-			let todo = currentTodos[indexPath.row]
+			let todo = currentTodos[indexPath.section]
 			let cell = tableView.dequeueReusableCell(withIdentifier: "TodoCell",for: indexPath) as! TodoCell
 			
 			// setting up the table cell
 			cell.titleLabel.text = todo.title
 			cell.dateCreatedLbl.text = todo.dateCreated
-			cell.deadLineLabel.text = "\(todo.isExpanded)"
+			cell.deadLineLabel.text = todo.deadline
 			
 			//print("Cell #: \(indexPath.row) open status is: \(cell.opened)")
 
