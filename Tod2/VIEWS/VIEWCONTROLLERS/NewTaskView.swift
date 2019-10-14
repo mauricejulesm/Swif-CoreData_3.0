@@ -67,7 +67,7 @@ class NewTaskView: UIViewController {
     func getDateFromString(stringDate:String) -> Date {
 
         let format = DateFormatter()
-        format.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        format.dateFormat = "yyyy/MM/dd HH:mm:ss"
         //    let formattedDate = format.string(from: date)
         let realDate = format.date(from: stringDate)!
         return realDate
@@ -99,7 +99,7 @@ class NewTaskView: UIViewController {
     @objc func donedatePicker(){
         
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        formatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
         dateLabel.text = formatter.string(from: datePicker.date)
         self.view.endEditing(true)
     }

@@ -224,23 +224,11 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
 	}
 	
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        var filteredArray = [Todo]()
+        
         if searchText != "" {
-            var predicate : NSPredicate = NSPredicate()
-            predicate = NSPredicate(format: "title contains[c] '\(searchText)'")
-            
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            let context = appDelegate.persistentContainer.viewContext
-            let fetchRequest = dataManager.getTodoFetchRequest()
-            
-            fetchRequest.predicate = predicate
-            do{
-                // assign task segments
-                todoItems = try context.fetch(fetchRequest)
-                assignTodos()
-                //currentTodos = try context.fetch(fetchRequest)
-            }catch{
-                print("could not search the todo")
-            }
+            filteredArray = currentTodos.filter() { ($0.title?.lowercased().contains(searchText.lowercased()))!}
+            currentTodos = filteredArray
         }else{
             currentTodos = segmentController.selectedSegmentIndex == 0 ? incompleteTodos : completedTodos
         }

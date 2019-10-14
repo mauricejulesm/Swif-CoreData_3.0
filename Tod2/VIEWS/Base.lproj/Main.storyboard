@@ -157,7 +157,7 @@
                             </tableView>
                             <searchBar contentMode="redraw" placeholder="Search tasks here " translatesAutoresizingMaskIntoConstraints="NO" id="zkc-nt-Q5b">
                                 <rect key="frame" x="0.0" y="120" width="414" height="56"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
                             </searchBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
