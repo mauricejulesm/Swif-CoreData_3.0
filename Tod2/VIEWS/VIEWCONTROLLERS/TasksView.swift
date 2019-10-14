@@ -108,7 +108,7 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
 //		return "This is section: \(section)"
 //	}
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-		return 150
+		return UITableView.automaticDimension
 	}
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -154,12 +154,12 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
             let context = appDelegate.persistentContainer.viewContext
             
-            context.delete(currentTodos[indexPath.row])
+            context.delete(currentTodos[indexPath.section])
             
             if (segmentController.selectedSegmentIndex == 0){
-                incompleteTodos.remove(at: indexPath.row)
+                incompleteTodos.remove(at: indexPath.section)
             }else{
-                completedTodos.remove(at: indexPath.row)
+                completedTodos.remove(at: indexPath.section)
             }
             do {
                 try context.save()
@@ -167,8 +167,9 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 print("Error occured deleting todo")
             }
             //self.tableView.reloadData()
-            currentTodos.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
+            currentTodos.remove(at: indexPath.section)
+            print("Current indexpath section is \(indexPath.section)")
+            tableView.reloadData()
         }
     }
 	
@@ -227,7 +228,8 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
         var filteredArray = [Todo]()
         
         if searchText != "" {
-            filteredArray = currentTodos.filter() { ($0.title?.lowercased().contains(searchText.lowercased()))!}
+            filteredArray = currentTodos.filter() { ($0.title?.lowercased()
+                .contains(searchText.lowercased()))!}
             currentTodos = filteredArray
         }else{
             currentTodos = segmentController.selectedSegmentIndex == 0 ? incompleteTodos : completedTodos
