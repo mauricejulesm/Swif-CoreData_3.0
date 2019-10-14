@@ -53,8 +53,6 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
         UNUserNotificationCenter.current().delegate = self
     }
     
-    
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -168,14 +166,12 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
             }
             //self.tableView.reloadData()
             currentTodos.remove(at: indexPath.section)
-            print("Current indexpath section is \(indexPath.section)")
             tableView.reloadData()
         }
     }
 	
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		
-		
+        
 		if currentTodos[indexPath.section].isExpanded == true{
 			currentTodos[indexPath.section].isExpanded = false
 			
@@ -186,10 +182,7 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
 			
 			let sections = IndexSet.init(integer: indexPath.section)
 			tableView.reloadSections(sections, with: .none)
-		}
-		
-		
-		
+		}				
 		
 //        let title = currentTodos[indexPath.row].value(forKey: "title") as! String
 //        openDetailsView(todoTitle: title)
