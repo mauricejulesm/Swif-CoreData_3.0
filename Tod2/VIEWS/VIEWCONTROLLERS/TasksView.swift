@@ -234,7 +234,11 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
         self.tableView.reloadData()
     }
+    // word skinning
     
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
     @IBAction func switchSegments(_ sender: UISegmentedControl){
         if sender.selectedSegmentIndex == 0  {
             currentTodos = incompleteTodos
@@ -286,7 +290,6 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
         destinationVC.project = currentProject
     }
-    
     
     @IBAction func addTodoBtn(_ sender: UIBarButtonItem) {
         performSegue(withIdentifier: "addNewTodo", sender: self)
