@@ -17,7 +17,6 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
     // todos tableview
     @IBOutlet weak var tableView: UITableView!
     
-    
     var currentProject : Project?
     
     // todos array
@@ -32,6 +31,10 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
 	
 	let subTasks = ["Sub-task 1","Sub-task 2"]
 	
+    // monitor edit mode
+    var editMode = false
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -51,6 +54,9 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
         todoSearchBar.delegate = self
         
         UNUserNotificationCenter.current().delegate = self
+        
+        let editBtn = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editBtnTapped))
+        self.navigationItem.rightBarButtonItem  = editBtn
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -76,7 +82,7 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
         self.tableView.reloadData()
     }
-    
+
     func assignTodos() {
         completedTodos = []
         incompleteTodos = []
@@ -89,6 +95,7 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
             }
         }
     }
+    
 	func numberOfSections(in tableView: UITableView) -> Int {
 		return currentTodos.count
 	}
@@ -131,7 +138,9 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
 			swicthView.addTarget(self, action: #selector(self.onTodoStatusChanged(_:)), for: .valueChanged)
 			
 			cell.accessoryView = swicthView
-			
+            
+            cell.backgroundColor = editMode == true ? .lightGray : .white
+            
 			return cell
 		} else {
 			let cell = tableView.dequeueReusableCell(withIdentifier: "ProjectCell",for: indexPath) as! ProjectCell
@@ -172,6 +181,8 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
 	
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        if (!editMode) {
+        
 		if currentTodos[indexPath.section].isExpanded == true{
 			currentTodos[indexPath.section].isExpanded = false
 			
@@ -182,10 +193,12 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
 			
 			let sections = IndexSet.init(integer: indexPath.section)
 			tableView.reloadSections(sections, with: .none)
-		}				
-		
-//        let title = currentTodos[indexPath.row].value(forKey: "title") as! String
-//        openDetailsView(todoTitle: title)
+            }
+            
+        }else{
+            let title = currentTodos[indexPath.row].value(forKey: "title") as! String
+            openDetailsView(todoTitle: title)
+        }
     }
 	
 	// display the tableview cells with animations
@@ -216,7 +229,7 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
 		
 		
 	}
-	
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         var filteredArray = [Todo]()
         
@@ -229,11 +242,11 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
         self.tableView.reloadData()
     }
-    // word skinning
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
     }
+    
     @IBAction func switchSegments(_ sender: UISegmentedControl){
         if sender.selectedSegmentIndex == 0  {
             currentTodos = incompleteTodos
@@ -286,7 +299,29 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
         destinationVC.project = currentProject
     }
     
-    @IBAction func addTodoBtn(_ sender: UIBarButtonItem) {
+    @objc func editBtnTapped() {
+        editMode = true
+        
+        // add a done btn
+        let doneBtn = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneEditing))
+        self.navigationItem.rightBarButtonItem  = doneBtn
+        
+        tableView.reloadData()
+        print("Edit mode : \(editMode)")
+    }
+    
+    @objc func doneEditing(){
+        editMode = false
+        
+        // add a done btn
+        let editBtn = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editBtnTapped))
+        self.navigationItem.rightBarButtonItem  = editBtn
+        
+        tableView.reloadData()
+        print("Edit mode : \(editMode)")
+    }
+    
+    @IBAction func addNewTaskTapped(_ sender: Any) {
         performSegue(withIdentifier: "addNewTodo", sender: self)
     }
     

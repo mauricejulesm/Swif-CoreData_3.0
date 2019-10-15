@@ -28,9 +28,12 @@ class NewTaskView: UIViewController {
         self.hideKeyboardOnScreenTap()
          showDatePicker()
         
+        let saveBtn = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveBtnTapped))
+        self.navigationItem.rightBarButtonItem  = saveBtn
+        
     }
     
-    @IBAction func addTodoBtn(_ sender: Any) {
+    @objc func saveBtnTapped() {
        
         let calendar = Calendar.current
         let dateCrted = "Created: " + todosManager.getTimeNow()

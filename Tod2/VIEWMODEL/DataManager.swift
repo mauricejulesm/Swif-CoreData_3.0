@@ -12,6 +12,8 @@ class DataManager: NSObject {
     
     func updateTodoStatus(title:String) {
         let isComplete: Bool
+        let  isExpanded: Bool
+        
         
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         
@@ -23,10 +25,11 @@ class DataManager: NSObject {
         do{
             let test = try context.fetch(fetchRequest)
             let todoToUpdate = test[0]
-            isComplete = todoToUpdate.value(forKey: "completed") as! Bool
+            isComplete = todoToUpdate.completed
+            isExpanded = todoToUpdate.isExpanded
             
             isComplete ? todoToUpdate.setValue(false, forKey: "completed") : todoToUpdate.setValue(true, forKey: "completed")
-            
+            isExpanded ? todoToUpdate.isExpanded = false : nil
             try context.save()
         }catch{
             print(error)
