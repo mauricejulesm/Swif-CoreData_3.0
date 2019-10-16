@@ -29,7 +29,7 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
     // todo manager instance
     lazy var dataManager = DataManager()
 	
-	let subTasks = ["Sub-task 1","Sub-task 2"]
+	var subTasks = [Todo]()
 	
     // monitor edit mode
     var editMode = false
@@ -39,8 +39,8 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
         super.viewDidLoad()
         
         self.title = currentProject!.name! + " Tasks"
-        // todos of a project
-        // currentProject = dataManager.currentProject
+		
+		subTasks = (currentProject?.todos![0].subTodos)!
         
         //setup the customcell
         let nibName = UINib(nibName: "TodoCell", bundle: nil)
@@ -68,7 +68,7 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
         // on the first load before view is switched
         unSortedTodos = (currentProject?.todos)!
         
-        
+		
         // sort todos by date created
         todoItems = unSortedTodos.sorted(by: { (todo1, todo2) -> Bool in
             return todo1.dateCreated!.lowercased() > todo2.dateCreated!.lowercased()
@@ -145,7 +145,7 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
 		} else {
 			let cell = tableView.dequeueReusableCell(withIdentifier: "ProjectCell",for: indexPath) as! ProjectCell
 			cell.projectInitialLbl.text = ""
-			cell.titleLabel .text = subTasks[indexPath.row - 1]
+			cell.titleLabel .text = subTasks[indexPath.row - 1].title
 			cell.dateCreatedLbl.text = "Created: Oct 14, 2019"
 			return cell
 		}
@@ -255,6 +255,7 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
         self.tableView.reloadData()
     }
+	
     // called when the switch is changed
     @objc func onTodoStatusChanged(_ sender: UISwitch!) {
         let currentTodoTitle = sender.accessibilityLabel

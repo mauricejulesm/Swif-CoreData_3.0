@@ -17,8 +17,6 @@
 		51620751234B1C9100D35912 /* NewProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51620750234B1C9100D35912 /* NewProjectView.swift */; };
 		5162075E234B33A400D35912 /* Project+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5162075A234B33A400D35912 /* Project+CoreDataClass.swift */; };
 		5162075F234B33A400D35912 /* Project+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5162075B234B33A400D35912 /* Project+CoreDataProperties.swift */; };
-		51620760234B33A400D35912 /* Todo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5162075C234B33A400D35912 /* Todo+CoreDataClass.swift */; };
-		51620761234B33A400D35912 /* Todo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5162075D234B33A400D35912 /* Todo+CoreDataProperties.swift */; };
 		516E3715234348F3006FC27C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D27824D62335FA710012213C /* Assets.xcassets */; };
 		51A78B41234CAD86001E8E30 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A78B40234CAD86001E8E30 /* NotificationManager.swift */; };
 		51A78B46234CB1B4001E8E30 /* AlertsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A78B45234CB1B4001E8E30 /* AlertsManager.swift */; };
@@ -27,6 +25,8 @@
 		D20C199C23361DE400277D12 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20C199B23361DE400277D12 /* DataManager.swift */; };
 		D22DB829234E4B1E00326DFA /* ProjectsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22DB827234E4B1E00326DFA /* ProjectsHeader.swift */; };
 		D22DB82A234E4B1E00326DFA /* ProjectsHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = D22DB828234E4B1E00326DFA /* ProjectsHeader.xib */; };
+		D239FA7423577FE50004A4BC /* Todo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D239FA7223577FE50004A4BC /* Todo+CoreDataClass.swift */; };
+		D239FA7523577FE50004A4BC /* Todo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D239FA7323577FE50004A4BC /* Todo+CoreDataProperties.swift */; };
 		D2764526233640E60099E778 /* TodoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2764524233640E60099E778 /* TodoCell.swift */; };
 		D2764527233640E60099E778 /* TodoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2764525233640E60099E778 /* TodoCell.xib */; };
 		D27824CD2335FA6F0012213C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27824CC2335FA6F0012213C /* AppDelegate.swift */; };
@@ -64,8 +64,6 @@
 		51620750234B1C9100D35912 /* NewProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewProjectView.swift; sourceTree = "<group>"; };
 		5162075A234B33A400D35912 /* Project+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataClass.swift"; sourceTree = "<group>"; };
 		5162075B234B33A400D35912 /* Project+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		5162075C234B33A400D35912 /* Todo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Todo+CoreDataClass.swift"; sourceTree = "<group>"; };
-		5162075D234B33A400D35912 /* Todo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Todo+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		51A78B40234CAD86001E8E30 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		51A78B45234CB1B4001E8E30 /* AlertsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertsManager.swift; sourceTree = "<group>"; };
 		5D2F7728397122353912514E /* Pods_Tod2Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tod2Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -82,6 +80,8 @@
 		D20C199B23361DE400277D12 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		D22DB827234E4B1E00326DFA /* ProjectsHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsHeader.swift; sourceTree = "<group>"; };
 		D22DB828234E4B1E00326DFA /* ProjectsHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProjectsHeader.xib; sourceTree = "<group>"; };
+		D239FA7223577FE50004A4BC /* Todo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Todo+CoreDataClass.swift"; sourceTree = "<group>"; };
+		D239FA7323577FE50004A4BC /* Todo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Todo+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		D2764524233640E60099E778 /* TodoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoCell.swift; sourceTree = "<group>"; };
 		D2764525233640E60099E778 /* TodoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TodoCell.xib; sourceTree = "<group>"; };
 		D27824C92335FA6F0012213C /* Tod2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tod2.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -160,10 +160,10 @@
 		516E370C2343460A006FC27C /* MODELS */ = {
 			isa = PBXGroup;
 			children = (
+				D239FA7223577FE50004A4BC /* Todo+CoreDataClass.swift */,
+				D239FA7323577FE50004A4BC /* Todo+CoreDataProperties.swift */,
 				5162075A234B33A400D35912 /* Project+CoreDataClass.swift */,
 				5162075B234B33A400D35912 /* Project+CoreDataProperties.swift */,
-				5162075C234B33A400D35912 /* Todo+CoreDataClass.swift */,
-				5162075D234B33A400D35912 /* Todo+CoreDataProperties.swift */,
 			);
 			path = MODELS;
 			sourceTree = "<group>";
@@ -474,18 +474,18 @@
 				5137354A2341D4020020A398 /* TaskDetailsView.swift in Sources */,
 				51159D8D2338A4FD00CFE691 /* NewTaskView.swift in Sources */,
 				51620751234B1C9100D35912 /* NewProjectView.swift in Sources */,
-				51620761234B33A400D35912 /* Todo+CoreDataProperties.swift in Sources */,
 				51A78B46234CB1B4001E8E30 /* AlertsManager.swift in Sources */,
 				512927EB234736E5008B1EC7 /* ProjectsTableView.swift in Sources */,
 				D20C199C23361DE400277D12 /* DataManager.swift in Sources */,
+				D239FA7523577FE50004A4BC /* Todo+CoreDataProperties.swift in Sources */,
 				D2764526233640E60099E778 /* TodoCell.swift in Sources */,
 				D22DB829234E4B1E00326DFA /* ProjectsHeader.swift in Sources */,
 				D27824CD2335FA6F0012213C /* AppDelegate.swift in Sources */,
-				51620760234B33A400D35912 /* Todo+CoreDataClass.swift in Sources */,
 				D27824D52335FA6F0012213C /* Tod2.xcdatamodeld in Sources */,
 				512927F5234759FF008B1EC7 /* ProjectCell.swift in Sources */,
 				5162075E234B33A400D35912 /* Project+CoreDataClass.swift in Sources */,
 				51A78B41234CAD86001E8E30 /* NotificationManager.swift in Sources */,
+				D239FA7423577FE50004A4BC /* Todo+CoreDataClass.swift in Sources */,
 				5162075F234B33A400D35912 /* Project+CoreDataProperties.swift in Sources */,
 				D20C199A2336181500277D12 /* TasksView.swift in Sources */,
 			);

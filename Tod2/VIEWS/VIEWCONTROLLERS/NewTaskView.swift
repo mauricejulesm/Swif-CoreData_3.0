@@ -44,7 +44,8 @@ class NewTaskView: UIViewController {
                 due += deadline
 
                 if let todo = Todo(completed: false,isExpanded: false, dateCreated: dateCrted, deadline: due, title: title) {
-                    project?.addToRawTodos(todo)
+//					project?.addToRawTodos(todo)
+					project?.todos![0].addToRawSubTodos(todo)
                     do {
                         try todo.managedObjectContext?.save()
                     }catch{
