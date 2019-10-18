@@ -14,17 +14,27 @@ class NewTaskView: UIViewController {
     
     let datePicker = UIDatePicker()
     
-    lazy var todosManager = DataManager()
+    lazy var dataManager = DataManager()
     lazy var notifManager = NotificationManager()
     lazy var alertManager = AlertsManager()
-    var project: Project?
-
+    var currentNewTaskProject: Project?
+    var currentTodo: Todo?
+    var editMode = false
+    
+    var forSubTask = false
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
 		
 		self.title = "New Task"
 		
+        if (editMode) {
+            newTodoTitleField.text = currentTodo?.title
+            dateLabel.text = dataManager.getTimeNow()
+        }
+        
+        
         self.hideKeyboardOnScreenTap()
          showDatePicker()
         
@@ -36,27 +46,32 @@ class NewTaskView: UIViewController {
     @objc func saveBtnTapped() {
        
         let calendar = Calendar.current
-        let dateCrted = "Created: " + todosManager.getTimeNow()
+        let dateCrted = "Created: " + dataManager.getTimeNow()
         var due = "Due: "
         
         if let title = newTodoTitleField.text, let deadline = dateLabel.text {
             if (title != "" && deadline != "") {
                 due += deadline
-
-                if let todo = Todo(completed: false,isExpanded: false, dateCreated: dateCrted, deadline: due, title: title) {
-//					project?.addToRawTodos(todo)
-					project?.todos![0].addToRawSubTodos(todo)
-                    do {
-                        try todo.managedObjectContext?.save()
-                    }catch{
-                        print("Unable to save new expense")
-                    }
-                }
                 
-                // schedule the reminder
-                notifManager.registerNotifCategories()
-                let components = calendar.dateComponents([.second, .minute, .hour, .day, .month, .year], from:  getDateFromString(stringDate:deadline))
-                notifManager.scheduceNotification(todoContent:title, year:components.year!, month:components.month!,day:components.day!,hour:components.hour!,minute:components.minute!,second:components.second!)
+                if (!editMode) {
+                    if let todo = Todo(completed: false,isExpanded: false, dateCreated: dateCrted, deadline: due, title: title) {
+                        
+                        forSubTask ? currentTodo?.addToRawSubTodos(todo) : currentNewTaskProject?.addToRawTodos(todo)
+
+                        do {
+                            try todo.managedObjectContext?.save()
+                        }catch{
+                            print("Unable to save new expense")
+                        }
+                    }
+                    
+                    // schedule the reminder
+                    notifManager.registerNotifCategories()
+                    let components = calendar.dateComponents([.second, .minute, .hour, .day, .month, .year], from:  getDateFromString(stringDate:deadline))
+                    notifManager.scheduceNotification(todoContent:title, year:components.year!, month:components.month!,day:components.day!,hour:components.hour!,minute:components.minute!,second:components.second!)
+                }else {
+                    dataManager.editTodo(title: currentTodo!.title!, newTodoTitle: title)
+                }
 
                 // dismiss current view and go to the main view
                 navigationController?.popViewController(animated: true)

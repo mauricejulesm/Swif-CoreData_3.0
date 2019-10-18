@@ -50,9 +50,17 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HTE-4L-cu9">
+                        <rect key="frame" x="14" y="82" width="42" height="39"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                        <state key="normal" title="Add"/>
+                    </button>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="HTE-4L-cu9" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="14" id="0Le-gr-vqf"/>
+                    <constraint firstItem="HTE-4L-cu9" firstAttribute="top" secondItem="Xb1-hD-DBD" secondAttribute="bottom" constant="4" id="27t-Hx-PXh"/>
                     <constraint firstItem="Xb1-hD-DBD" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="9" id="6Pd-pg-CIi"/>
+                    <constraint firstAttribute="bottom" secondItem="HTE-4L-cu9" secondAttribute="bottom" constant="1.5" id="7WK-wA-sIq"/>
                     <constraint firstAttribute="bottom" secondItem="3mL-4F-STS" secondAttribute="bottom" constant="40.5" id="8Ua-Vc-iXT"/>
                     <constraint firstAttribute="bottom" secondItem="bWJ-Np-t21" secondAttribute="bottom" constant="19.5" id="Ajx-Y9-qHc"/>
                     <constraint firstItem="apn-xE-ZuZ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="22" id="CFF-xO-5jT"/>
@@ -73,6 +81,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="addSubTaskBtn" destination="HTE-4L-cu9" id="YlI-vx-xAN"/>
                 <outlet property="dateCreatedLbl" destination="A1P-XE-GrR" id="W2Y-M9-fbh"/>
                 <outlet property="deadLineLabel" destination="bWJ-Np-t21" id="iHR-F4-VRD"/>
                 <outlet property="titleLabel" destination="apn-xE-ZuZ" id="LIN-Br-fAb"/>

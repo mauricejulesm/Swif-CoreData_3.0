@@ -13,7 +13,8 @@ class TodoCell: UITableViewCell {
     @IBOutlet weak var dateCreatedLbl: UILabel!
     @IBOutlet weak var deadLineLabel: UILabel!
     @IBOutlet weak var uiSwitchLabel: UISwitch!
-	
+	@IBOutlet weak var addSubTaskBtn: UIButton!
+    
 	var opened = false
 	
     

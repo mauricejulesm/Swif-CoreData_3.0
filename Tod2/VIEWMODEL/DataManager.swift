@@ -11,9 +11,6 @@ import CoreData
 class DataManager: NSObject {
     
     func updateTodoStatus(title:String) {
-        let isComplete: Bool
-        let  isExpanded: Bool
-        
         
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         
@@ -25,11 +22,10 @@ class DataManager: NSObject {
         do{
             let test = try context.fetch(fetchRequest)
             let todoToUpdate = test[0]
-            isComplete = todoToUpdate.completed
-            isExpanded = todoToUpdate.isExpanded
             
-            isComplete ? todoToUpdate.setValue(false, forKey: "completed") : todoToUpdate.setValue(true, forKey: "completed")
-            isExpanded ? todoToUpdate.isExpanded = false : nil
+            todoToUpdate.completed ? todoToUpdate.setValue(false, forKey: "completed") : todoToUpdate.setValue(true, forKey: "completed")
+            todoToUpdate.isExpanded ? todoToUpdate.isExpanded = false : nil
+            
             try context.save()
         }catch{
             print(error)
@@ -39,8 +35,33 @@ class DataManager: NSObject {
     }
     
     
-    func updateProject(title:String, newTitle:String) {
     
+    func editTodo(title:String, newTodoTitle:String) {
+        
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        
+        let context = appDelegate.persistentContainer.viewContext
+        
+        let fetchRequest = getTodoFetchRequest()
+        // fetchRequest.predicate = NSPredicate(format: "title = %@ AND dateCreated = %@", title, date)           // for more precision
+        fetchRequest.predicate = NSPredicate(format: "title = %@", "\(title)")
+        do{
+            let test = try context.fetch(fetchRequest)
+            let todoToUpdate = test[0]
+            
+            todoToUpdate.setValue(newTodoTitle, forKey: "title")
+            
+            
+            try context.save()
+        }catch{
+            print(error)
+        }
+        
+        print("Task: \(title) updated to: \(newTodoTitle)")
+    }
+    
+    func updateProject(title:String, newTitle:String) {
+        
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         
         let context = appDelegate.persistentContainer.viewContext

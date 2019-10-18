@@ -25,6 +25,10 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
     var incompleteTodos = [Todo]()
     var currentTodos = [Todo]()
 	var unSortedTodos : [Todo] = []
+    
+    var forSubTask = false
+    
+    var tappedCellTag = 0
 
     // todo manager instance
     lazy var dataManager = DataManager()
@@ -40,7 +44,7 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         self.title = currentProject!.name! + " Tasks"
 		
-		subTasks = (currentProject?.todos![0].subTodos)!
+		//subTasks = (currentProject?.todos![0].subTodos)!
         
         //setup the customcell
         let nibName = UINib(nibName: "TodoCell", bundle: nil)
@@ -103,15 +107,12 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		
 		if (currentTodos[section].isExpanded == true) {
-			return subTasks.count + 1
+			return currentTodos[section].subTodos!.count + 1
 		}else{
 			return 1
 		}
     }
 	
-//	func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//		return "This is section: \(section)"
-//	}
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 		return UITableView.automaticDimension
 	}
@@ -127,7 +128,15 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
 			cell.dateCreatedLbl.text = todo.dateCreated
 			cell.deadLineLabel.text = todo.deadline
 			
-			//print("Cell #: \(indexPath.row) open status is: \(cell.opened)")
+            cell.addSubTaskBtn.tag = indexPath.section
+            cell.addSubTaskBtn.addTarget(self, action: #selector(addSubTaskTapped(sender:)), for: .touchUpInside)
+            
+            if(!todo.isExpanded){
+                cell.addSubTaskBtn.isHidden = true
+            }else {
+                cell.addSubTaskBtn.isHidden = false
+            }
+
 
 			let isComplete = todo.value(forKey: "completed") as! Bool
 			
@@ -144,9 +153,15 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
 			return cell
 		} else {
 			let cell = tableView.dequeueReusableCell(withIdentifier: "ProjectCell",for: indexPath) as! ProjectCell
-			cell.projectInitialLbl.text = ""
-			cell.titleLabel .text = subTasks[indexPath.row - 1].title
-			cell.dateCreatedLbl.text = "Created: Oct 14, 2019"
+            
+            if (currentTodos[indexPath.section].subTodos?.count != 0) {
+                cell.dateCreatedLbl.text = "Created: Oct 14, 2019"
+                let todo = currentTodos[indexPath.section].subTodos?[0]
+                cell.projectInitialLbl.text = ""
+                cell.titleLabel .text = todo?.title
+                cell.dateCreatedLbl.text = "Created: Oct 14, 2019"
+                
+            }
 			return cell
 		}
     }
@@ -182,7 +197,7 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         if (!editMode) {
-        
+            subTasks = currentTodos[indexPath.section].subTodos!
 		if currentTodos[indexPath.section].isExpanded == true{
 			currentTodos[indexPath.section].isExpanded = false
 			
@@ -196,8 +211,7 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
             }
             
         }else{
-            let title = currentTodos[indexPath.row].value(forKey: "title") as! String
-            openDetailsView(todoTitle: title)
+            performSegue(withIdentifier: "addNewTodo", sender: self)
         }
     }
 	
@@ -294,10 +308,24 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let destinationVC = segue.destination as? NewTaskView else {
-            return
+        
+        let destinationVC = segue.destination as! NewTaskView
+        
+        let selecteRow = self.tableView.indexPathForSelectedRow?.row
+    
+        if (editMode){
+            destinationVC.editMode = true
+            destinationVC.currentNewTaskProject = currentProject
+            
+            if forSubTask {
+                destinationVC.currentTodo = currentTodos[tappedCellTag]
+                destinationVC.forSubTask = true
+            }else {
+                destinationVC.currentTodo = currentTodos[selecteRow!    ]
+            }
+        } else {
+            destinationVC.currentNewTaskProject = currentProject
         }
-        destinationVC.project = currentProject
     }
     
     @objc func editBtnTapped() {
@@ -323,6 +351,14 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     @IBAction func addNewTaskTapped(_ sender: Any) {
+        performSegue(withIdentifier: "addNewTodo", sender: self)
+    }
+    
+    
+    @objc func addSubTaskTapped(sender: UIButton) {
+        forSubTask = true
+        let btnTag = sender.tag
+        tappedCellTag = btnTag
         performSegue(withIdentifier: "addNewTodo", sender: self)
     }
     
