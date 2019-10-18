@@ -56,7 +56,11 @@ class NewTaskView: UIViewController {
                 if (!editMode) {
                     if let todo = Todo(completed: false,isExpanded: false, dateCreated: dateCrted, deadline: due, title: title) {
                         
-                        forSubTask ? currentTodo?.addToRawSubTodos(todo) : currentNewTaskProject?.addToRawTodos(todo)
+                        if (forSubTask) {
+                            currentTodo?.addToRawSubTodos(todo)
+                        }else{
+                           currentNewTaskProject?.addToRawTodos(todo)
+                        }
 
                         do {
                             try todo.managedObjectContext?.save()

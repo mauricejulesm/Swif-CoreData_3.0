@@ -131,7 +131,7 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
             cell.addSubTaskBtn.tag = indexPath.section
             cell.addSubTaskBtn.addTarget(self, action: #selector(addSubTaskTapped(sender:)), for: .touchUpInside)
             
-            if(!todo.isExpanded){
+            if(!todo.isExpanded || editMode){
                 cell.addSubTaskBtn.isHidden = true
             }else {
                 cell.addSubTaskBtn.isHidden = false
@@ -322,6 +322,7 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 destinationVC.forSubTask = true
             }
         }
+        destinationVC.currentNewTaskProject = currentProject
     }
     
     @objc func editBtnTapped() {
