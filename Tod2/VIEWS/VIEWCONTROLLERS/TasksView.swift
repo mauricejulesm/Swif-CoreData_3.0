@@ -311,25 +311,21 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         let destinationVC = segue.destination as! NewTaskView
         
-        let selecteRow = self.tableView.indexPathForSelectedRow?.row
+        let selecteRow = self.tableView.indexPathForSelectedRow?.section
     
         if (editMode){
             destinationVC.editMode = true
-            destinationVC.currentNewTaskProject = currentProject
-            
-            if forSubTask {
+            destinationVC.currentTodo = currentTodos[selecteRow!]
+        } else {
+            if (forSubTask) {
                 destinationVC.currentTodo = currentTodos[tappedCellTag]
                 destinationVC.forSubTask = true
-            }else {
-                destinationVC.currentTodo = currentTodos[selecteRow!    ]
             }
-        } else {
-            destinationVC.currentNewTaskProject = currentProject
         }
     }
     
     @objc func editBtnTapped() {
-        editMode = true
+        self.editMode = true
         
         // add a done btn
         let doneBtn = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneEditing))
@@ -340,7 +336,7 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     @objc func doneEditing(){
-        editMode = false
+        self.editMode = false
         
         // add a done btn
         let editBtn = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editBtnTapped))
@@ -356,7 +352,7 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     
     @objc func addSubTaskTapped(sender: UIButton) {
-        forSubTask = true
+        self.forSubTask = true
         let btnTag = sender.tag
         tappedCellTag = btnTag
         performSegue(withIdentifier: "addNewTodo", sender: self)
