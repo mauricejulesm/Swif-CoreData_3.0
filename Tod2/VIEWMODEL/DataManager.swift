@@ -104,7 +104,7 @@ class DataManager: NSObject {
     func getTimeNow() -> String {
         let date = Date()
         let format = DateFormatter()
-        format.dateFormat = "yyyy-MM-dd HH:mm:ss:SSS"
+        format.dateFormat = "yyyy/MM/dd HH:mm:ss:SSS"
         
         let formattedDate = format.string(from: date)
         //let realDate = format.date(from: formattedDate)!
