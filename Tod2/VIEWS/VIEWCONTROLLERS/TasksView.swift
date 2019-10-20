@@ -17,21 +17,22 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
 	@IBOutlet weak var tableView: UITableView!
     
     // MARK: - Todos arrays
-    var todoItems : [Todo] = []
+    var todoItems  = [Todo]()
     var completedTodos = [Todo]()
     var incompleteTodos = [Todo]()
     var currentTodos = [Todo]()
-	var unSortedTodos : [Todo] = []
-	
+	var unSortedTodos = [Todo]()
+	var subTasks = [Todo]()
+
     // MARK: - Other properties
     var forSubTask = false
     var tappedCellTag = 0
-    lazy var dataManager = DataManager()
-	var subTasks = [Todo]()
 	var editMode = false
 	var currentProject : Project?
 
-    
+	lazy var dataManager = DataManager()
+	lazy var notifManager = NotificationManager()
+
   	// MARK: - Setting up view
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,11 +68,13 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
         })
             
         assignTodos()
-        
+		
         // showing incomplete todos for the first run
         if (segmentController.selectedSegmentIndex == 0){
             currentTodos = incompleteTodos
         }
+		reclineCellsOnLoad()
+		
         self.tableView.reloadData()
     }
 
@@ -88,6 +91,11 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
     }
 	
+	func reclineCellsOnLoad()  {
+		for todo in currentTodos {
+			todo.isExpanded = false
+		}
+	}
 	// MARK: - Table view delegate methods
 	func numberOfSections(in tableView: UITableView) -> Int {
 		return currentTodos.count
@@ -168,32 +176,32 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
             } catch {
                 print("Error occured deleting todo")
             }
-            //self.tableView.reloadData()
             currentTodos.remove(at: indexPath.section)
+			notifManager.removeTaskNotification()
             tableView.reloadData()
         }
     }
 	
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        if (!editMode) {
-            subTasks = currentTodos[indexPath.section].subTodos!
-		if currentTodos[indexPath.section].isExpanded == true{
-			currentTodos[indexPath.section].isExpanded = false
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		
+		if (!editMode) {
+			subTasks = currentTodos[indexPath.section].subTodos!
+			if currentTodos[indexPath.section].isExpanded == true{
+				currentTodos[indexPath.section].isExpanded = false
+				
+				let sections = IndexSet.init(integer: indexPath.section)
+				tableView.reloadSections(sections, with: .none)
+			}else {
+				currentTodos[indexPath.section].isExpanded = true
+				
+				let sections = IndexSet.init(integer: indexPath.section)
+				tableView.reloadSections(sections, with: .none)
+			}
 			
-			let sections = IndexSet.init(integer: indexPath.section)
-			tableView.reloadSections(sections, with: .none)
-		}else {
-			currentTodos[indexPath.section].isExpanded = true
-			
-			let sections = IndexSet.init(integer: indexPath.section)
-			tableView.reloadSections(sections, with: .none)
-            }
-            
-        }else{
-            performSegue(withIdentifier: "addNewTodo", sender: self)
-        }
-    }
+		}else{
+			performSegue(withIdentifier: "addNewTodo", sender: self)
+		}
+	}
 	
 	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
 		
@@ -273,7 +281,7 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
 	
 	// MARK: - Nofitications
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.alert, .sound])
+        completionHandler([.alert, .sound, .badge])
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
@@ -364,7 +372,7 @@ extension UIViewController {
     
     func openDetailsView(todoTitle:String) {
         let secondVC = TaskDetails()
-        secondVC.todoTitle.append( todoTitle )
+        //secondVC.todoTitle.append( todoTitle )
         self.navigationController?.pushViewController(secondVC, animated: true)
     }
     

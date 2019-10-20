@@ -81,13 +81,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter Project Title Below:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hpe-u1-Mdu">
-                                <rect key="frame" x="20" y="142" width="374" height="22"/>
+                                <rect key="frame" x="20" y="171" width="374" height="22"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kTz-QK-JVU">
-                                <rect key="frame" x="20" y="184" width="374" height="30"/>
+                                <rect key="frame" x="20" y="225" width="374" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -97,8 +97,8 @@
                         <constraints>
                             <constraint firstItem="kTz-QK-JVU" firstAttribute="leading" secondItem="ai2-hE-BNE" secondAttribute="leading" constant="20" id="1xc-It-y8Z"/>
                             <constraint firstItem="Hpe-u1-Mdu" firstAttribute="leading" secondItem="ai2-hE-BNE" secondAttribute="leading" constant="20" id="6QL-4W-yUv"/>
-                            <constraint firstItem="Hpe-u1-Mdu" firstAttribute="top" secondItem="ai2-hE-BNE" secondAttribute="top" constant="54" id="8aB-Kc-e4I"/>
-                            <constraint firstItem="kTz-QK-JVU" firstAttribute="top" secondItem="Hpe-u1-Mdu" secondAttribute="bottom" constant="20" id="H07-L3-lOQ"/>
+                            <constraint firstItem="kTz-QK-JVU" firstAttribute="top" secondItem="Hpe-u1-Mdu" secondAttribute="bottom" constant="32" id="H07-L3-lOQ"/>
+                            <constraint firstItem="Hpe-u1-Mdu" firstAttribute="top" secondItem="ai2-hE-BNE" secondAttribute="top" constant="83" id="Ust-85-2hJ"/>
                             <constraint firstItem="ai2-hE-BNE" firstAttribute="trailing" secondItem="kTz-QK-JVU" secondAttribute="trailing" constant="20" id="aEh-jk-U8c"/>
                             <constraint firstItem="ai2-hE-BNE" firstAttribute="trailing" secondItem="Hpe-u1-Mdu" secondAttribute="trailing" constant="20" id="dso-Ri-miY"/>
                         </constraints>
@@ -117,7 +117,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jlc-hO-M5o" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1038" y="261"/>
+            <point key="canvasLocation" x="1037.68115942029" y="260.49107142857144"/>
         </scene>
         <!--TodosView-->
         <scene sceneID="F2J-LM-HaI">
@@ -198,6 +198,63 @@
             </objects>
             <point key="canvasLocation" x="1740.5797101449277" y="-505.58035714285711"/>
         </scene>
+        <!--Task Details-->
+        <scene sceneID="VWo-Qs-z1N">
+            <objects>
+                <viewController restorationIdentifier="TaskDetails" storyboardIdentifier="TaskDetails" id="TEI-cy-N3Q" customClass="TaskDetails" customModule="Tod2" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="9ny-xP-l3w">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="todo-image" translatesAutoresizingMaskIntoConstraints="NO" id="hSI-OC-Nmm">
+                                <rect key="frame" x="141" y="99" width="133" height="143"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Title: A really good looking title of a tasks that is supposed to be finished on sunday night." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iCI-Yy-Q3D">
+                                <rect key="frame" x="46" y="283" width="323" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Date Created" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yG7-uv-vvG">
+                                <rect key="frame" x="46" y="338" width="323" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Deadline" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mKG-JP-nCS">
+                                <rect key="frame" x="46" y="415" width="323" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="0.67014637408858602" blue="0.10023736061513755" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="hSI-OC-Nmm" firstAttribute="leading" secondItem="8xD-5l-gCc" secondAttribute="leading" constant="141" id="F7g-BV-G4N"/>
+                            <constraint firstItem="iCI-Yy-Q3D" firstAttribute="leading" secondItem="8xD-5l-gCc" secondAttribute="leading" constant="46" id="JUx-X9-h9H"/>
+                            <constraint firstItem="mKG-JP-nCS" firstAttribute="top" secondItem="yG7-uv-vvG" secondAttribute="bottom" constant="56.5" id="LwA-34-wr9"/>
+                            <constraint firstItem="8xD-5l-gCc" firstAttribute="trailing" secondItem="iCI-Yy-Q3D" secondAttribute="trailing" constant="45" id="MCQ-5e-Ab6"/>
+                            <constraint firstItem="8xD-5l-gCc" firstAttribute="trailing" secondItem="yG7-uv-vvG" secondAttribute="trailing" constant="45" id="Nu1-aw-77A"/>
+                            <constraint firstItem="iCI-Yy-Q3D" firstAttribute="top" secondItem="hSI-OC-Nmm" secondAttribute="bottom" constant="41" id="QPG-zF-ynK"/>
+                            <constraint firstItem="8xD-5l-gCc" firstAttribute="trailing" secondItem="mKG-JP-nCS" secondAttribute="trailing" constant="45" id="Zai-hj-KaD"/>
+                            <constraint firstItem="hSI-OC-Nmm" firstAttribute="top" secondItem="8xD-5l-gCc" secondAttribute="top" constant="55" id="fbU-Kx-7Cq"/>
+                            <constraint firstItem="yG7-uv-vvG" firstAttribute="leading" secondItem="8xD-5l-gCc" secondAttribute="leading" constant="46" id="hVF-m7-dTT"/>
+                            <constraint firstItem="8xD-5l-gCc" firstAttribute="trailing" secondItem="hSI-OC-Nmm" secondAttribute="trailing" constant="140" id="jfV-Ji-qDE"/>
+                            <constraint firstItem="mKG-JP-nCS" firstAttribute="leading" secondItem="8xD-5l-gCc" secondAttribute="leading" constant="46" id="oqi-Nw-xeB"/>
+                            <constraint firstItem="yG7-uv-vvG" firstAttribute="top" secondItem="iCI-Yy-Q3D" secondAttribute="bottom" constant="34.5" id="yDY-Yh-cy4"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="8xD-5l-gCc"/>
+                    </view>
+                    <connections>
+                        <outlet property="dateCreated" destination="yG7-uv-vvG" id="t8p-8O-bc1"/>
+                        <outlet property="deadline" destination="mKG-JP-nCS" id="H4u-zH-ciN"/>
+                        <outlet property="titleLabel" destination="iCI-Yy-Q3D" id="Gqf-iB-JNc"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MFD-dt-NwX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2894.202898550725" y="-325.44642857142856"/>
+        </scene>
         <!--New Task View-->
         <scene sceneID="qOo-EK-E8f">
             <objects>
@@ -259,4 +316,7 @@
             <point key="canvasLocation" x="1911.594202898551" y="260.49107142857144"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="todo-image" width="192" height="192"/>
+    </resources>
 </document>
