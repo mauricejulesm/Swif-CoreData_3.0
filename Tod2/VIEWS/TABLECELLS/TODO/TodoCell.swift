@@ -14,7 +14,8 @@ class TodoCell: UITableViewCell {
     @IBOutlet weak var deadLineLabel: UILabel!
     @IBOutlet weak var uiSwitchLabel: UISwitch!
 	@IBOutlet weak var addSubTaskBtn: UIButton!
-    
+	@IBOutlet weak var viewDetails: UIButton!
+
 	var opened = false
 	
     
@@ -31,18 +32,7 @@ class TodoCell: UITableViewCell {
 		// Configure the view for the selected state
 	}
 	@IBAction func todoStatusSwitcher(_ sender: Any) {
-		
 	}
-	
-//    func commonInit(_ imageName:String, id:Int64, title:String,dateCreated:String, deadline:String){
-//        todoImage.image = UIImage(named: imageName)
-//        titleLabel.text = title
-//        dateCreatedLbl.text = dateCreated
-//        deadLineLabel.text = deadline
-//    }
-    
-    
-   
     
 	
 }

@@ -131,9 +131,9 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
             }else {
                 cell.addSubTaskBtn.isHidden = false
             }
-			
-			let swicthView = UISwitch(frame: .zero)
 			let isComplete = todo.value(forKey: "completed") as! Bool
+
+			let swicthView = cell.uiSwitchLabel!
 			isComplete ? swicthView.setOn(true, animated: true) : swicthView.setOn(false, animated: true)
 			swicthView.tag = indexPath.row
 			swicthView.accessibilityLabel = todo.value(forKey: "title") as? String
@@ -141,6 +141,10 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
 			
 			cell.accessoryView = swicthView
             cell.backgroundColor = editMode == true ? .lightGray : .white
+			
+			
+			cell.viewDetails.tag = indexPath.section
+			cell.viewDetails.addTarget(self, action: #selector(showTodoDetails(sender:)), for: .touchUpInside)
 			return cell
 		} else {
 			let cell = tableView.dequeueReusableCell(withIdentifier: "ProjectCell",for: indexPath) as! ProjectCell
@@ -154,7 +158,13 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
 			return cell
 		}
     }
-    
+	
+	@objc func showTodoDetails(sender: UIButton){
+		let detailsView = self.storyboard?.instantiateViewController(withIdentifier: "TaskDetails") as! TaskDetails
+		detailsView.currentTodo = currentTodos[sender.tag]
+		self.navigationController?.pushViewController(detailsView, animated: true)
+	}
+	
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
@@ -273,7 +283,6 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
 			self.assignTodos()
 			
 			self.tableView.reloadData()
-			print("Table row switch Changed \(sender.tag) on todo \(currentTodoTitle ?? "")")
 			print("The switch is \(sender.isOn ? "ON" : "OFF")")
 		}
 		

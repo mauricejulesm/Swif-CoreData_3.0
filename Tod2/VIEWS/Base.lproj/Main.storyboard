@@ -222,7 +222,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Deadline" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mKG-JP-nCS">
-                                <rect key="frame" x="46" y="415" width="323" height="20.5"/>
+                                <rect key="frame" x="46" y="382" width="323" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Subtasks" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3oQ-8a-LnK">
+                                <rect key="frame" x="46" y="436" width="323" height="24"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -231,12 +237,15 @@
                         <color key="backgroundColor" red="1" green="0.67014637408858602" blue="0.10023736061513755" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="hSI-OC-Nmm" firstAttribute="leading" secondItem="8xD-5l-gCc" secondAttribute="leading" constant="141" id="F7g-BV-G4N"/>
+                            <constraint firstItem="8xD-5l-gCc" firstAttribute="trailing" secondItem="3oQ-8a-LnK" secondAttribute="trailing" constant="45" id="GCW-SY-UwR"/>
                             <constraint firstItem="iCI-Yy-Q3D" firstAttribute="leading" secondItem="8xD-5l-gCc" secondAttribute="leading" constant="46" id="JUx-X9-h9H"/>
-                            <constraint firstItem="mKG-JP-nCS" firstAttribute="top" secondItem="yG7-uv-vvG" secondAttribute="bottom" constant="56.5" id="LwA-34-wr9"/>
+                            <constraint firstItem="mKG-JP-nCS" firstAttribute="top" secondItem="yG7-uv-vvG" secondAttribute="bottom" constant="23.5" id="LwA-34-wr9"/>
                             <constraint firstItem="8xD-5l-gCc" firstAttribute="trailing" secondItem="iCI-Yy-Q3D" secondAttribute="trailing" constant="45" id="MCQ-5e-Ab6"/>
                             <constraint firstItem="8xD-5l-gCc" firstAttribute="trailing" secondItem="yG7-uv-vvG" secondAttribute="trailing" constant="45" id="Nu1-aw-77A"/>
                             <constraint firstItem="iCI-Yy-Q3D" firstAttribute="top" secondItem="hSI-OC-Nmm" secondAttribute="bottom" constant="41" id="QPG-zF-ynK"/>
+                            <constraint firstItem="3oQ-8a-LnK" firstAttribute="top" secondItem="mKG-JP-nCS" secondAttribute="bottom" constant="33.5" id="VpU-lF-yMH"/>
                             <constraint firstItem="8xD-5l-gCc" firstAttribute="trailing" secondItem="mKG-JP-nCS" secondAttribute="trailing" constant="45" id="Zai-hj-KaD"/>
+                            <constraint firstItem="3oQ-8a-LnK" firstAttribute="leading" secondItem="8xD-5l-gCc" secondAttribute="leading" constant="46" id="eiZ-zl-TDf"/>
                             <constraint firstItem="hSI-OC-Nmm" firstAttribute="top" secondItem="8xD-5l-gCc" secondAttribute="top" constant="55" id="fbU-Kx-7Cq"/>
                             <constraint firstItem="yG7-uv-vvG" firstAttribute="leading" secondItem="8xD-5l-gCc" secondAttribute="leading" constant="46" id="hVF-m7-dTT"/>
                             <constraint firstItem="8xD-5l-gCc" firstAttribute="trailing" secondItem="hSI-OC-Nmm" secondAttribute="trailing" constant="140" id="jfV-Ji-qDE"/>
@@ -248,6 +257,7 @@
                     <connections>
                         <outlet property="dateCreated" destination="yG7-uv-vvG" id="t8p-8O-bc1"/>
                         <outlet property="deadline" destination="mKG-JP-nCS" id="H4u-zH-ciN"/>
+                        <outlet property="subtasks" destination="3oQ-8a-LnK" id="kJj-sp-Qqt"/>
                         <outlet property="titleLabel" destination="iCI-Yy-Q3D" id="Gqf-iB-JNc"/>
                     </connections>
                 </viewController>
