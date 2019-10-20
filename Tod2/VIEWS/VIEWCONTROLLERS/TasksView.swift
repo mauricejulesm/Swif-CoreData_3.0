@@ -10,35 +10,29 @@ import UIKit
 import UserNotifications
 
 class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchDisplayDelegate, UISearchBarDelegate, UNUserNotificationCenterDelegate {
-    
+	
+	// MARK: - Outlets
     @IBOutlet weak var todoSearchBar: UISearchBar!
     @IBOutlet weak var segmentController: UISegmentedControl!
+	@IBOutlet weak var tableView: UITableView!
     
-    // todos tableview
-    @IBOutlet weak var tableView: UITableView!
-    
-    var currentProject : Project?
-    
-    // todos array
+    // MARK: - Todos arrays
     var todoItems : [Todo] = []
     var completedTodos = [Todo]()
     var incompleteTodos = [Todo]()
     var currentTodos = [Todo]()
 	var unSortedTodos : [Todo] = []
-    
+	
+    // MARK: - Other properties
     var forSubTask = false
-    
     var tappedCellTag = 0
-
-    // todo manager instance
     lazy var dataManager = DataManager()
-	
 	var subTasks = [Todo]()
-	
-    // monitor edit mode
-    var editMode = false
+	var editMode = false
+	var currentProject : Project?
+
     
-    
+  	// MARK: - Setting up view
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -65,13 +59,7 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        // loading data from storage on app start
-        //dataManager.fetchTodos()
-        
-        // on the first load before view is switched
-        unSortedTodos = (currentProject?.todos)!
-        
+		unSortedTodos = (currentProject?.todos)!
 		
         // sort todos by date created
         todoItems = unSortedTodos.sorted(by: { (todo1, todo2) -> Bool in
@@ -99,7 +87,8 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
             }
         }
     }
-    
+	
+	// MARK: - Table view delegate methods
 	func numberOfSections(in tableView: UITableView) -> Int {
 		return currentTodos.count
 	}
@@ -123,11 +112,9 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
 			let todo = currentTodos[indexPath.section]
 			let cell = tableView.dequeueReusableCell(withIdentifier: "TodoCell",for: indexPath) as! TodoCell
 			
-			// setting up the table cell
 			cell.titleLabel.text = todo.title
 			cell.dateCreatedLbl.text = todo.dateCreated
 			cell.deadLineLabel.text = todo.deadline
-			
             cell.addSubTaskBtn.tag = indexPath.section
             cell.addSubTaskBtn.addTarget(self, action: #selector(addSubTaskTapped(sender:)), for: .touchUpInside)
             
@@ -136,37 +123,30 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
             }else {
                 cell.addSubTaskBtn.isHidden = false
             }
-
-
-			let isComplete = todo.value(forKey: "completed") as! Bool
 			
 			let swicthView = UISwitch(frame: .zero)
+			let isComplete = todo.value(forKey: "completed") as! Bool
 			isComplete ? swicthView.setOn(true, animated: true) : swicthView.setOn(false, animated: true)
 			swicthView.tag = indexPath.row
 			swicthView.accessibilityLabel = todo.value(forKey: "title") as? String
 			swicthView.addTarget(self, action: #selector(self.onTodoStatusChanged(_:)), for: .valueChanged)
 			
 			cell.accessoryView = swicthView
-            
             cell.backgroundColor = editMode == true ? .lightGray : .white
-            
 			return cell
 		} else {
 			let cell = tableView.dequeueReusableCell(withIdentifier: "ProjectCell",for: indexPath) as! ProjectCell
-            
+			
             if (currentTodos[indexPath.section].subTodos?.count != 0) {
-                cell.dateCreatedLbl.text = "Created: Oct 14, 2019"
-                let todo = currentTodos[indexPath.section].subTodos?[0]
+                let todo = currentTodos[indexPath.section].subTodos?[indexPath.row - 1]
                 cell.projectInitialLbl.text = ""
                 cell.titleLabel .text = todo?.title
                 cell.dateCreatedLbl.text = "Created: Oct 14, 2019"
-                
             }
 			return cell
 		}
     }
     
-    // allow delete option
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
@@ -215,7 +195,6 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
     }
 	
-	// display the tableview cells with animations
 	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
 		
 		/*
@@ -243,7 +222,8 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
 		
 		
 	}
-    
+	
+	// MARK: - Searchbar and Searching
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         var filteredArray = [Todo]()
         
@@ -260,7 +240,8 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
     }
-    
+	
+	// MARK: - Segments and status changing
     @IBAction func switchSegments(_ sender: UISegmentedControl){
         if sender.selectedSegmentIndex == 0  {
             currentTodos = incompleteTodos
@@ -270,7 +251,6 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
         self.tableView.reloadData()
     }
 	
-    // called when the switch is changed
     @objc func onTodoStatusChanged(_ sender: UISwitch!) {
         let currentTodoTitle = sender.accessibilityLabel
 		
@@ -290,7 +270,8 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
 		}
 		
     }
-    
+	
+	// MARK: - Nofitications
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler([.alert, .sound])
     }
@@ -324,11 +305,11 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
         destinationVC.currentNewTaskProject = currentProject
     }
-    
+	
+	// MARK: - Helper functions
     @objc func editBtnTapped() {
         self.editMode = true
         
-        // add a done btn
         let doneBtn = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneEditing))
         self.navigationItem.rightBarButtonItem  = doneBtn
         
@@ -348,7 +329,9 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     @IBAction func addNewTaskTapped(_ sender: Any) {
-        performSegue(withIdentifier: "addNewTodo", sender: self)
+		if !editMode {
+			performSegue(withIdentifier: "addNewTodo", sender: self)
+		}
     }
     
     
@@ -370,7 +353,9 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
 }
+// MARK: - UIVIEW extentions
 extension UIViewController {
+	
     func hideKeyboardOnScreenTap() {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
         tap.cancelsTouchesInView = false
