@@ -9,7 +9,7 @@
 import UIKit
 import UserNotifications
 
-class NotificationManager: NSObject {
+class NotificationManager{
 	
 	// register notification categories
 	func registerNotifCategories() {

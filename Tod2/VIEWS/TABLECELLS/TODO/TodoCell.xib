@@ -26,13 +26,13 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Date Created" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A1P-XE-GrR">
-                        <rect key="frame" x="50" y="50.5" width="269" height="74.5"/>
+                        <rect key="frame" x="50" y="50.5" width="269" height="68.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Deadline" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bWJ-Np-t21">
-                        <rect key="frame" x="50" y="129" width="269" height="20.5"/>
+                        <rect key="frame" x="50" y="123" width="269" height="20.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="0.47004533678756477" green="0.27664893432933435" blue="0.059654247140882202" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
@@ -41,18 +41,19 @@
                         <rect key="frame" x="16" y="29" width="22" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </button>
-                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HTE-4L-cu9">
-                        <rect key="frame" x="16" y="100" width="22" height="22"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HTE-4L-cu9">
+                        <rect key="frame" x="16" y="124.5" width="22" height="22"/>
                     </button>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="bWJ-Np-t21" secondAttribute="bottom" constant="2" id="6jJ-47-ABg"/>
+                    <constraint firstAttribute="bottom" secondItem="bWJ-Np-t21" secondAttribute="bottom" constant="8" id="6jJ-47-ABg"/>
                     <constraint firstItem="apn-xE-ZuZ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" id="QM7-cD-12X"/>
                     <constraint firstAttribute="trailing" secondItem="bWJ-Np-t21" secondAttribute="trailing" constant="20" id="S8J-eJ-gHY"/>
                     <constraint firstAttribute="trailing" secondItem="A1P-XE-GrR" secondAttribute="trailing" constant="20" id="TZx-ej-t37"/>
+                    <constraint firstItem="HTE-4L-cu9" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="UW6-ik-qgS"/>
                     <constraint firstItem="bWJ-Np-t21" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="50" id="Xuf-wK-a4D"/>
                     <constraint firstAttribute="trailing" secondItem="apn-xE-ZuZ" secondAttribute="trailing" constant="20" id="ao8-vu-qTE"/>
+                    <constraint firstAttribute="bottom" secondItem="HTE-4L-cu9" secondAttribute="bottom" constant="5" id="dM6-U3-IWT"/>
                     <constraint firstItem="bWJ-Np-t21" firstAttribute="top" secondItem="A1P-XE-GrR" secondAttribute="bottom" constant="4" id="jXs-aO-fUj"/>
                     <constraint firstItem="A1P-XE-GrR" firstAttribute="top" secondItem="apn-xE-ZuZ" secondAttribute="bottom" constant="5" id="kfL-vJ-3Xp"/>
                     <constraint firstItem="A1P-XE-GrR" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="50" id="nvI-eH-2lu"/>

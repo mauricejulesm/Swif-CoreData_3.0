@@ -20,6 +20,7 @@
 		516E3715234348F3006FC27C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D27824D62335FA710012213C /* Assets.xcassets */; };
 		51A78B41234CAD86001E8E30 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A78B40234CAD86001E8E30 /* NotificationManager.swift */; };
 		51A78B46234CB1B4001E8E30 /* AlertsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A78B45234CB1B4001E8E30 /* AlertsManager.swift */; };
+		51B3410E235DBAED00EBB75E /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B3410D235DBAED00EBB75E /* Utils.swift */; };
 		6D31453287C1626FBE432FD1 /* Pods_Tod2Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D2F7728397122353912514E /* Pods_Tod2Tests.framework */; };
 		D20C199A2336181500277D12 /* TasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20C19992336181500277D12 /* TasksView.swift */; };
 		D20C199C23361DE400277D12 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20C199B23361DE400277D12 /* DataManager.swift */; };
@@ -66,6 +67,7 @@
 		5162075B234B33A400D35912 /* Project+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		51A78B40234CAD86001E8E30 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		51A78B45234CB1B4001E8E30 /* AlertsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertsManager.swift; sourceTree = "<group>"; };
+		51B3410D235DBAED00EBB75E /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		5D2F7728397122353912514E /* Pods_Tod2Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tod2Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		63BD10F8EE47D5C3DEA20386 /* Pods-Tod2.dev-debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tod2.dev-debug.xcconfig"; path = "Target Support Files/Pods-Tod2/Pods-Tod2.dev-debug.xcconfig"; sourceTree = "<group>"; };
 		70A2198DA21275B762A09259 /* Pods-Tod2Tests.stable release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tod2Tests.stable release.xcconfig"; path = "Target Support Files/Pods-Tod2Tests/Pods-Tod2Tests.stable release.xcconfig"; sourceTree = "<group>"; };
@@ -206,6 +208,14 @@
 			path = RESOURCES;
 			sourceTree = "<group>";
 		};
+		51B3410C235DB9CC00EBB75E /* UTILITIES */ = {
+			isa = PBXGroup;
+			children = (
+				51B3410D235DBAED00EBB75E /* Utils.swift */,
+			);
+			path = UTILITIES;
+			sourceTree = "<group>";
+		};
 		BF79F2E2DF8CE4DCB9E5F843 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -283,6 +293,7 @@
 		D27824CB2335FA6F0012213C /* Tod2 */ = {
 			isa = PBXGroup;
 			children = (
+				51B3410C235DB9CC00EBB75E /* UTILITIES */,
 				516E370C2343460A006FC27C /* MODELS */,
 				D20C199E23363DDE00277D12 /* VIEWS */,
 				D20C199D23361DEB00277D12 /* VIEWMODEL */,
@@ -478,6 +489,7 @@
 				512927EB234736E5008B1EC7 /* ProjectsTableView.swift in Sources */,
 				D20C199C23361DE400277D12 /* DataManager.swift in Sources */,
 				D239FA7523577FE50004A4BC /* Todo+CoreDataProperties.swift in Sources */,
+				51B3410E235DBAED00EBB75E /* Utils.swift in Sources */,
 				D2764526233640E60099E778 /* TodoCell.swift in Sources */,
 				D22DB829234E4B1E00326DFA /* ProjectsHeader.swift in Sources */,
 				D27824CD2335FA6F0012213C /* AppDelegate.swift in Sources */,

@@ -28,6 +28,8 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
     var forSubTask = false
     var tappedCellTag = 0
 	var editMode = false
+    var hasLoaded = false
+    
 	var currentProject : Project?
 
 	lazy var dataManager = DataManager()
@@ -38,8 +40,6 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
         super.viewDidLoad()
         
         self.title = currentProject!.name! + " Tasks"
-		
-		//subTasks = (currentProject?.todos![0].subTodos)!
         
         //setup the customcell
         let nibName = UINib(nibName: "TodoCell", bundle: nil)
@@ -56,6 +56,8 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         let editBtn = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editBtnTapped))
         self.navigationItem.rightBarButtonItem  = editBtn
+        
+        hasLoaded = false
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -75,6 +77,7 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
 		reclineCellsOnLoad()
 		
+        hasLoaded = true
         self.tableView.reloadData()
     }
 
@@ -237,15 +240,16 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
 		*/
 		
 		// animation 2 [ more user friendly & simpler! ]
-		let rotationTransform = CATransform3DTranslate(CATransform3DIdentity, 0, 70, 0)
-		cell.layer.transform = rotationTransform
-		cell.alpha = 0
-		
-		UIView.animate(withDuration: 0.75) {
-			cell.layer.transform = CATransform3DIdentity
-			cell.alpha = 1.0
-		}
-		
+        if (!hasLoaded) {
+            let rotationTransform = CATransform3DTranslate(CATransform3DIdentity, 0, 70, 0)
+            cell.layer.transform = rotationTransform
+            cell.alpha = 0
+            
+            UIView.animate(withDuration: 0.75) {
+                cell.layer.transform = CATransform3DIdentity
+                cell.alpha = 1.0
+            }
+        }
 		
 	}
 	
@@ -279,10 +283,7 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
 	
     @objc func onTodoStatusChanged(_ sender: UISwitch!) {
         let currentTodoTitle = sender.accessibilityLabel
-		
-        // update the current todo's status
-		
-		DispatchQueue.main.asyncAfter(deadline: .now() + 0.30) { // Change `2.0` to the desired number of seconds.
+		DispatchQueue.main.asyncAfter(deadline: .now() + 0.20) { // Change `2.0` to the desired number of seconds.
 			// Code you want to be delayed
 			
 			self.dataManager.updateTodoStatus(title:currentTodoTitle!)
@@ -377,7 +378,13 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
             alert.dismiss(animated: true)
         }
     }
-    
+    func openDetailsView(todoTitle:String) {
+        let secondVC = TaskDetails()
+        
+        secondVC.currentTodo = currentTodos[0]
+        
+        self.navigationController?.pushViewController(secondVC, animated: true)
+    }
 }
 // MARK: - UIVIEW extentions
 extension UIViewController {
@@ -388,11 +395,7 @@ extension UIViewController {
         view.addGestureRecognizer(tap)
     }
     
-    func openDetailsView(todoTitle:String) {
-        let secondVC = TaskDetails()
-        //secondVC.todoTitle.append( todoTitle )
-        self.navigationController?.pushViewController(secondVC, animated: true)
-    }
+   
     
     // help dismissing the keyboard on tapping around
     @objc func dismissKeyboard() {

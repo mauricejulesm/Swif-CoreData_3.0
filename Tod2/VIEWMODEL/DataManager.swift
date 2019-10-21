@@ -13,59 +13,43 @@ class DataManager: NSObject {
     func updateTodoStatus(title:String) {
         
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-        
         let context = appDelegate.persistentContainer.viewContext
-        
         let fetchRequest = getTodoFetchRequest()
         // fetchRequest.predicate = NSPredicate(format: "title = %@ AND dateCreated = %@", title, date)           // for more precision
         fetchRequest.predicate = NSPredicate(format: "title = %@", "\(title)")
         do{
             let test = try context.fetch(fetchRequest)
             let todoToUpdate = test[0]
-            
             todoToUpdate.completed ? todoToUpdate.setValue(false, forKey: "completed") : todoToUpdate.setValue(true, forKey: "completed")
             todoToUpdate.isExpanded ? todoToUpdate.isExpanded = false : nil
-            
             try context.save()
         }catch{
             print(error)
         }
-        
         print("Object: \(title) updated")
     }
     
     
-    
     func editTodo(title:String, newTodoTitle:String) {
-        
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-        
         let context = appDelegate.persistentContainer.viewContext
-        
         let fetchRequest = getTodoFetchRequest()
         // fetchRequest.predicate = NSPredicate(format: "title = %@ AND dateCreated = %@", title, date)           // for more precision
         fetchRequest.predicate = NSPredicate(format: "title = %@", "\(title)")
         do{
             let test = try context.fetch(fetchRequest)
             let todoToUpdate = test[0]
-            
             todoToUpdate.setValue(newTodoTitle, forKey: "title")
-            
-            
             try context.save()
         }catch{
             print(error)
         }
-        
         print("Task: \(title) updated to: \(newTodoTitle)")
     }
     
     func updateProject(title:String, newTitle:String) {
-        
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-        
         let context = appDelegate.persistentContainer.viewContext
-        
         let fetchRequest = getProjectFetchRequest()
         // fetchRequest.predicate = NSPredicate(format: "title = %@ AND dateCreated = %@", title, date)           // for more precision
         fetchRequest.predicate = NSPredicate(format: "name = %@", "\(title)")
@@ -73,7 +57,6 @@ class DataManager: NSObject {
             let project = try context.fetch(fetchRequest)
             let projectToUpdate = project[0]
             projectToUpdate.setValue(newTitle, forKey: "name")
-            
             try context.save()
         }catch{
             print(error)
