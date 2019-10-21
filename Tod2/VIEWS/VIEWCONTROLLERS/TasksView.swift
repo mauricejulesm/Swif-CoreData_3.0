@@ -133,7 +133,7 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
             }
 			let isComplete = todo.value(forKey: "completed") as! Bool
 
-			let swicthView = cell.uiSwitchLabel!
+			let swicthView = UISwitch(frame: .zero)
 			isComplete ? swicthView.setOn(true, animated: true) : swicthView.setOn(false, animated: true)
 			swicthView.tag = indexPath.row
 			swicthView.accessibilityLabel = todo.value(forKey: "title") as? String
