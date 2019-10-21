@@ -174,19 +174,27 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
             let context = appDelegate.persistentContainer.viewContext
             
-            context.delete(currentTodos[indexPath.section])
-            
-            if (segmentController.selectedSegmentIndex == 0){
-                incompleteTodos.remove(at: indexPath.section)
-            }else{
-                completedTodos.remove(at: indexPath.section)
+            if (indexPath.row != 0){
+                context.delete((currentTodos[indexPath.section].subTodos![indexPath.row - 1]))
+                subTasks.remove(at: indexPath.row - 1)
+            }else {
+                context.delete(currentTodos[indexPath.section])
+                
+                if (segmentController.selectedSegmentIndex == 0){
+                    incompleteTodos.remove(at: indexPath.section)
+                }else{
+                    completedTodos.remove(at: indexPath.section)
+                }
+                
+                currentTodos.remove(at: indexPath.section)
+
             }
+            
             do {
                 try context.save()
             } catch {
                 print("Error occured deleting todo")
             }
-            currentTodos.remove(at: indexPath.section)
 			notifManager.removeTaskNotification()
             tableView.reloadData()
         }
@@ -347,6 +355,7 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     @IBAction func addNewTaskTapped(_ sender: Any) {
 		if !editMode {
+            self.forSubTask = false
 			performSegue(withIdentifier: "addNewTodo", sender: self)
 		}
     }
