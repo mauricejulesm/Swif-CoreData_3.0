@@ -240,7 +240,7 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
 		*/
 		
 		// animation 2 [ more user friendly & simpler! ]
-        if (!hasLoaded) {
+//        if (!hasLoaded) {
             let rotationTransform = CATransform3DTranslate(CATransform3DIdentity, 0, 70, 0)
             cell.layer.transform = rotationTransform
             cell.alpha = 0
@@ -249,7 +249,7 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 cell.layer.transform = CATransform3DIdentity
                 cell.alpha = 1.0
             }
-        }
+//        }
 		
 	}
 	
