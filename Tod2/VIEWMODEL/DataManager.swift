@@ -92,6 +92,23 @@ class DataManager: NSObject {
         return fetchRequest
     }
     
+    
+    
+    
+    func deleteProject(at indexPath: IndexPath) {
+        let project = projects[indexPath.row]
+        
+        guard let context = project.managedObjectContext else { return }
+        context.delete(project)
+        do {
+            try context.save()
+            projects.remove(at: indexPath.row)
+        } catch  {
+            print("Unable to delete the category")
+        }
+        
+    }
+    
     // getting the file path of the sqlite file
     func applicationDocumentsDirectory() {
         if let url = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).last {

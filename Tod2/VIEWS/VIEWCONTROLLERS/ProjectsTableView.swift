@@ -11,10 +11,10 @@ import UIKit
 class ProjectsTableViewController: UITableViewController {
 
     var projects : [Project] = []
-    
+    var indexPathForDelete : IndexPath?
     // todo manager instance
     lazy var dataManager = DataManager()
-    
+    lazy var alertManager = AlertsManager()
     // monitor edit mode
     var editMode = false
     
@@ -129,10 +129,21 @@ class ProjectsTableViewController: UITableViewController {
     
 	override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            deleteProject(at: indexPath)
+
+            let warnAlert = UIAlertController(title: "Warning", message: "Are you sure you want to delete this Project?", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "Yes", style: .destructive, handler: { (action) in
+                self.deleteProject(at: indexPath)
+            })
+            let cancelAct = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            warnAlert.addAction(okAction)
+            warnAlert.addAction(cancelAct)
+            self.present(warnAlert, animated: true, completion: nil)
+            
+            
         }    
     }
-	
+    
+    
 	// display the tableview cells with animations
 	override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
 		
@@ -173,6 +184,24 @@ class ProjectsTableViewController: UITableViewController {
         return 60
     }
     
+    func deleteProject(at indexPath: IndexPath) {
+        let project = projects[indexPath.row]
+        
+        guard let context = project.managedObjectContext else { return }
+        //        context.undo()
+        context.delete(project)
+        do {
+            try context.save()
+            projects.remove(at: indexPath.row)
+            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+        } catch  {
+            print("Unable to delete the category")
+            self.tableView.reloadRows(at: [indexPath], with: .automatic)
+        }
+        
+    }
+    
+    
    @objc func editBtnTapped() {
         editMode = true
         
@@ -200,20 +229,5 @@ class ProjectsTableViewController: UITableViewController {
         print("add new proj tapped")
     }
     
-    func deleteProject(at indexPath: IndexPath) {
-        let project = projects[indexPath.row]
-        
-        guard let context = project.managedObjectContext else { return }
-//        context.undo()
-        context.delete(project)
-        do {
-            try context.save()
-            projects.remove(at: indexPath.row)
-            self.tableView.deleteRows(at: [indexPath], with: .automatic)
-        } catch  {
-            print("Unable to delete the category")
-          self.tableView.reloadRows(at: [indexPath], with: .automatic)
-        }
-        
-    }
+    
 }

@@ -9,9 +9,12 @@
 import UIKit
 
 class AlertsManager {
+    var allowedDelete = false
+    var indexPath = IndexPath()
+    var tableView = UITableView()
+    
+    lazy var dataManager = DataManager()
 
-    
-    
     // show an alert on error while creating a todo
     func showErrorAlert(from viewController: UIViewController) {
         
@@ -20,6 +23,25 @@ class AlertsManager {
         
         errorAlert.addAction(alertCancelAct)
         viewController.present(errorAlert, animated: true, completion: nil)
+    }
+    
+    func warnBeforeProjectDelete(from viewController: ProjectsTableViewController) {
+        
+        let warnAlert = UIAlertController(title: "Warning", message: "Are you sure you want to delete this Project?", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Yes", style: .destructive, handler: { (action) in
+            viewController.deleteProject(at: self.indexPath)
+        })
+        let cancelAct = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+
+        warnAlert.addAction(okAction)
+        warnAlert.addAction(cancelAct)
+        viewController.present(warnAlert, animated: true, completion: nil)
+    }
+    
+    
+    func deleteActionChosen(_ action: UIAlertAction) {
+        
+        
     }
     
     // showing a simple toast
