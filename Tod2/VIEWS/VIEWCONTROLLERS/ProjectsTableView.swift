@@ -13,7 +13,7 @@ class ProjectsTableViewController: UITableViewController {
     var projects : [Project] = []
     
     // todo manager instance
-    lazy var todosManager = DataManager()
+    lazy var dataManager = DataManager()
     
     // monitor edit mode
     var editMode = false
@@ -33,26 +33,9 @@ class ProjectsTableViewController: UITableViewController {
         self.hideKeyboardOnScreenTap()
     }
 
-
     override func viewWillAppear(_ animated: Bool) {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate
-            else { return }
-        
-        let context = appDelegate.persistentContainer.viewContext
-        
-        let fetchRequest = todosManager.getProjectFetchRequest()
-        
-        // sorting by the date created
-        let sortDesc = NSSortDescriptor(key: "dateProjCreated", ascending: false)
-        fetchRequest.sortDescriptors = [sortDesc]
-        
-        // fetching
-        do {
-            projects = try context.fetch(fetchRequest)
-            self.tableView.reloadData()
-        } catch  {
-            print("Unable to fetch categories")
-        }
+        projects = dataManager.fetchProjects()
+        self.tableView.reloadData()
     }
     
     private lazy var addNewProjectButton: UIButton = {
@@ -156,28 +139,28 @@ class ProjectsTableViewController: UITableViewController {
 		
         if (!editMode) {
        
-		// animation 1 [ not user friendly! ]
-		let rotationTransform = CATransform3DTranslate(CATransform3DIdentity, -500, 10, 0)
-		cell.layer.transform = rotationTransform
-		//cell.alpha = 0.5
+//        // animation 1 [ not user friendly! ]
+//        let rotationTransform = CATransform3DTranslate(CATransform3DIdentity, -500, 10, 0)
+//        cell.layer.transform = rotationTransform
+//        //cell.alpha = 0.5
+//
+//
+//        UIView.animate(withDuration: 1.0) {
+//            cell.layer.transform = CATransform3DIdentity
+//            //cell.alpha = 1.0
+//        }
 
-		
-		UIView.animate(withDuration: 1.0) {
-			cell.layer.transform = CATransform3DIdentity
-			//cell.alpha = 1.0
-		}
-
-		/*
-		// animation 2 [ more user friendly & simpler! ]
-		let rotationTransform = CATransform3DTranslate(CATransform3DIdentity, 0, 50, 0)
-		cell.layer.transform = rotationTransform
-		cell.alpha = 0
-		
-		UIView.animate(withDuration: 0.75) {
-			cell.layer.transform = CATransform3DIdentity
-			cell.alpha = 1.0
-		}
-		*/
+        
+         // animation 2 [ more user friendly & simpler! ]
+        let rotationTransform = CATransform3DTranslate(CATransform3DIdentity, 0, 50, 0)
+        cell.layer.transform = rotationTransform
+        cell.alpha = 0
+        
+        UIView.animate(withDuration: 0.75) {
+            cell.layer.transform = CATransform3DIdentity
+            cell.alpha = 1.0
+        }
+        
             
         }
 		

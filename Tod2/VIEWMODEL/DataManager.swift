@@ -9,7 +9,22 @@ import UIKit
 import CoreData
 
 class DataManager: NSObject {
+    var projects = [Project]()
     
+    func fetchProjects() -> [Project] {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return [Project]() }
+        let context = appDelegate.persistentContainer.viewContext
+        let fetchRequest = getProjectFetchRequest()
+        let sortDesc = NSSortDescriptor(key: "dateProjCreated", ascending: false)
+        fetchRequest.sortDescriptors = [sortDesc]
+        
+        do {
+            projects = try context.fetch(fetchRequest)
+        } catch  {
+            print("Unable to fetch categories")
+        }
+        return projects
+    }
     func updateTodoStatus(title:String) {
         
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }

@@ -250,6 +250,8 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 cell.alpha = 1.0
             }
 //        }
+        
+        
 		
 	}
 	
